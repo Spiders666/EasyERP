@@ -17,6 +17,8 @@ namespace EasyERP.Models
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
+        public bool Availability { get; set; }
+
         public virtual Supplier Supplier { get; set; }
         public virtual Type Type { get; set; }
         public ICollection<Setting> Settings { get; set; }

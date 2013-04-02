@@ -16,6 +16,8 @@ namespace EasyERP.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Payment> Payments { get; set; }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 

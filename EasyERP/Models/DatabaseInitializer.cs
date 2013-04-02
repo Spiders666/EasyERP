@@ -10,12 +10,21 @@ namespace EasyERP.Models
     {
         protected override void Seed(DatabaseContext context)
         {
+            /* Płatności */
+            var payments = new List<Payment>
+            {
+                new Payment { Name = "Przelew bankowy" }
+            };
+
+            payments.ForEach(p => context.Payments.Add(p));
+            context.SaveChanges();
+
             /* Klienci */
             var customers = new List<Customer>
             {
-                new Customer { FirstName = "A", LastName = "A" },
-                new Customer { FirstName = "B", LastName = "B" },
-                new Customer { FirstName = "C", LastName = "C" },
+                new Customer { PaymentId = 1, Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A" },
+                new Customer { PaymentId = 1, Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B" },
+                new Customer { PaymentId = 1, Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
             };
 
             customers.ForEach(c => context.Customers.Add(c));
@@ -24,9 +33,9 @@ namespace EasyERP.Models
             /* Dostawcy */
             var suppliers = new List<Supplier>
             {
-                new Supplier { Name = "X" },
-                new Supplier { Name = "Y" },
-                new Supplier { Name = "Z" }
+                new Supplier { PaymentId = 1, NIP = "X", Name = "X", City = "X", ZipCode = "X", Street = "X", Telephone = "X", Email = "X", BankAccount = "X" },
+                new Supplier { PaymentId = 1, NIP = "Y", Name = "Y", City = "Y", ZipCode = "Y", Street = "Y", Telephone = "Y", Email = "Y", BankAccount = "Y" },
+                new Supplier { PaymentId = 1, NIP = "Z", Name = "Z", City = "Z", ZipCode = "Z", Street = "Z", Telephone = "Z", Email = "Z", BankAccount = "Z" },
             };
 
             suppliers.ForEach(s => context.Suppliers.Add(s));
@@ -57,20 +66,20 @@ namespace EasyERP.Models
             /* Części (nasz surowiec) */
             var parts = new List<Part>
             {
-                new Part { SuppierId = 1, TypetId = 1, Name = "XObudowa1", Price = 1.0m },
-                new Part { SuppierId = 1, TypetId = 1, Name = "XObudowa2", Price = 1.0m  },
-                new Part { SuppierId = 1, TypetId = 2, Name = "XWkład1", Price = 1.0m  },
+                new Part { SuppierId = 1, TypetId = 1, Name = "XObudowa1", Price = 1.0m, Availability = false },
+                new Part { SuppierId = 1, TypetId = 1, Name = "XObudowa2", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 1, TypetId = 2, Name = "XWkład1", Price = 1.0m, Availability = true  },
 
-                new Part { SuppierId = 2, TypetId = 1, Name = "YObudowa1", Price = 1.0m  },
-                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład1", Price = 1.0m  },
-                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład2", Price = 1.0m  },
-                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład3", Price = 1.0m  },
+                new Part { SuppierId = 2, TypetId = 1, Name = "YObudowa1", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład1", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład2", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 2, TypetId = 2, Name = "YWkład3", Price = 1.0m, Availability = true  },
 
-                new Part { SuppierId = 3, TypetId = 3, Name = "ZSilnik1", Price = 1.0m  },
-                new Part { SuppierId = 3, TypetId = 3, Name = "ZSilnik2", Price = 1.0m  },
-                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony1", Price = 1.0m  },
-                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony2", Price = 1.0m  },
-                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony3", Price = 1.0m  }
+                new Part { SuppierId = 3, TypetId = 3, Name = "ZSilnik1", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 3, TypetId = 3, Name = "ZSilnik2", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony1", Price = 1.0m, Availability = true  },
+                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony2", Price = 1.0m, Availability = false  },
+                new Part { SuppierId = 3, TypetId = 4, Name = "ZOpony3", Price = 1.0m, Availability = true  }
             };
 
             parts.ForEach(p => context.Parts.Add(p));
@@ -79,9 +88,9 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now },
-                new Order { CustomerId = 2, CreatedAt = DateTime.Now },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now }
+                new Order { CustomerId = 1, Price = 109.99m, CreatedAt = DateTime.Now },
+                new Order { CustomerId = 2, Price = 209.99m, CreatedAt = DateTime.Now },
+                new Order { CustomerId = 3, Price = 309.99m, CreatedAt = DateTime.Now }
             };
 
             orders.ForEach(o => context.Orders.Add(o));
