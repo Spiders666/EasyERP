@@ -1,16 +1,26 @@
-﻿@model EasyERP.Models.Product
+﻿@model EasyERP.Models.PartCategory
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Product</legend>
+        <legend>PartCategory</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductId)
+            @Html.ValidationMessageFor(model => model.ProductId)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -21,7 +31,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }

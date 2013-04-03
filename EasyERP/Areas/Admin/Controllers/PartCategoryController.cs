@@ -9,33 +9,33 @@ using EasyERP.Models;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class PartCategoryController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
 
         //
-        // GET: /Admin/Product/
+        // GET: /Admin/PartCategory/
 
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View(db.PartCategories.ToList());
         }
 
         //
-        // GET: /Admin/Product/Details/5
+        // GET: /Admin/PartCategory/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            PartCategory partcategory = db.PartCategories.Find(id);
+            if (partcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(partcategory);
         }
 
         //
-        // GET: /Admin/Product/Create
+        // GET: /Admin/PartCategory/Create
 
         public ActionResult Create()
         {
@@ -43,70 +43,70 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         //
-        // POST: /Admin/Product/Create
+        // POST: /Admin/PartCategory/Create
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(PartCategory partcategory)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
+                db.PartCategories.Add(partcategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View(partcategory);
         }
 
         //
-        // GET: /Admin/Product/Edit/5
+        // GET: /Admin/PartCategory/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            PartCategory partcategory = db.PartCategories.Find(id);
+            if (partcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(partcategory);
         }
 
         //
-        // POST: /Admin/Product/Edit/5
+        // POST: /Admin/PartCategory/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(PartCategory partcategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(partcategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(partcategory);
         }
 
         //
-        // GET: /Admin/Product/Delete/5
+        // GET: /Admin/PartCategory/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            PartCategory partcategory = db.PartCategories.Find(id);
+            if (partcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(partcategory);
         }
 
         //
-        // POST: /Admin/Product/Delete/5
+        // POST: /Admin/PartCategory/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            PartCategory partcategory = db.PartCategories.Find(id);
+            db.PartCategories.Remove(partcategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

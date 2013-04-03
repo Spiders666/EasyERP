@@ -32,29 +32,29 @@ namespace EasyERP.Models
             suppliers.ForEach(s => context.Suppliers.Add(s));
             context.SaveChanges();
 
-            /* Produkty */
-            var products = new List<Product>
+            /* Kategorie produktów */
+            var productCategories = new List<ProductCategory>
             {
-                new Product { Name = "Długopis" },
-                new Product { Name = "Samochód" }
+                new ProductCategory { Name = "Długopis" },
+                new ProductCategory { Name = "Samochód" }
             };
 
-            products.ForEach(p => context.Products.Add(p));
+            productCategories.ForEach(p => context.ProductCategories.Add(p));
             context.SaveChanges();
 
-            /* Rodzaje części produktu */
-            var types = new List<Type>
+            /* Kategorie części */
+            var partCategories = new List<PartCategory>
             {
-                new Type { ProductId = 1, Name = "Obudowa" },
-                new Type { ProductId = 1, Name = "Wkład" },
-                new Type { ProductId = 2, Name = "Silnik" },
-                new Type { ProductId = 2, Name = "Opony" }
+                new PartCategory { ProductId = 1, Name = "Obudowa" },
+                new PartCategory { ProductId = 1, Name = "Wkład" },
+                new PartCategory { ProductId = 2, Name = "Silnik" },
+                new PartCategory { ProductId = 2, Name = "Opony" }
             };
 
-            types.ForEach(t => context.Types.Add(t));
+            partCategories.ForEach(p => context.PartCategories.Add(p));
             context.SaveChanges();
 
-            /* Części (nasz surowiec) */
+            /* Części */
             var parts = new List<Part>
             {
                 new Part { SupplierId = 1, TypeId = 1, Name = "XObudowa1", Price = 1.0m, Availability = false },
@@ -87,17 +87,28 @@ namespace EasyERP.Models
             orders.ForEach(o => context.Orders.Add(o));
             context.SaveChanges();
 
+            /* Pozycje zamówień */
+            var orderItems = new List<OrderItem>
+            {
+                new OrderItem { OrderId = 1, Quantity = 1 },
+                new OrderItem { OrderId = 2, Quantity = 10 },
+                new OrderItem { OrderId = 3, Quantity = 23 }
+            };
+
+            orderItems.ForEach(o => context.OrderItems.Add(o));
+            context.SaveChanges();
+
             /* Ustawienia (nasze konfiguracje zamówień) */
             var settings = new List<Setting>
             {
-                new Setting { OrderId = 1, PartId = 2 },
-                new Setting { OrderId = 1, PartId = 3 },
+                new Setting { OrderItemId = 1, PartId = 2 },
+                new Setting { OrderItemId = 1, PartId = 3 },
 
-                new Setting { OrderId = 2, PartId = 4 },
-                new Setting { OrderId = 2, PartId = 6},
+                new Setting { OrderItemId = 2, PartId = 4 },
+                new Setting { OrderItemId = 2, PartId = 6},
 
-                new Setting { OrderId = 3, PartId = 9},
-                new Setting { OrderId = 3, PartId = 12},
+                new Setting { OrderItemId = 3, PartId = 9},
+                new Setting { OrderItemId = 3, PartId = 12},
             };
 
             settings.ForEach(s => context.Settings.Add(s));

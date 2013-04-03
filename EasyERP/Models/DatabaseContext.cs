@@ -9,11 +9,12 @@ namespace EasyERP.Models
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Type> Types { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<PartCategory> PartCategories { get; set; }
         public DbSet<Part> Parts { get; set; }
 
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Customer> Customers { get; set; }

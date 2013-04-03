@@ -1,4 +1,4 @@
-﻿@model EasyERP.Models.Product
+﻿@model EasyERP.Models.PartCategory
 
 @{
     ViewBag.Title = "Create";
@@ -10,7 +10,15 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Product</legend>
+        <legend>PartCategory</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductId)
+            @Html.ValidationMessageFor(model => model.ProductId)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)

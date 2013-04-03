@@ -20,7 +20,7 @@ namespace EasyERP.Models
         public bool Availability { get; set; }
 
         public virtual Supplier Supplier { get; set; }
-        public virtual Type Type { get; set; }
+        public virtual PartCategory Type { get; set; }
         public ICollection<Setting> Settings { get; set; }
     }
 }

@@ -7,35 +7,35 @@ using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
 
-namespace EasyERP.Controllers
+namespace EasyERP.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductCategoryController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
 
         //
-        // GET: /Product/
+        // GET: /Admin/ProductCategory/
 
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View(db.ProductCategories.ToList());
         }
 
         //
-        // GET: /Product/Details/5
+        // GET: /Admin/ProductCategory/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            ProductCategory productcategory = db.ProductCategories.Find(id);
+            if (productcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(productcategory);
         }
 
         //
-        // GET: /Product/Create
+        // GET: /Admin/ProductCategory/Create
 
         public ActionResult Create()
         {
@@ -43,70 +43,70 @@ namespace EasyERP.Controllers
         }
 
         //
-        // POST: /Product/Create
+        // POST: /Admin/ProductCategory/Create
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(ProductCategory productcategory)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
+                db.ProductCategories.Add(productcategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View(productcategory);
         }
 
         //
-        // GET: /Product/Edit/5
+        // GET: /Admin/ProductCategory/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            ProductCategory productcategory = db.ProductCategories.Find(id);
+            if (productcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(productcategory);
         }
 
         //
-        // POST: /Product/Edit/5
+        // POST: /Admin/ProductCategory/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(ProductCategory productcategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(productcategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(productcategory);
         }
 
         //
-        // GET: /Product/Delete/5
+        // GET: /Admin/ProductCategory/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            ProductCategory productcategory = db.ProductCategories.Find(id);
+            if (productcategory == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(productcategory);
         }
 
         //
-        // POST: /Product/Delete/5
+        // POST: /Admin/ProductCategory/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            ProductCategory productcategory = db.ProductCategories.Find(id);
+            db.ProductCategories.Remove(productcategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

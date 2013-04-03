@@ -5,12 +5,12 @@ using System.Web;
 
 namespace EasyERP.Models
 {
-    public class Product
+    public class ProductCategory
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public ICollection<Type> Types { get; set; }
+        public ICollection<PartCategory> PartCategories { get; set; }
     }
 }

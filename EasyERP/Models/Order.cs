@@ -17,6 +17,6 @@ namespace EasyERP.Models
         public DateTime CreatedAt { get; set; }
 
         public virtual Customer Customer { get; set; }
-        public ICollection<Setting> Settings { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

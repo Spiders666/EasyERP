@@ -1,4 +1,4 @@
-﻿@model EasyERP.Models.Product
+﻿@model EasyERP.Models.PartCategory
 
 @{
     ViewBag.Title = "Delete";
@@ -8,7 +8,14 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Product</legend>
+    <legend>PartCategory</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProductId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProductId)
+    </div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Name)
