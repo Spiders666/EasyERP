@@ -9,8 +9,8 @@ namespace EasyERP.Models
     public class Part
     {
         public int Id { get; set; }
-        public int SuppierId { get; set; }
-        public int TypetId { get; set; }
+        public int SupplierId { get; set; }
+        public int TypeId { get; set; }
 
         public string Name { get; set; }
 

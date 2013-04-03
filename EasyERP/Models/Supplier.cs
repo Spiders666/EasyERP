@@ -8,7 +8,6 @@ namespace EasyERP.Models
     public class Supplier
     {
         public int Id { get; set; }
-        public int PaymentId { get; set; }
 
         public string NIP { get; set; }
         public string Name { get; set; }
@@ -19,7 +18,6 @@ namespace EasyERP.Models
         public string Email { get; set; }
         public string BankAccount { get; set; }
 
-        public virtual Payment Payment { get; set; }
         public ICollection<Part> Parts { get; set; }
     }
 }

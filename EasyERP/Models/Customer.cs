@@ -10,7 +10,6 @@ namespace EasyERP.Models
     public class Customer
     {
         public int Id { get; set; }
-        public int PaymentId { get; set; }
 
         public string Name { get; set; }
         public string City { get; set; }
@@ -19,7 +18,6 @@ namespace EasyERP.Models
         public string Telephone { get; set; }
         public string Email { get; set; }
 
-        public virtual Payment Payment { get; set; }
         public ICollection<Order> Orders { get; set; }
     }
 }
