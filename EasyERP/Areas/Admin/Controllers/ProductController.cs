@@ -9,33 +9,48 @@ using EasyERP.Models;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    public class ProductCategoryController : Controller
+    public class ProductController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
 
+
         //
-        // GET: /Admin/ProductCategory/
+        // GET: /Admin/Product/
 
         public ActionResult Index()
         {
-            return View(db.ProductCategories.ToList());
+            var products = from p in db.Products
+                           select p;
+
+            return View(products);
         }
 
         //
-        // GET: /Admin/ProductCategory/Details/5
+        // GET: /Admin/Product/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
-            if (productcategory == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(productcategory);
+
+            var settings = from s in db.Settings
+                           where s.ProductId == product.Id
+                           select s.PartId;
+
+            var parts = from p in db.Parts
+                        where settings.Contains(p.Id)
+                        select p;
+
+            ViewBag.parts = parts.ToList();
+
+            return View(product);
         }
 
         //
-        // GET: /Admin/ProductCategory/Create
+        // GET: /Admin/Product/Create
 
         public ActionResult Create()
         {
@@ -43,70 +58,70 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         //
-        // POST: /Admin/ProductCategory/Create
+        // POST: /Admin/Product/Create
 
         [HttpPost]
-        public ActionResult Create(ProductCategory productcategory)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.ProductCategories.Add(productcategory);
+                db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(productcategory);
+            return View(product);
         }
 
         //
-        // GET: /Admin/ProductCategory/Edit/5
+        // GET: /Admin/Product/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
-            if (productcategory == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(productcategory);
+            return View(product);
         }
 
         //
-        // POST: /Admin/ProductCategory/Edit/5
+        // POST: /Admin/Product/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(ProductCategory productcategory)
+        public ActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productcategory).State = EntityState.Modified;
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(productcategory);
+            return View(product);
         }
 
         //
-        // GET: /Admin/ProductCategory/Delete/5
+        // GET: /Admin/Product/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
-            if (productcategory == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(productcategory);
+            return View(product);
         }
 
         //
-        // POST: /Admin/ProductCategory/Delete/5
+        // POST: /Admin/Product/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
-            db.ProductCategories.Remove(productcategory);
+            Product product = db.Products.Find(id);
+            db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

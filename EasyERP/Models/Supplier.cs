@@ -17,7 +17,5 @@ namespace EasyERP.Models
         public string Telephone { get; set; }
         public string Email { get; set; }
         public string BankAccount { get; set; }
-
-        public ICollection<Part> Parts { get; set; }
     }
 }

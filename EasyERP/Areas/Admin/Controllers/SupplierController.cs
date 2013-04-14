@@ -31,6 +31,13 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+            var parts = from p in db.Parts
+                        where p.SupplierId == supplier.Id
+                        select p;
+
+            ViewBag.parts = parts;
+
             return View(supplier);
         }
 

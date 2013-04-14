@@ -11,9 +11,7 @@ namespace EasyERP.Models
         public int Id { get; set; }
         public int CustomerId { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal Price { get; set; }
-
+        public String Name { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public virtual Customer Customer { get; set; }

@@ -165,8 +165,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PartCategoryController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -180,16 +179,16 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Part.cs" />
-    <Compile Include="Models\ProductCategory.cs" />
-    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Supplier.cs" />
-    <Compile Include="Models\PartCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,26 +265,21 @@
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Manage.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategory\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategory\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategory\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\PartCategory\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\PartCategory\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\PartCategory\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\PartCategory\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\PartCategory\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -369,7 +363,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>52978</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:52977/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

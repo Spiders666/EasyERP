@@ -69,3 +69,40 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+Konfiguracja części
+<table>
+    <tr>
+        <th>
+            1
+        </th>
+        <th>
+            2
+        </th>
+        <th>
+            3
+        </th>
+        <th>
+            4
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.parts) {
+    <tr>
+        <td>
+            @item.Type
+        </td>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.Price
+        </td>
+        <td>
+            @item.Availability
+        </td>
+    </tr>
+}
+
+</table>
