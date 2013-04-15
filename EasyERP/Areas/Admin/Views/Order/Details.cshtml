@@ -4,43 +4,32 @@
     ViewBag.Title = "Zamówienia - Szczegóły";
 }
 
-<h2>Details</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("Dane klienta", "Details", "Customer", new { id=Model.Order.CustomerId }, null)</li>
+        <li>@Html.ActionLink("Odśwież", "Details", "Order")</li>
+    </ul>
+</div>
 
-<fieldset>
-    <legend>Order</legend>
+<table class="display-record">
+    <tbody>
+        <tr>
+            <td>Klient</td>
+            <td>@Html.DisplayFor(model => model.Order.Customer.Name)</td>
+        </tr>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Order.Customer.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Order.Customer.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Order.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Order.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Order.CreatedAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Order.CreatedAt)
-    </div>
-</fieldset>
-
+        <tr>
+            <td>Data zamówienia</td>
+            <td>@Html.DisplayFor(model => model.Order.CreatedAt)</td>
+        </tr>
+    </tbody>
+</table>
 
 <table class="display-records">
     <thead>
         <tr>
-            <th>
-                ?
-            </th>
-            <th>
-                ?
-            </th>
+            <th>Nazwa</th>
+            <th>Cena</th>
             <th></th>
         </tr>
     </thead>
