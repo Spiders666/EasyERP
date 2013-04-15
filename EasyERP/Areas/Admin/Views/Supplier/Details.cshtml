@@ -1,5 +1,5 @@
-﻿@model EasyERP.Models.Supplier
-
+﻿
+@model Tuple<EasyERP.Models.Supplier, IQueryable<EasyERP.Models.Part>>
 @{
     ViewBag.Title = "Details";
 }
@@ -10,67 +10,67 @@
     <legend>Supplier</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.NIP)
+         @Html.DisplayNameFor(tuple => tuple.Item1.NIP)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.NIP)
+        @Html.DisplayFor(tuple => tuple.Item1.NIP)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+         @Html.DisplayNameFor(tuple => tuple.Item1.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(tuple => tuple.Item1.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.City)
+         @Html.DisplayNameFor(tuple => tuple.Item1.City)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.City)
+        @Html.DisplayFor(tuple => tuple.Item1.City)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ZipCode)
+         @Html.DisplayNameFor(tuple => tuple.Item1.ZipCode)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ZipCode)
+        @Html.DisplayFor(tuple => tuple.Item1.ZipCode)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Street)
+         @Html.DisplayNameFor(tuple => tuple.Item1.Street)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Street)
+        @Html.DisplayFor(tuple => tuple.Item1.Street)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Telephone)
+         @Html.DisplayNameFor(tuple => tuple.Item1.Telephone)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Telephone)
+        @Html.DisplayFor(tuple => tuple.Item1.Telephone)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
+         @Html.DisplayNameFor(tuple => tuple.Item1.Email)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
+        @Html.DisplayFor(tuple => tuple.Item1.Email)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.BankAccount)
+         @Html.DisplayNameFor(tuple => tuple.Item1.BankAccount)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.BankAccount)
+        @Html.DisplayFor(tuple => tuple.Item1.BankAccount)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Item1.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-Konfiguracja części
+Części
 <table>
     <tr>
         <th>
@@ -88,7 +88,7 @@ Konfiguracja części
         <th></th>
     </tr>
 
-@foreach (var item in ViewBag.parts) {
+@foreach (var item in Model.Item2) {
     <tr>
         <td>
             @item.Type

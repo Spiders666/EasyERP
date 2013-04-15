@@ -13,17 +13,11 @@ namespace EasyERP.Areas.Admin.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        //
-        // GET: /Admin/Order/
-
         public ActionResult Index()
         {
             var orders = db.Orders.Include(o => o.Customer);
             return View(orders.ToList());
         }
-
-        //
-        // GET: /Admin/Order/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -32,20 +26,15 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(order);
         }
-
-        //
-        // GET: /Admin/Order/Create
 
         public ActionResult Create()
         {
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
             return View();
         }
-
-        //
-        // POST: /Admin/Order/Create
 
         [HttpPost]
         public ActionResult Create(Order order)
@@ -61,9 +50,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(order);
         }
 
-        //
-        // GET: /Admin/Order/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Order order = db.Orders.Find(id);
@@ -74,9 +60,6 @@ namespace EasyERP.Areas.Admin.Controllers
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", order.CustomerId);
             return View(order);
         }
-
-        //
-        // POST: /Admin/Order/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Order order)
@@ -91,9 +74,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(order);
         }
 
-        //
-        // GET: /Admin/Order/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Order order = db.Orders.Find(id);
@@ -103,9 +83,6 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             return View(order);
         }
-
-        //
-        // POST: /Admin/Order/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)

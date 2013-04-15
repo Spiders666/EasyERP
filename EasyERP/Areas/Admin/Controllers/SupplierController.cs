@@ -13,16 +13,10 @@ namespace EasyERP.Areas.Admin.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        //
-        // GET: /Admin/Supplier/
-
         public ActionResult Index()
         {
             return View(db.Suppliers.ToList());
         }
-
-        //
-        // GET: /Admin/Supplier/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -36,21 +30,15 @@ namespace EasyERP.Areas.Admin.Controllers
                         where p.SupplierId == supplier.Id
                         select p;
 
-            ViewBag.parts = parts;
+            var tuple = new Tuple<Supplier, IQueryable<Part>>(supplier, parts);
 
-            return View(supplier);
+            return View(tuple);
         }
-
-        //
-        // GET: /Admin/Supplier/Create
 
         public ActionResult Create()
         {
             return View();
         }
-
-        //
-        // POST: /Admin/Supplier/Create
 
         [HttpPost]
         public ActionResult Create(Supplier supplier)
@@ -65,9 +53,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(supplier);
         }
 
-        //
-        // GET: /Admin/Supplier/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Supplier supplier = db.Suppliers.Find(id);
@@ -77,9 +62,6 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             return View(supplier);
         }
-
-        //
-        // POST: /Admin/Supplier/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Supplier supplier)
@@ -91,31 +73,6 @@ namespace EasyERP.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(supplier);
-        }
-
-        //
-        // GET: /Admin/Supplier/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Supplier supplier = db.Suppliers.Find(id);
-            if (supplier == null)
-            {
-                return HttpNotFound();
-            }
-            return View(supplier);
-        }
-
-        //
-        // POST: /Admin/Supplier/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Supplier supplier = db.Suppliers.Find(id);
-            db.Suppliers.Remove(supplier);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
