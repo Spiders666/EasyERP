@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
+using EasyERP.Areas.Admin.ViewModels;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -27,7 +28,11 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            return View(order);
+            var orderItems = from o in db.OrderItems
+                             where o.OrderId == order.Id
+                             select o;
+
+            return View(new OrderDetails(order, orderItems.ToList()));
         }
 
         public ActionResult Create()

@@ -1,4 +1,4 @@
-﻿@model EasyERP.Models.Order
+﻿@model EasyERP.Areas.Admin.ViewModels.OrderDetails
 
 @{
     ViewBag.Title = "Zamówienia - Szczegóły";
@@ -10,29 +10,49 @@
     <legend>Order</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Customer.Name)
+         @Html.DisplayNameFor(model => model.Order.Customer.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Customer.Name)
+        @Html.DisplayFor(model => model.Order.Customer.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+         @Html.DisplayNameFor(model => model.Order.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.Order.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedAt)
+         @Html.DisplayNameFor(model => model.Order.CreatedAt)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedAt)
+        @Html.DisplayFor(model => model.Order.CreatedAt)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>
+                ?
+            </th>
+            <th>
+                ?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+@{int i = 0;}
+@foreach (var orderItem in Model.OrderItems) {
+    <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => orderItem.Name)</td>
+        <td>@Html.DisplayFor(modelItem => orderItem.Price)</td>
+    </tr>
+i = i + 1;
+}
+    </tbody>
+</table>

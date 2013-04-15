@@ -1,0 +1,190 @@
+﻿@import url("Reset.css");
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+body {
+	margin: 0px auto;
+	background-color: #FFF;
+}
+
+/* HEADER */
+
+body > header {
+	color: #FFFFFF;
+	text-align: left;
+	background-color: #192124;
+	padding: 10px;
+}
+
+/* NAV */
+
+body > nav {
+	overflow: hidden;
+	color: #FFFFFF;
+}
+
+body > nav li {
+	float: left;
+	margin: 10px;
+}
+
+/* SECTION */
+
+body > section {
+	border: 1px solid #CCC;
+	padding: 10px;
+	margin: 10px;
+}
+
+body > section > header {
+	background-color: #EEE;
+	border: 1px solid #CCC;
+	padding: 10px;
+}
+
+body > section > div {
+	background-color: #EEE;
+	border: 1px solid #CCC;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+/* FOOTER */
+
+body > footer {
+	color: #555;
+	margin-top: 10px;
+	text-align: center;
+}
+
+div.actions {
+	overflow: hidden;
+	background-color: #FFF;
+	border: 1px solid #CCC;
+	padding: 10px;
+}
+
+div.actions li {
+	float: left;
+	margin-right: 10px;
+}
+
+/* DISPLAY-RECORD */
+
+table.display-record {
+	border-collapse: separate;
+	border-spacing: 10px 10px;
+	margin-top: 10px;
+}
+
+table.display-record > tbody td:first-child {
+    padding: 10px;
+    border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+table.display-record > tbody td:last-child {
+    background-color: #FFF;
+    padding: 10px;
+    border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+/* DISPLAY-RECORDS */
+
+table.display-records {
+	width: 100%;
+	border-collapse:separate;
+	border-spacing: 1px;
+	margin-top: 10px;
+}
+
+table.display-records > thead {
+	text-align: center;
+}
+
+table.display-records > thead th {
+	border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	padding: 10px;
+}
+
+table.display-records > tbody {
+	text-align: left;
+}
+
+table.display-records > tbody tr.row0 {
+	background-color: #FFF;
+}
+
+table.display-records > tbody tr.row1 {
+	background-color: #EEE;
+}
+
+table.display-records > tbody tr:hover {
+	background-color: #DFF;
+}
+
+table.display-records > tbody td {
+	border: 1px solid #FFF;
+	padding: 10px;
+}
+
+/* CU-RECORD */
+
+table.cu-record {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 10px 15px;
+	margin-top: 10px;
+}
+
+table.cu-record > tbody tr {
+	border: 1px solid #000;
+}
+
+table.cu-record > tbody td:first-child {
+    padding: 10px;
+    border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+table.cu-record > tbody td:last-child{
+	width: 100%;
+	text-align: left;
+	padding-left: 25px;
+	word-wrap: break-word;
+}
+
+table.cu-record input {
+	width: 300px;
+}
+
+table.cu-record textarea {
+	width: 300px;
+	height: 200px;
+}
+
+/* PAGINATE */
+
+div.paggination {
+    text-align: center;
+    margin: 10px 0px;
+    border: 1px solid #CCC;
+	padding: 10px;
+    background-color: #FFF;
+}

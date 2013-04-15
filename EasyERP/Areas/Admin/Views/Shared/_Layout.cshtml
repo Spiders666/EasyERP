@@ -1,45 +1,38 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+
+<html lang="pl">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - Admin</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
+        <title>@ViewBag.Title - EasyERP</title>
+        @Styles.Render("~/Content/Admin/Layout/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Admin logo", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Zamówienia", "Index", "Order")</li>
-                            <li>@Html.ActionLink("Produkty", "Index", "Product")</li>
-                            <li>@Html.ActionLink("Dostawcy", "Index", "Supplier")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            <h1>Panel Administracyjny</h1>
+            <div>@Html.Partial("_LoginPartial")</div>
         </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
+
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Zamówienia", "Index", "Order")</li>
+                <li>@Html.ActionLink("Produkty", "Index", "Product")</li>
+                <li>@Html.ActionLink("Dostawcy", "Index", "Supplier")</li>
+            </ul>
+        </nav>
+
+        <section>
+            <header>
+                <h2>@ViewBag.Title</h2>
+            </header>
+            <div>
+                @RenderSection("featured", required: false)
                 @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
             </div>
+        </section>
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ???</p>
         </footer>
 
         @Scripts.Render("~/bundles/jquery")

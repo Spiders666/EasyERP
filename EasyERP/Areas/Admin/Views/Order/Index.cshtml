@@ -1,45 +1,45 @@
 ﻿@model IEnumerable<EasyERP.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Zamówienia";
 }
 
-<h2>Index</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+    </ul>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th></th>
-    </tr>
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
+    <tbody>
+@{int i = 0;}
+@foreach (var order in Model) {
+    <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => order.Customer.Name)</td>
+        <td>@Html.DisplayFor(modelItem => order.Name)</td>
+        <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Customer.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=order.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=order.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=order.Id })
         </td>
     </tr>
+i = i + 1;
 }
-
+    </tbody>
 </table>
