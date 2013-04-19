@@ -11,6 +11,8 @@ namespace EasyERP.ViewModels
         public RegisterModel RegisterModel { get; set; }
         public Customer Customer { get; set; }
 
+        public AccountRegister() {}
+
         public AccountRegister(RegisterModel RegisterModel, Customer Customer)
         {
             this.RegisterModel = RegisterModel;
