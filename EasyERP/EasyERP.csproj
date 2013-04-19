@@ -192,6 +192,7 @@
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AccountRegister.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin-layout.css" />
