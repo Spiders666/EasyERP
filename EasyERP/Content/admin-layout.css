@@ -49,7 +49,7 @@ body > section > header {
 }
 
 body > section > div {
-	background-color: #EEE;
+	background-color: #EEEEEE;
 	border: 1px solid #CCC;
 	margin-top: 20px;
 	padding: 10px;
@@ -79,7 +79,6 @@ div.actions li {
 
 table.display-record {
 	border-collapse: separate;
-	border-spacing: 10px 10px;
 	margin-top: 10px;
 }
 
@@ -105,7 +104,7 @@ table.display-record > tbody td:last-child {
 table.display-records {
 	width: 100%;
 	border-collapse:separate;
-	border-spacing: 1px;
+	border-spacing: 1px 0px;
 	margin-top: 10px;
 }
 
@@ -140,6 +139,39 @@ table.display-records > tbody tr:hover {
 table.display-records > tbody td {
 	border: 1px solid #FFF;
 	padding: 10px;
+}
+
+/* DISPLAY-SUMMARY */
+
+table.display-summary {
+	border-collapse:separate;
+	border-spacing: 1px 0px;
+	margin-top: 10px;
+}
+
+table.display-summary > thead {
+	text-align: center;
+}
+
+table.display-summary th {
+    border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	padding: 10px;
+}
+
+table.display-summary > tbody {
+	text-align: left;
+}
+
+table.display-summary > tbody td {
+    background-color: #FFF;
+	padding: 10px;
+    border: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
 }
 
 /* CU-RECORD */

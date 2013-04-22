@@ -1,108 +1,49 @@
-﻿
-@model Tuple<EasyERP.Models.Supplier, IQueryable<EasyERP.Models.Part>>
+﻿@using EasyERP.Helpers
+@model EasyERP.Areas.Admin.ViewModels.SupplierDetails
+
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Dostawca - Szczegóły";
 }
 
-<h2>Details</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("Odśwież", "Details", "Supplier")</li>
+    </ul>
+</div>
 
-<fieldset>
-    <legend>Supplier</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.NIP)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.NIP)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.City)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.City)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.ZipCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.ZipCode)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.Street)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.Street)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.Telephone)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.Telephone)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.Email)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(tuple => tuple.Item1.BankAccount)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(tuple => tuple.Item1.BankAccount)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Item1.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-Części
-<table>
-    <tr>
-        <th>
-            1
-        </th>
-        <th>
-            2
-        </th>
-        <th>
-            3
-        </th>
-        <th>
-            4
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.Item2) {
-    <tr>
-        <td>
-            @item.Type
-        </td>
-        <td>
-            @item.Name
-        </td>
-        <td>
-            @item.Price
-        </td>
-        <td>
-            @item.Availability
-        </td>
-    </tr>
-}
-
+<table class="display-record">
+    <tbody>
+        <tr>
+            <td>NIP</td>
+            <td>@Html.DisplayFor(model => model.Supplier.NIP)</td>
+        </tr>
+        <tr>
+            <td>Nazwa</td>
+            <td>@Html.DisplayFor(model => model.Supplier.Name)</td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td>@Html.DisplayFor(model => model.Supplier.City)</td>
+        </tr>
+        <tr>
+            <td>Kod pocztowy</td>
+            <td>@Html.DisplayFor(model => model.Supplier.ZipCode)</td>
+        </tr>
+        <tr>
+            <td>Ulica</td>
+            <td>@Html.DisplayFor(model => model.Supplier.Street)</td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>@Html.DisplayFor(model => model.Supplier.Telephone)</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>@Html.DisplayFor(model => model.Supplier.Email)</td>
+        </tr>
+        <tr>
+            <td>Konto bankowe</td>
+            <td>@Html.DisplayFor(model => model.Supplier.BankAccount)</td>
+        </tr>
+    </tbody>
 </table>

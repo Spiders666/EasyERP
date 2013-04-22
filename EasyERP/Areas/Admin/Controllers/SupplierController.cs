@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
+using EasyERP.Areas.Admin.ViewModels;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -26,13 +27,11 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var parts = from p in db.Parts
+            var materials = from p in db.Materials
                         where p.SupplierId == supplier.Id
                         select p;
 
-            var tuple = new Tuple<Supplier, IQueryable<Part>>(supplier, parts);
-
-            return View(tuple);
+            return View(new SupplierDetails(supplier, materials.ToList()));
         }
 
         public ActionResult Create()

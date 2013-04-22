@@ -1,57 +1,43 @@
-﻿@model IEnumerable<EasyERP.Models.Product>
+﻿@using EasyERP.Helpers
+@model IEnumerable<EasyERP.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Produkty";
 }
 
-<h2>Index</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+    </ul>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PhotoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Availability)
-        </th>
-        <th></th>
-    </tr>
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Typ</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Dostępność</th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
+    <tbody>
+@{int i = 0;}
+@foreach (var product in Model) {
+    <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => product.Id)</td>
+        <td>@Html.DisplayProductTypeName(product.Type)</td>
+        <td>@Html.DisplayFor(modelItem => product.Name)</td>
+        <td>@Html.DisplayPolishFormatPrice(product.Price)</td>
+        <td>@Html.DisplayFor(modelItem => product.Availability)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.PhotoId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Availability)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("pokaż szczegóły", "Details", new { id=product.Id }) |
+            @Html.ActionLink("usuń", "Delete", new { id=product.Id })
         </td>
     </tr>
+i = i + 1;
 }
-
+    </tbody>
 </table>

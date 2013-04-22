@@ -36,16 +36,6 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var settings = from s in db.Settings
-                           where s.ProductId == product.Id
-                           select s.PartId;
-
-            var parts = from p in db.Parts
-                        where settings.Contains(p.Id)
-                        select p;
-
-            ViewBag.parts = parts.ToList();
-
             return View(product);
         }
 

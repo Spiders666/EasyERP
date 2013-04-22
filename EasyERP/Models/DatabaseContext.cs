@@ -15,10 +15,7 @@ namespace EasyERP.Models
 
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Part> Parts { get; set; }
-
-        public DbSet<Setting> Settings { get; set; }
-        public DbSet<Photo> Photos { get; set; } 
+        public DbSet<Material> Materials { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

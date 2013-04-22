@@ -1,69 +1,36 @@
-﻿@model IEnumerable<EasyERP.Models.Customer>
+﻿@using EasyERP.Helpers
+@model IEnumerable<EasyERP.Models.Customer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Klienci";
 }
 
-<h2>Index</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+    </ul>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Street)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th></th>
-    </tr>
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
+    <tbody>
+@{int i = 0;}
+@foreach (var customer in Model) {
+    <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => customer.Id)</td>
+        <td>@Html.DisplayFor(modelItem => customer.Name)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telephone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("pokaż szczegóły", "Details", new { id=customer.Id }) |
         </td>
     </tr>
+i = i + 1;
 }
-
+    </tbody>
 </table>

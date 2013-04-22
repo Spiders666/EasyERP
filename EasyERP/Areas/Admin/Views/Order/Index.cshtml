@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EasyERP.Models.Order>
+﻿@using EasyERP.Helpers
+@model IEnumerable<EasyERP.Models.Order>
 
 @{
     ViewBag.Title = "Zamówienia";
@@ -13,9 +14,11 @@
 <table class="display-records">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Klient</th>
             <th>Produkt</th>
             <th>Data zamówienia</th>
+            <th>Stan zamówienia</th>
             <th></th>
         </tr>
     </thead>
@@ -24,11 +27,13 @@
 @{int i = 0;}
 @foreach (var order in Model) {
     <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => order.Id)</td>
         <td>@Html.DisplayFor(modelItem => order.Customer.Name)</td>
-        <td>@Html.DisplayFor(modelItem => order.Name)</td>
+        <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
         <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
+        <td>@Html.DisplayOrderStateName(order.State)</td>
         <td>
-            @Html.ActionLink("szczegóły zamówienia", "Details", new { id=order.Id }) |
+            @Html.ActionLink("pokaż szczegóły", "Details", new { id=order.Id }) |
             @Html.ActionLink("dane klienta", "Details", "Customer", new { id=order.Id }, null)
         </td>
     </tr>
