@@ -48,3 +48,32 @@
         </tr>
     </tbody>
 </table>
+
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Dostępność</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+@{int i = 0;}
+@foreach (var material in Model.Materials) {
+        <tr class="row@(i % 2)">
+            <td>@Html.DisplayFor(modelItem => material.Id)</td>
+            <td>@Html.DisplayFor(modelItem => material.Name)</td>
+            <td>@Html.DisplayFor(modelItem => material.Price)</td>
+            <td>@Html.DisplayFor(modelItem => material.Availability)</td>
+            <td>
+                @Html.ActionLink("szczegóły", "Details", "Material", new { id = material.Id }, null)
+            </td>
+        </tr>
+    i = i + 1;
+}
+    </tbody>
+</table>

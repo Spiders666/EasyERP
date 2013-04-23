@@ -1,0 +1,44 @@
+﻿@using EasyERP.Helpers
+@model IEnumerable<EasyERP.Models.Material>
+
+@{
+    ViewBag.Title = "Materiały";
+}
+
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("odśwież", "Index")</li>
+    </ul>
+</div>
+
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Typ</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Dostępność</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+@{int i = 0;}
+@foreach (var material in Model) {
+    <tr class="row@(i % 2)">
+        <td>@Html.DisplayFor(modelItem => material.Id)</td>
+        <td>@MaterialHelpers.DisplayTypeName(material.Type)</td>
+        <td>@Html.DisplayFor(modelItem => material.Name)</td>
+        <td>@PriceFormatHelper.DisplayFormatPrice(material.Price)</td>
+        <td>@Html.DisplayFor(modelItem => material.Availability)</td>
+        <td>
+            @Html.ActionLink("pokaż szczegóły", "Details", new { id = material.Id }) |
+            @Html.ActionLink("edycja", "Edit", new { id = material.Id }) |
+            @Html.ActionLink("usuń", "Delete", new { id = material.Id })
+        </td>
+    </tr>
+i = i + 1;
+}
+    </tbody>
+</table>

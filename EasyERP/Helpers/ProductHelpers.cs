@@ -12,10 +12,12 @@ namespace EasyERP.Helpers
         {
             switch (type)
             {
-                case ProductType.CHAIR:
+                case ProductType.ARMCHAIR:
                     return "Fotel";
                 case ProductType.SOFA:
                     return "Sofa";
+                case ProductType.BED:
+                    return "Łóżko";
                 default:
                     return null;
             }

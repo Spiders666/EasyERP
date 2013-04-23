@@ -8,8 +8,9 @@ namespace EasyERP.Models
 {
     public enum ProductType
     {
-        CHAIR = 1, //fotel
-        SOFA = 2 //kanapa
+        ARMCHAIR = 1, //fotel
+        SOFA = 2, //sofa
+        BED = 3 //łóżko
     }
 
     public class Product

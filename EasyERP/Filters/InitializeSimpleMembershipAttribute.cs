@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using EasyERP.Models;
+using System.Web.Security;
 
 namespace EasyERP.Filters
 {

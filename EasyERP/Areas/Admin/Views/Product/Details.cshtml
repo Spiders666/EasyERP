@@ -1,48 +1,39 @@
-﻿@model EasyERP.Models.Product
+﻿@using EasyERP.Helpers
+@model EasyERP.Models.Product
 
 @{
     ViewBag.Title = "Produkt - Szczegóły";
 }
 
-<fieldset>
-    <legend>Product</legend>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("edycja", "Edit", "Product", new { id=Model.Id }, null)</li>
+        <li>@Html.ActionLink("odśwież", "Details")</li>
+    </ul>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ImageName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ImageName)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Type)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Type)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Availability)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Availability)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<table class="display-record">
+    <tbody>
+        <tr>
+            <td>Typ</td>
+            <td>@Html.DisplayFor(model => model.Type)</td>
+        </tr>
+        <tr>
+            <td>Nazwa</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>Cena</td>
+            <td>@Html.DisplayFor(model => model.Price)</td>
+        </tr>
+        <tr>
+            <td>Zdjęcie</td>
+            <td>@Html.DisplayFor(model => model.ImageName)</td>
+        </tr>
+        <tr>
+            <td>Dostępność</td>
+            <td>@Html.DisplayFor(model => model.Availability)</td>
+        </tr>
+    </tbody>
+</table>

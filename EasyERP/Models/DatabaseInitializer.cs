@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace EasyERP.Models
 {
@@ -24,9 +25,9 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.CHAIR, State = OrderState.NOT_CONFIRMED },
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NOT_CONFIRMED },
                 new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.SENT },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.CHAIR, State = OrderState.PENDING }
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.PENDING }
             };
 
             orders.ForEach(o => context.Orders.Add(o));
@@ -51,9 +52,9 @@ namespace EasyERP.Models
             /* Dostawcy */
             var suppliers = new List<Supplier>
             {
-                new Supplier { NIP = "X", Name = "X", City = "X", ZipCode = "X", Street = "X", Telephone = "X", Email = "X", BankAccount = "X" },
-                new Supplier { NIP = "Y", Name = "Y", City = "Y", ZipCode = "Y", Street = "Y", Telephone = "Y", Email = "Y", BankAccount = "Y" },
-                new Supplier { NIP = "Z", Name = "Z", City = "Z", ZipCode = "Z", Street = "Z", Telephone = "Z", Email = "Z", BankAccount = "Z" },
+                new Supplier { NIP = "1234567890", Name = "X_NAME", City = "X", ZipCode = "12-123", Street = "X 1", Telephone = "+48 123-123-123", Email = "X@o2.pl", BankAccount = "12345678901234567890123456" },
+                new Supplier { NIP = "1234567890", Name = "Y_NAME", City = "Y", ZipCode = "12-123", Street = "Y 2", Telephone = "+48 123-123-123", Email = "Y@o2.pl", BankAccount = "12345678901234567890123456" },
+                new Supplier { NIP = "1234567890", Name = "Z_NAME", City = "Z", ZipCode = "12-123", Street = "Z 3", Telephone = "+48 123-123-123", Email = "Z@o2.pl", BankAccount = "12345678901234567890123456" },
             };
 
             suppliers.ForEach(s => context.Suppliers.Add(s));
@@ -76,10 +77,10 @@ namespace EasyERP.Models
             /* Produkty */
             var products = new List<Product>
             {
-                new Product { Type = ProductType.CHAIR, Name = "Fotel 1", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.CHAIR, Name = "Fotel 2", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 1", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 2", Price = 1.0m, Availability = false },
                 new Product { Type = ProductType.SOFA, Name = "Sofa 1", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.CHAIR, Name = "Sofa 2", Price = 777.0m, Availability = false }
+                new Product { Type = ProductType.BED, Name = "Łóżko 1", Price = 777.0m, Availability = true }
             };
 
             products.ForEach(p => context.Products.Add(p));
@@ -87,3 +88,4 @@ namespace EasyERP.Models
         }
     }
 }
+
