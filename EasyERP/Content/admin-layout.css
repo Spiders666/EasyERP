@@ -177,9 +177,8 @@ table.display-summary > tbody td {
 /* CU-RECORD */
 
 table.cu-record {
-	width: 100%;
 	border-collapse: separate;
-	border-spacing: 10px 15px;
+	border-spacing: 10px 5px;
 	margin-top: 10px;
 }
 
@@ -195,8 +194,7 @@ table.cu-record > tbody td:first-child {
 	border-bottom: 1px solid #DDD;
 }
 
-table.cu-record > tbody td:last-child{
-	width: 100%;
+table.cu-record > tbody td:last-child {
 	text-align: left;
 	padding-left: 25px;
 	word-wrap: break-word;
@@ -204,6 +202,7 @@ table.cu-record > tbody td:last-child{
 
 table.cu-record input {
 	width: 300px;
+    padding: 10px;
 }
 
 table.cu-record textarea {
@@ -219,4 +218,9 @@ div.paggination {
     border: 1px solid #CCC;
 	padding: 10px;
     background-color: #FFF;
+}
+
+/* MESSAGES */
+div.flash-message-success {
+    background-color: #DFD;
 }

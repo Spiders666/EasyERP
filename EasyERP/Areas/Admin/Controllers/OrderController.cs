@@ -32,7 +32,7 @@ namespace EasyERP.Areas.Admin.Controllers
                              where o.OrderId == order.Id
                              select o;
 
-            return View(new OrderDetails(order, orderItems.ToList()));
+            return View(new OrderDetailsModel(order, orderItems.ToList()));
         }
 
         protected override void Dispose(bool disposing)

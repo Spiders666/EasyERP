@@ -7,7 +7,7 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+        <li>@Html.ActionLink("odśwież", "Index")</li>
     </ul>
 </div>
 
@@ -28,9 +28,9 @@
 @foreach (var product in Model) {
     <tr class="row@(i % 2)">
         <td>@Html.DisplayFor(modelItem => product.Id)</td>
-        <td>@Html.DisplayProductTypeName(product.Type)</td>
+        <td>@ProductHelpers.DisplayTypeName(product.Type)</td>
         <td>@Html.DisplayFor(modelItem => product.Name)</td>
-        <td>@Html.DisplayPolishFormatPrice(product.Price)</td>
+        <td>@PriceFormatHelper.DisplayFormatPrice(product.Price)</td>
         <td>@Html.DisplayFor(modelItem => product.Availability)</td>
         <td>
             @Html.ActionLink("pokaż szczegóły", "Details", new { id=product.Id }) |

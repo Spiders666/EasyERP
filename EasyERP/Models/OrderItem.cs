@@ -11,7 +11,7 @@ namespace EasyERP.Models
         public int Id { get; set; }
         public int OrderId { get; set; }
 
-        public int MaterialType { get; set; }
+        public MaterialType MaterialType { get; set; }
         public String MaterialName { get; set; }
 
         [Column(TypeName = "money")]

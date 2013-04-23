@@ -11,7 +11,7 @@ namespace EasyERP.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("DefaultConnection")
+            : base("DatabaseContext")
         {
         }
 

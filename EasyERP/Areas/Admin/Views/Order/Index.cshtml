@@ -7,7 +7,7 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+        <li>@Html.ActionLink("odśwież", "Index")</li>
     </ul>
 </div>
 
@@ -31,7 +31,7 @@
         <td>@Html.DisplayFor(modelItem => order.Customer.Name)</td>
         <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
         <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
-        <td>@Html.DisplayOrderStateName(order.State)</td>
+        <td>@OrderHelpers.DisplayStateName(order.State)</td>
         <td>
             @Html.ActionLink("pokaż szczegóły", "Details", new { id=order.Id }) |
             @Html.ActionLink("dane klienta", "Details", "Customer", new { id=order.Id }, null)

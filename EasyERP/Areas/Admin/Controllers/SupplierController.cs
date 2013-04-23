@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Areas.Admin.ViewModels;
+using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -31,7 +32,7 @@ namespace EasyERP.Areas.Admin.Controllers
                         where p.SupplierId == supplier.Id
                         select p;
 
-            return View(new SupplierDetails(supplier, materials.ToList()));
+            return View(new SupplierDetailsModel(supplier, materials.ToList()));
         }
 
         public ActionResult Create()
@@ -69,8 +70,14 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 db.Entry(supplier).State = EntityState.Modified;
                 db.SaveChanges();
+
+                FlashMessageHelper.SetMessage(this, ";)", FlashMessageHelper.TypeOption.Success);
+                
                 return RedirectToAction("Index");
             }
+
+            FlashMessageHelper.SetMessage(this, ";(", FlashMessageHelper.TypeOption.Success);
+
             return View(supplier);
         }
 

@@ -6,12 +6,18 @@ using System.Web;
 
 namespace EasyERP.Models
 {
+    public enum MaterialType
+    {
+        UPHOLSTERY = 1, //obicie
+        FILL = 2 //wypełnienie
+    }
+
     public class Material
     {
         public int Id { get; set; }
         public int SupplierId { get; set; }
 
-        public int Type { get; set; }
+        public MaterialType Type { get; set; }
 
         public string Name { get; set; }
 
@@ -21,11 +27,5 @@ namespace EasyERP.Models
         public decimal Price { get; set; }
 
         public bool Availability { get; set; }
-
-        public struct Types
-        {
-            public const int UPHOLSTERY = 1; //obicie
-            public const int FILL = 2; //wypełnienie
-        }
     }
 }

@@ -1,64 +1,42 @@
-﻿@model EasyERP.Models.Customer
+﻿@using EasyERP.Helpers
+@model EasyERP.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Klient - Szczegóły";
 }
 
-<h2>Details</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("edycja", "Edit", "Customer", new { id=Model.Id }, null)</li>
+        <li>@Html.ActionLink("odśwież", "Details")</li>
+    </ul>
+</div>
 
-<fieldset>
-    <legend>Customer</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserId)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.City)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.City)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ZipCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ZipCode)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Street)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Street)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Telephone)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Telephone)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<table class="display-record">
+    <tbody>
+        <tr>
+            <td>Nazwa</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>Kod pocztowy</td>
+            <td>@Html.DisplayFor(model => model.ZipCode)</td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td>@Html.DisplayFor(model => model.City)</td>
+        </tr>
+        <tr>
+            <td>Ulica</td>
+            <td>@Html.DisplayFor(model => model.Street)</td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>@Html.DisplayFor(model => model.Telephone)</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>@Html.DisplayFor(model => model.Email)</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,84 +1,55 @@
 ﻿@model EasyERP.Models.Customer
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Klient - Edycja";
 }
-
-<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
 
-    <fieldset>
-        <legend>Customer</legend>
-
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserId)
-            @Html.ValidationMessageFor(model => model.UserId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ZipCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ZipCode)
-            @Html.ValidationMessageFor(model => model.ZipCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Street)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Street)
-            @Html.ValidationMessageFor(model => model.Street)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Telephone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Telephone)
-            @Html.ValidationMessageFor(model => model.Telephone)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="actions">
+	<ul>
+        <li><input type="submit" value="Zapisz" /></li>
+        <li><input type="reset" value="Reset" /></li>
+	</ul>
 </div>
+
+<table class="cu-record">
+    <tbody>
+        <tr>
+            <td class="title"><label>Nazwa</label></td>
+            <td>@Html.EditorFor(model => model.Name)</td>
+            <td>@Html.ValidationMessageFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Kod pocztowy</label></td>
+            <td>@Html.EditorFor(model => model.ZipCode)</td>
+            <td>@Html.ValidationMessageFor(model => model.ZipCode)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Miasto</label></td>
+            <td>@Html.EditorFor(model => model.City)</td>
+            <td>@Html.ValidationMessageFor(model => model.City)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Ulica</label></td>
+            <td>@Html.EditorFor(model => model.Street)</td>
+            <td>@Html.ValidationMessageFor(model => model.Street)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Telefon</label></td>
+            <td>@Html.EditorFor(model => model.Telephone)</td>
+            <td>@Html.ValidationMessageFor(model => model.Telephone)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Email</label></td>
+            <td>@Html.EditorFor(model => model.Email)</td>
+            <td>@Html.ValidationMessageFor(model => model.Email)</td>
+        </tr>
+    </tbody>
+</table>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

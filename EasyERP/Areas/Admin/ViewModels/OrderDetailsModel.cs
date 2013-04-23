@@ -7,7 +7,7 @@ using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.ViewModels
 {
-    public class OrderDetails
+    public class OrderDetailsModel
     {
         public Order Order { get; set; }
         public List<OrderItem> OrderItems { get; set; }
@@ -21,7 +21,7 @@ namespace EasyERP.Areas.Admin.ViewModels
             get { return Order.ProductPrice + OrderItemsTotalPrice; }
         }
 
-        public OrderDetails(Order Order, List<OrderItem> OrderItems)
+        public OrderDetailsModel(Order Order, List<OrderItem> OrderItems)
         {
             this.Order = Order;
             this.OrderItems = OrderItems;

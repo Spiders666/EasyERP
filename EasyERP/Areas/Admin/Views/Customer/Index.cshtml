@@ -7,7 +7,7 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("Odśwież", "Index", null, null)</li>
+        <li>@Html.ActionLink("odśwież", "Index")</li>
     </ul>
 </div>
 
@@ -28,6 +28,7 @@
         <td>@Html.DisplayFor(modelItem => customer.Name)</td>
         <td>
             @Html.ActionLink("pokaż szczegóły", "Details", new { id=customer.Id }) |
+            @Html.ActionLink("edycja", "Edit", new { id=customer.Id })
         </td>
     </tr>
 i = i + 1;

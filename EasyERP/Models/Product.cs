@@ -6,11 +6,17 @@ using System.Web;
 
 namespace EasyERP.Models
 {
+    public enum ProductType
+    {
+        CHAIR = 1, //fotel
+        SOFA = 2 //kanapa
+    }
+
     public class Product
     {
         public int Id { get; set; }
 
-        public int Type { get;  set; }
+        public ProductType Type { get; set; }
 
         public String Name { get; set; }
 
@@ -20,11 +26,5 @@ namespace EasyERP.Models
         public decimal Price { get; set; }
 
         public bool Availability { get; set; }
-
-        public struct Types
-        {
-            public const int CHAIR = 1; //fotel
-            public const int SOFA = 2; //kanapa
-        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using EasyERP.Helpers
-@model EasyERP.Areas.Admin.ViewModels.OrderDetails
+@model EasyERP.Areas.Admin.ViewModels.OrderDetailsModel
 
 @{
     ViewBag.Title = "Zamówienia - Szczegóły";
@@ -7,7 +7,8 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("Odśwież", "Details", "Order")</li>
+        <li>@Html.ActionLink("pokaż szczegóły klienta", "Details", "Customer", new { id = Model.Order.CustomerId }, null)</li>
+        <li>@Html.ActionLink("odśwież", "Details")</li>
     </ul>
 </div>
 
@@ -18,16 +19,12 @@
             <td>@Html.DisplayFor(model => model.Order.Customer.Name)</td>
         </tr>
         <tr>
-            <td>Produkt</td>
-            <td>@Html.DisplayFor(model => model.Order.ProductName)</td>
-        </tr>
-        <tr>
             <td>Data zamówienia</td>
             <td>@Html.DisplayFor(model => model.Order.CreatedAt)</td>
         </tr>
         <tr>
             <td>Stan zamówienia</td>
-            <td>@Html.DisplayOrderStateName(Model.Order.State)</td>
+            <td>@OrderHelpers.DisplayStateName(Model.Order.State)</td>
         </tr>
     </tbody>
 </table>
@@ -42,22 +39,22 @@
 
     <tbody>
         <tr>
-            <th>@Html.DisplayProductTypeName(Model.Order.ProductType)</th>
+            <th>@ProductHelpers.DisplayTypeName(Model.Order.ProductType)</th>
             <th>@Html.DisplayFor(model => model.Order.ProductName)</th>
-            <td>@Html.DisplayPolishFormatPrice(@Model.Order.ProductPrice)</td>
+            <td>@PriceFormatHelper.DisplayFormatPrice(@Model.Order.ProductPrice)</td>
         </tr>
 
 @foreach (var orderItem in Model.OrderItems) {
         <tr>
-            <th>@Html.DisplayMaterialTypeName(orderItem.MaterialType)</th>
+            <th>@MaterialHelpers.DisplayTypeName(orderItem.MaterialType)</th>
             <th>@Html.DisplayFor(modelItem => orderItem.MaterialName)</th>
-            <td>@Html.DisplayPolishFormatPrice(orderItem.Price)</td>
+            <td>@PriceFormatHelper.DisplayFormatPrice(orderItem.Price)</td>
         </tr>
 }
 
         <tr>
             <th colspan="2"></th>
-            <td>@Html.DisplayPolishFormatPrice(Model.TotalPrice)</td>
+            <td>@PriceFormatHelper.DisplayFormatPrice(Model.TotalPrice)</td>
         </tr>
     </tbody>
 </table>

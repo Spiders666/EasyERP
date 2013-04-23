@@ -1,5 +1,5 @@
 ﻿@using EasyERP.Helpers
-@model EasyERP.Areas.Admin.ViewModels.SupplierDetails
+@model EasyERP.Areas.Admin.ViewModels.SupplierDetailsModel
 
 @{
     ViewBag.Title = "Dostawca - Szczegóły";
@@ -7,7 +7,8 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("Odśwież", "Details", "Supplier")</li>
+        <li>@Html.ActionLink("edycja", "Edit", "Supplier", new { id=Model.Supplier.Id }, null)</li>
+        <li>@Html.ActionLink("odśwież", "Details")</li>
     </ul>
 </div>
 
@@ -22,12 +23,12 @@
             <td>@Html.DisplayFor(model => model.Supplier.Name)</td>
         </tr>
         <tr>
-            <td>Miasto</td>
-            <td>@Html.DisplayFor(model => model.Supplier.City)</td>
-        </tr>
-        <tr>
             <td>Kod pocztowy</td>
             <td>@Html.DisplayFor(model => model.Supplier.ZipCode)</td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td>@Html.DisplayFor(model => model.Supplier.City)</td>
         </tr>
         <tr>
             <td>Ulica</td>

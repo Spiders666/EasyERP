@@ -24,9 +24,9 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = Product.Types.CHAIR },
-                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = Product.Types.SOFA },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = Product.Types.CHAIR }
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.CHAIR, State = OrderState.NOT_CONFIRMED },
+                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.SENT },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.CHAIR, State = OrderState.PENDING }
             };
 
             orders.ForEach(o => context.Orders.Add(o));
@@ -35,14 +35,14 @@ namespace EasyERP.Models
             /* Pozycje zamówionego zestawu */
             var orderItems = new List<OrderItem>
             {
-                new OrderItem { OrderId = 1, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = Material.Types.UPHOLSTERY },
-                new OrderItem { OrderId = 1, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = Material.Types.FILL },
+                new OrderItem { OrderId = 1, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
+                new OrderItem { OrderId = 1, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
 
-                new OrderItem { OrderId = 2, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = Material.Types.UPHOLSTERY },
-                new OrderItem { OrderId = 2, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = Material.Types.FILL },
+                new OrderItem { OrderId = 2, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
+                new OrderItem { OrderId = 2, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
 
-                new OrderItem { OrderId = 3, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = Material.Types.UPHOLSTERY },
-                new OrderItem { OrderId = 3, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = Material.Types.FILL },
+                new OrderItem { OrderId = 3, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
+                new OrderItem { OrderId = 3, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
             };
 
             orderItems.ForEach(o => context.OrderItems.Add(o));
@@ -62,13 +62,12 @@ namespace EasyERP.Models
             /* Części */
             var materials = new List<Material>
             {
-                new Material { SupplierId = 1, Type = Material.Types.UPHOLSTERY, Name = "X Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 1, Type = Material.Types.UPHOLSTERY, Name = "X Obicie 2", Price = 1.0m, Availability = false },
-                new Material { SupplierId = 2, Type = Material.Types.UPHOLSTERY, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 2, Type = Material.Types.UPHOLSTERY, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = Material.Types.UPHOLSTERY, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = Material.Types.UPHOLSTERY, Name = "Z Obicie 2", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = Material.Types.UPHOLSTERY, Name = "Z Wypełnienie 1", Price = 1.0m, Availability = true }
+                new Material { SupplierId = 1, Type = MaterialType.UPHOLSTERY, Name = "X Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 1, Type = MaterialType.UPHOLSTERY, Name = "X Obicie 2", Price = 1.0m, Availability = false },
+                new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Wypełnienie 1", Price = 1.0m, Availability = true }
             };
 
             materials.ForEach(m => context.Materials.Add(m));
@@ -77,10 +76,10 @@ namespace EasyERP.Models
             /* Produkty */
             var products = new List<Product>
             {
-                new Product { Type = Product.Types.CHAIR, Name = "Fotel 1", Price = 1.0m, Availability = true },
-                new Product { Type = Product.Types.CHAIR, Name = "Fotel 2", Price = 1.0m, Availability = true },
-                new Product { Type = Product.Types.CHAIR, Name = "Sofa 1", Price = 1.0m, Availability = true },
-                new Product { Type = Product.Types.CHAIR, Name = "Sofa 2", Price = 777.0m, Availability = false }
+                new Product { Type = ProductType.CHAIR, Name = "Fotel 1", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.CHAIR, Name = "Fotel 2", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.SOFA, Name = "Sofa 1", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.CHAIR, Name = "Sofa 2", Price = 777.0m, Availability = false }
             };
 
             products.ForEach(p => context.Products.Add(p));
