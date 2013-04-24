@@ -12,12 +12,25 @@ namespace EasyERP.Models
         public int Id { get; set; }
         public int UserId { get; set; }
 
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string City { get; set; }
+
+        [Required]
         public string ZipCode { get; set; }
+
+        [Required]
         public string Street { get; set; }
+
+        [Required]
         public string Telephone { get; set; }
+
         public string Email { get; set; }
+
+        [Timestamp]
+        public byte[] CurrentVersion { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }

@@ -133,7 +133,7 @@ table.display-records > tbody tr.row1 {
 }
 
 table.display-records > tbody tr:hover {
-	background-color: #DFF;
+	background-color: #CFF;
 }
 
 table.display-records > tbody td {
@@ -221,6 +221,42 @@ div.paggination {
 }
 
 /* MESSAGES */
+div.flash-message-notice {
+    border: 1px solid #444;
+    background-color: #EEE;
+    color: #444;
+    padding: 10px 20px;
+	margin: 10px;
+}
+
+div.flash-message-information {
+    border: 1px solid #44A;
+    background-color: #EEF;
+    color: #44A;
+    padding: 10px 20px;
+	margin: 10px;
+}
+
 div.flash-message-success {
+    border: 1px solid #494;
     background-color: #DFD;
+    color: #494;
+    padding: 10px 20px;
+	margin: 10px;
+}
+
+div.flash-message-warning {
+    border: 1px solid #994;
+    background-color: #FFD;
+    color: #660;
+    padding: 10px 20px;
+	margin: 10px;
+}
+
+div.flash-message-error {
+    border: 1px solid #944;
+    background-color: #FDD;
+    color: #944;
+    padding: 10px 20px;
+	margin: 10px;
 }

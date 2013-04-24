@@ -25,7 +25,7 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NOT_CONFIRMED },
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NOT_CONFIRMED,  },
                 new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.SENT },
                 new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.PENDING }
             };
@@ -68,7 +68,9 @@ namespace EasyERP.Models
                 new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
                 new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
                 new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Wypełnienie 1", Price = 1.0m, Availability = true }
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 1", Price = 131.0m, Availability = true },
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 2", Price = 221.0m, Availability = false },
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 3", Price = 311.0m, Availability = true }
             };
 
             materials.ForEach(m => context.Materials.Add(m));

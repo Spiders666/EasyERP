@@ -1,50 +1,44 @@
-﻿@model EasyERP.Models.Material
+﻿@using EasyERP.Helpers
+@model EasyERP.Models.Material
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Materiał - Szczegóły";
 }
 
-<h2>Details</h2>
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("pokaż szczełóły dostawcy", "Details", "Supplier", new { id = Model.SupplierId }, null)</li>
+        <li>@Html.ActionLink("edycja", "Edit", "Material", new { id = Model.Id }, null)</li>
+        <li>@Html.ActionLink("odśwież", "Details")</li>
+    </ul>
+</div>
 
-<fieldset>
-    <legend>Material</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SupplierId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupplierId)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ImageName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ImageName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Availability)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Availability)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<table class="display-record">
+    <tbody>
+        <tr>
+            <td>Typ</td>
+            <td>@MaterialHelpers.DisplayTypeName(Model.Type)</td>
+        </tr>
+        <tr>
+            <td>Nazwa</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>Dostawca</td>
+            <td>@Html.DisplayFor(model => model.Supplier.Name)</td>
+        </tr>
+        <tr>
+            <td>Cena</td>
+            <td>@PriceFormatHelper.DisplayFormatPrice(Model.Price)</td>
+        </tr>
+        <tr>
+            <td>Zdjęcie</td>
+            <td>@Html.DisplayFor(model => model.ImageName)</td>
+        </tr>
+        <tr>
+            <td>Dostępność</td>
+            <td>@Html.DisplayFor(model => model.Availability)</td>
+        </tr>
+    </tbody>
+</table>

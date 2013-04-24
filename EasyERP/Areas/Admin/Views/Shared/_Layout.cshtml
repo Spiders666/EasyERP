@@ -23,14 +23,14 @@
             </ul>
         </nav>
 
+        @if (EasyERP.Helpers.FlashMessageHelper.IsMessage(TempData)) {
+            @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
+        }
+
         <section>
             <header>
                 <h2>@ViewBag.Title</h2>
             </header>
-
-            @if (EasyERP.Helpers.FlashMessageHelper.IsMessage(TempData)) {
-                @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
-            }
 
             <div>
                 @RenderSection("featured", required: false)

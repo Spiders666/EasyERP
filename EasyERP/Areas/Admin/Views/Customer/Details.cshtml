@@ -40,3 +40,32 @@
         </tr>
     </tbody>
 </table>
+
+<table class="display-records">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Typ</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+@{int i = 0;}
+@foreach (var order in Model.Orders) {
+        <tr class="row@(i % 2)">
+            <td>@Html.DisplayFor(modelItem => order.Id)</td>
+            <td>@ProductHelpers.DisplayTypeName(order.ProductType)</td>
+            <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
+            <td>@PriceFormatHelper.DisplayFormatPrice(order.ProductPrice)</td>
+            <td>
+                @Html.ActionLink("szczegóły", "Details", "Order", new { id = order.Id }, null)
+            </td>
+        </tr>
+    i = i + 1;
+}
+    </tbody>
+</table>

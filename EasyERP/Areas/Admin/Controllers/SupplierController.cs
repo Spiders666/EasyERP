@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Areas.Admin.ViewModels;
 using EasyERP.Helpers;
+using System.Data.Entity.Infrastructure;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -22,17 +23,18 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Supplier supplier = db.Suppliers.Find(id);
+            var query = from s in db.Suppliers.Include(s => s.Materials)
+                        where s.Id == id
+                        select s;
+
+            var supplier = query.FirstOrDefault();
+
             if (supplier == null)
             {
                 return HttpNotFound();
             }
 
-            var materials = from p in db.Materials
-                        where p.SupplierId == supplier.Id
-                        select p;
-
-            return View(new SupplierDetailsModel(supplier, materials.ToList()));
+            return View(supplier);
         }
 
         public ActionResult Create()
@@ -43,11 +45,21 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Supplier supplier)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Suppliers.Add(supplier);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Suppliers.Add(supplier);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this, "Nowy dostawca został dodany do bazy.", FlashMessageHelper.TypeOption.Success);
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas zapisywania nowych danych. Należy poprawić zaistniałe błędy.", FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this, "Z niewiadomych przyczyn dane nie zostały utworzone.", FlashMessageHelper.TypeOption.Warning);
             }
 
             return View(supplier);
@@ -66,17 +78,22 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Supplier supplier)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(supplier).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(supplier).State = EntityState.Modified;
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this, "Dane zostały zaktualizowane.", FlashMessageHelper.TypeOption.Success);
+                    return RedirectToAction("Index");
+                }
 
-                FlashMessageHelper.SetMessage(this, ";)", FlashMessageHelper.TypeOption.Success);
-                
-                return RedirectToAction("Index");
+                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas aktualizacji. Należy poprawić dane.", FlashMessageHelper.TypeOption.Error);
             }
-
-            FlashMessageHelper.SetMessage(this, ";(", FlashMessageHelper.TypeOption.Success);
+            catch(Exception)
+            {
+                FlashMessageHelper.SetMessage(this, "Dane został zaktualizowane przez inną osobę. Należy odświeżyć daną stronę w celu wczytania nowych danych.", FlashMessageHelper.TypeOption.Warning);
+            }
 
             return View(supplier);
         }

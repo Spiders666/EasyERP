@@ -13,53 +13,31 @@ namespace EasyERP.Areas.Admin.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        //
-        // GET: /Admin/Customer/
-
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
-        }
+            var query = from c in db.Customers
+                        select c;
 
-        //
-        // GET: /Admin/Customer/Details/5
+            var customers = query.ToList();
+
+            return View(customers);
+        }
 
         public ActionResult Details(int id = 0)
         {
-            Customer customer = db.Customers.Find(id);
+            var query = from c in db.Customers.Include(c => c.Orders)
+                        where c.Id == id
+                        select c;
+
+            var customer = query.FirstOrDefault();
+
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
-        }
-
-        //
-        // GET: /Admin/Customer/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/Customer/Create
-
-        [HttpPost]
-        public ActionResult Create(Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
             return View(customer);
         }
-
-        //
-        // GET: /Admin/Customer/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -70,9 +48,6 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             return View(customer);
         }
-
-        //
-        // POST: /Admin/Customer/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Customer customer)
@@ -86,9 +61,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(customer);
         }
 
-        //
-        // GET: /Admin/Customer/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Customer customer = db.Customers.Find(id);
@@ -98,9 +70,6 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             return View(customer);
         }
-
-        //
-        // POST: /Admin/Customer/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)

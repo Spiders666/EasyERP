@@ -1,67 +1,46 @@
 ﻿@model EasyERP.Models.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Produkt - Nowy";
 }
-
-<h2>Create</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Product</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ImageName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ImageName)
-            @Html.ValidationMessageFor(model => model.ImageName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Price)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Availability)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Availability)
-            @Html.ValidationMessageFor(model => model.Availability)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="actions">
+	<ul>
+        <li><input type="submit" value="Zapisz" /></li>
+        <li><input type="reset" value="Reset" /></li>
+	</ul>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<table class="cu-record">
+    <tbody>
+        <tr>
+            <td class="title"><label>Typ</label></td>
+            <td>@Html.EditorFor(model => model.Type)</td>
+            <td>@Html.ValidationMessageFor(model => model.Type)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Nazwa</label></td>
+            <td>@Html.EditorFor(model => model.Name)</td>
+            <td>@Html.ValidationMessageFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Cena</label></td>
+            <td>@Html.EditorFor(model => model.Price)</td>
+            <td>@Html.ValidationMessageFor(model => model.Price)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Zdjęcie</label></td>
+            <td>@Html.EditorFor(model => model.ImageName)</td>
+            <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>Dostępność</label></td>
+            <td>@Html.EditorFor(model => model.Availability)</td>
+            <td>@Html.ValidationMessageFor(model => model.Availability)</td>
+        </tr>
+    </tbody>
+</table>
 }

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Areas.Admin.ViewModels;
+using System.Dynamic;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -16,23 +17,27 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer);
-            return View(orders.ToList());
+            var orders = from o in db.Orders.Include(o => o.Customer)
+                         select o;
+
+            return View(orders);
         }
 
         public ActionResult Details(int id = 0)
         {
-            Order order = db.Orders.Find(id);
+            var query = from o in db.Orders.Include(o => o.Customer).Include(o => o.OrderItems)
+                        where o.Id == id
+                        select o;
+            var order = query.FirstOrDefault();
+
             if (order == null)
             {
                 return HttpNotFound();
             }
 
-            var orderItems = from o in db.OrderItems
-                             where o.OrderId == order.Id
-                             select o;
+            decimal totalPrice = order.OrderItems.Sum(o => o.Price);
 
-            return View(new OrderDetailsModel(order, orderItems.ToList()));
+            return View(new OrderDetailsViewModel(order, totalPrice));
         }
 
         protected override void Dispose(bool disposing)

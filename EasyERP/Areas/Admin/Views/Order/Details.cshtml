@@ -1,5 +1,5 @@
 ﻿@using EasyERP.Helpers
-@model EasyERP.Areas.Admin.ViewModels.OrderDetailsModel
+@model EasyERP.Areas.Admin.ViewModels.OrderDetailsViewModel
 
 @{
     ViewBag.Title = "Zamówienia - Szczegóły";
@@ -44,13 +44,13 @@
             <td>@PriceFormatHelper.DisplayFormatPrice(@Model.Order.ProductPrice)</td>
         </tr>
 
-@foreach (var orderItem in Model.OrderItems) {
+        @foreach (var orderItem in Model.Order.OrderItems) {
         <tr>
             <th>@MaterialHelpers.DisplayTypeName(orderItem.MaterialType)</th>
             <th>@Html.DisplayFor(modelItem => orderItem.MaterialName)</th>
             <td>@PriceFormatHelper.DisplayFormatPrice(orderItem.Price)</td>
         </tr>
-}
+        }
 
         <tr>
             <th colspan="2"></th>

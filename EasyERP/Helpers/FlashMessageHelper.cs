@@ -11,8 +11,11 @@ namespace EasyERP.Helpers
     {
         public enum TypeOption
         {
-            Success = 1,
-            Error = 2
+            Notice = 1,
+            Information = 2,
+            Success = 3,
+            Warning = 4,
+            Error = 5
         }
 
         public static void SetMessage(this Controller controller, string message, TypeOption type = TypeOption.Success)

@@ -1,5 +1,5 @@
 ﻿@using EasyERP.Helpers
-@model EasyERP.Areas.Admin.ViewModels.SupplierDetailsModel
+@model EasyERP.Models.Supplier
 
 @{
     ViewBag.Title = "Dostawca - Szczegóły";
@@ -7,8 +7,8 @@
 
 <div class="actions">
     <ul>
-        <li>@Html.ActionLink("edycja", "Edit", "Supplier", new { id=Model.Supplier.Id }, null)</li>
-        <li>@Html.ActionLink("odśwież", "Details")</li>
+        <li>@Html.ActionLink("dodaj materiał", "Create", "Material", new { SupplierId = Model.Id }, null)</li>
+        <li>@Html.ActionLink("edycja", "Edit", "Supplier", new { id = Model.Id }, null)</li>
     </ul>
 </div>
 
@@ -16,35 +16,35 @@
     <tbody>
         <tr>
             <td>NIP</td>
-            <td>@Html.DisplayFor(model => model.Supplier.NIP)</td>
+            <td>@Html.DisplayFor(model => model.NIP)</td>
         </tr>
         <tr>
             <td>Nazwa</td>
-            <td>@Html.DisplayFor(model => model.Supplier.Name)</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
         </tr>
         <tr>
             <td>Kod pocztowy</td>
-            <td>@Html.DisplayFor(model => model.Supplier.ZipCode)</td>
+            <td>@Html.DisplayFor(model => model.ZipCode)</td>
         </tr>
         <tr>
             <td>Miasto</td>
-            <td>@Html.DisplayFor(model => model.Supplier.City)</td>
+            <td>@Html.DisplayFor(model => model.City)</td>
         </tr>
         <tr>
             <td>Ulica</td>
-            <td>@Html.DisplayFor(model => model.Supplier.Street)</td>
+            <td>@Html.DisplayFor(model => model.Street)</td>
         </tr>
         <tr>
             <td>Telefon</td>
-            <td>@Html.DisplayFor(model => model.Supplier.Telephone)</td>
+            <td>@Html.DisplayFor(model => model.Telephone)</td>
         </tr>
         <tr>
             <td>Email</td>
-            <td>@Html.DisplayFor(model => model.Supplier.Email)</td>
+            <td>@Html.DisplayFor(model => model.Email)</td>
         </tr>
         <tr>
             <td>Konto bankowe</td>
-            <td>@Html.DisplayFor(model => model.Supplier.BankAccount)</td>
+            <td>@Html.DisplayFor(model => model.BankAccount)</td>
         </tr>
     </tbody>
 </table>
