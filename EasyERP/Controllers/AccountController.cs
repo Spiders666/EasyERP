@@ -17,9 +17,10 @@ namespace EasyERP.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private DatabaseContext db = new DatabaseContext();
+
         //
         // GET: /Account/Login
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -81,7 +82,7 @@ namespace EasyERP.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Register_step2", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -91,6 +92,37 @@ namespace EasyERP.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //
+        // GET: /Account/Register_step2
+
+        [AllowAnonymous]
+        public ActionResult Register_step2()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register_step2
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register_step2(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                // Attempt to fill customer data
+                    customer.UserId = WebSecurity.CurrentUserId;
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View();
         }
 
         //

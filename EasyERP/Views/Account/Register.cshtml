@@ -1,11 +1,11 @@
-﻿@model EasyERP.ViewModels.AccountRegister
+﻿@model EasyERP.Models.RegisterModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Zarejestruj";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
+    <h2>Załóż nowe konto - Krok pierwszy</h2>
 </hgroup>
 
 @using (Html.BeginForm()) {
@@ -13,19 +13,19 @@
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Registration Form</legend>
+        <legend>Formularz rejestracji</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.RegisterModel.UserName)
-                @Html.TextBoxFor(m => m.RegisterModel.UserName)
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
             </li>
             <li>
-                @Html.LabelFor(m => m.RegisterModel.Password)
-                @Html.PasswordFor(m => m.RegisterModel.Password)
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
             </li>
             <li>
-                @Html.LabelFor(m => m.RegisterModel.ConfirmPassword)
-                @Html.PasswordFor(m => m.RegisterModel.ConfirmPassword)
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
         <input type="submit" value="Register" />
