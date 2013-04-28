@@ -9,7 +9,7 @@ namespace EasyERP.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(EasyERP.Models.DatabaseContext context)

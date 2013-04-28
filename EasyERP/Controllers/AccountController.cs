@@ -118,6 +118,7 @@ namespace EasyERP.Controllers
                     customer.UserId = WebSecurity.CurrentUserId;
                     db.Customers.Add(customer);
                     db.SaveChanges();
+                    //Roles.AddUserToRole(customer.UserId, "StandardUser");
                     return RedirectToAction("Index", "Home");
             }
 

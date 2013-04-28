@@ -10,6 +10,8 @@ namespace EasyERP.Models
     public class Customer
     {
         public int Id { get; set; }
+
+        [Required]
         public int UserId { get; set; }
 
         [Required]

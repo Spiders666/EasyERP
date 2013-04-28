@@ -18,6 +18,7 @@ namespace EasyERP
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
             Database.SetInitializer<DatabaseContext>(new DatabaseInitializer());
 
             AreaRegistration.RegisterAllAreas();
