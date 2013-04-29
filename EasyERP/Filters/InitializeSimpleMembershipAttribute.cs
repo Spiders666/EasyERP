@@ -27,7 +27,6 @@ namespace EasyERP.Filters
             public SimpleMembershipInitializer()
             {
                 Database.SetInitializer<UsersContext>(null);
-
                 try
                 {
                     using (var context = new UsersContext())
@@ -38,8 +37,23 @@ namespace EasyERP.Filters
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
                         }
                     }
-
+                    // Creates 2 roles Administrator and user + creates user admin and add him to role administrator
                     WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+
+                    if (!Roles.RoleExists("Administrator"))
+                       Roles.CreateRole("Administrator");
+
+                    if (!Roles.RoleExists("User"))
+                        Roles.CreateRole("User");
+
+                    if (!WebSecurity.UserExists("Admin"))
+                    {
+                        WebSecurity.CreateUserAndAccount("Admin", "password");
+                        Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
+                    }
+
+                    //if (!Roles.GetRolesForUser("Admin").Equals("Administrator"))
+                    //   Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
                 }
                 catch (Exception ex)
                 {

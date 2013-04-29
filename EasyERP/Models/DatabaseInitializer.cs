@@ -4,34 +4,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using WebMatrix.WebData;
 
 namespace EasyERP.Models
 {
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<DatabaseContext>
     {
-        /* Role */
         protected override void Seed(DatabaseContext context)
         {
-            WebSecurity.InitializeDatabaseConnection(
-            "DefaultConnection",
-            "UserProfile",
-            "UserId",
-            "UserName", autoCreateTables: true);
-
-            if (!Roles.RoleExists("Administrator"))
-                Roles.CreateRole("Administrator");
-            if (!Roles.RoleExists("User"))
-                Roles.CreateRole("User");
-
-            if (!WebSecurity.UserExists("Admin"))
-                WebSecurity.CreateUserAndAccount(
-                    "Admin",
-                    "password");
-
-            if (!Roles.GetRolesForUser("Admin").Contains("Administrator"))
-                Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
-
             /* Klienci */
             var customers = new List<Customer>
             {
@@ -111,4 +90,3 @@ namespace EasyERP.Models
         }
     }
 }
-
