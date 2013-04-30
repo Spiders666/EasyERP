@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EasyERP.Helpers
 {
@@ -21,6 +22,18 @@ namespace EasyERP.Helpers
                 default:
                     return null;
             }
+        }
+
+        public static SelectList GetSelectList()
+        {
+            var items = new[]
+            {
+                new SelectListItem { Value = ProductType.ARMCHAIR.ToString(), Text = DisplayTypeName(ProductType.ARMCHAIR) },
+                new SelectListItem { Value = ProductType.SOFA.ToString(), Text = DisplayTypeName(ProductType.SOFA) },
+                new SelectListItem { Value = ProductType.BED.ToString(), Text = DisplayTypeName(ProductType.BED) }
+            };
+
+            return new SelectList(items, "Value", "Text");
         }
     }
 }

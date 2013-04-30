@@ -1,4 +1,5 @@
-﻿@model EasyERP.Models.Product
+﻿@using EasyERP.Helpers;
+@model EasyERP.Models.Product
 
 @{
     ViewBag.Title = "Produkt - Edycja";
@@ -20,7 +21,7 @@
     <tbody>
         <tr>
             <td class="title"><label>Typ</label></td>
-            <td>@Html.EditorFor(model => model.Type)</td>
+            <td>@Html.DropDownListFor(model => model.Type , ProductHelpers.GetSelectList(), "-- rodzaje --")</td>
             <td>@Html.ValidationMessageFor(model => model.Type)</td>
         </tr>
         <tr>

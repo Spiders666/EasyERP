@@ -18,7 +18,10 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Suppliers.ToList());
+            var query = from s in db.Suppliers select s;
+            var suppliers = query.ToList();
+
+            return View(suppliers);
         }
 
         public ActionResult Details(int id = 0)
@@ -51,7 +54,7 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Suppliers.Add(supplier);
                     db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this, "Nowy dostawca został dodany do bazy.", FlashMessageHelper.TypeOption.Success);
+                    FlashMessageHelper.SetMessage(this, "Zapisanie nowych danych przebiegło pomyślnie.", FlashMessageHelper.TypeOption.Success);
                     return RedirectToAction("Index");
                 }
 
@@ -59,7 +62,7 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                FlashMessageHelper.SetMessage(this, "Z niewiadomych przyczyn dane nie zostały utworzone.", FlashMessageHelper.TypeOption.Warning);
+                FlashMessageHelper.SetMessage(this, "Z niewiadomych przyczyn nowe dane nie zostały zapisane.", FlashMessageHelper.TypeOption.Warning);
             }
 
             return View(supplier);
@@ -67,11 +70,17 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Supplier supplier = db.Suppliers.Find(id);
+            var query = from s in db.Suppliers
+                        where s.Id == id
+                        select s;
+
+            var supplier = query.FirstOrDefault();
+
             if (supplier == null)
             {
                 return HttpNotFound();
             }
+
             return View(supplier);
         }
 
@@ -84,7 +93,7 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Entry(supplier).State = EntityState.Modified;
                     db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this, "Dane zostały zaktualizowane.", FlashMessageHelper.TypeOption.Success);
+                    FlashMessageHelper.SetMessage(this, "Aktualizacja danych przebiegła pomyślnie.", FlashMessageHelper.TypeOption.Success);
                     return RedirectToAction("Index");
                 }
 
@@ -92,7 +101,7 @@ namespace EasyERP.Areas.Admin.Controllers
             }
             catch(Exception)
             {
-                FlashMessageHelper.SetMessage(this, "Dane został zaktualizowane przez inną osobę. Należy odświeżyć daną stronę w celu wczytania nowych danych.", FlashMessageHelper.TypeOption.Warning);
+                FlashMessageHelper.SetMessage(this, "Dane został zaktualizowane przez inną osobę. Należy odświeżyć stronę w celu wczytania nowych danych.", FlashMessageHelper.TypeOption.Warning);
             }
 
             return View(supplier);

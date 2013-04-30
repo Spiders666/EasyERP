@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Areas.Admin.ViewModels;
+using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -16,7 +17,10 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Materials.ToList());
+            var query = from m in db.Materials select m;
+            var materials = query.ToList();
+
+            return View(materials);
         }
 
         public ActionResult Details(int id = 0)
@@ -27,12 +31,10 @@ namespace EasyERP.Areas.Admin.Controllers
 
             var material = query.FirstOrDefault();
 
-            if (material == null)
+            if (material == null || material.Supplier == null)
             {
                 return HttpNotFound();
             }
-
-            Supplier supplier = db.Suppliers.Find(material.SupplierId);
 
             return View(material);
         }
@@ -59,11 +61,21 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Material material)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Materials.Add(material);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Materials.Add(material);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this, "Zapisanie nowych danych przebiegło pomyślnie.", FlashMessageHelper.TypeOption.Success);
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas zapisywania nowych danych. Należy poprawić zaistniałe błędy.", FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this, "Z niewiadomych przyczyn nowe dane nie zostały zapisane.", FlashMessageHelper.TypeOption.Warning);
             }
 
             return View(material);
@@ -71,23 +83,40 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Material material = db.Materials.Find(id);
+            var query = from s in db.Materials
+                        where s.Id == id
+                        select s;
+
+            var material = query.FirstOrDefault();
+
             if (material == null)
             {
                 return HttpNotFound();
             }
+
             return View(material);
         }
 
         [HttpPost]
         public ActionResult Edit(Material material)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(material).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(material).State = EntityState.Modified;
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this, "Aktualizacja danych przebiegła pomyślnie.", FlashMessageHelper.TypeOption.Success);
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas aktualizacji. Należy poprawić dane.", FlashMessageHelper.TypeOption.Error);
             }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this, "Dane został zaktualizowane przez inną osobę. Należy odświeżyć stronę w celu wczytania nowych danych.", FlashMessageHelper.TypeOption.Warning);
+            }
+
             return View(material);
         }
 

@@ -129,11 +129,11 @@ table.display-records > tbody tr.row0 {
 }
 
 table.display-records > tbody tr.row1 {
-	background-color: #EEE;
+	background-color: #EED;
 }
 
 table.display-records > tbody tr:hover {
-	background-color: #CFF;
+	background-color: #DDD;
 }
 
 table.display-records > tbody td {
@@ -205,6 +205,11 @@ table.cu-record input {
     padding: 10px;
 }
 
+table.cu-record select {
+	width: 300px;
+    padding: 10px;
+}
+
 table.cu-record textarea {
 	width: 300px;
 	height: 200px;
@@ -240,7 +245,7 @@ div.flash-message-information {
 div.flash-message-success {
     border: 1px solid #494;
     background-color: #DFD;
-    color: #494;
+    color: #373;
     padding: 10px 20px;
 	margin: 10px;
 }
