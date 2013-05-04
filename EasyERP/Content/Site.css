@@ -5,8 +5,8 @@
 }
 
 body {
+    margin: 0 auto;
     background-color: #fff;
-    border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
@@ -449,7 +449,7 @@ textarea {
         width: auto;
     }
 
-    input[type="submit"],
+    /*input[type="submit"],
     input[type="button"],
     button {
         background-color: #d3dce0;
@@ -468,7 +468,7 @@ textarea {
         font-size: 1em;
         padding: 4px;
         margin-right: 4px;
-    }
+    }*/
 
 /* info and errors */
 .message-info {

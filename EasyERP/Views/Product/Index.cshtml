@@ -1,0 +1,28 @@
+﻿@model IEnumerable<EasyERP.Models.Product>
+@using PagedList.Mvc; 
+@using PagedList; 
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h2>List of Products</h2>
+
+    @foreach(var product in ViewBag.OnePageOfProducts){
+        <div class="span3">
+        <ul>
+        <li>@product.Name</li>
+        <li>@product.ImageName</li>
+        <li>@product.Price</li>
+        <li>@product.Availability</li>
+        </ul>
+        </div>
+    }
+
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@Html.PagedListPager( (IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }) )

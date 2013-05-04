@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyERP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,13 @@ namespace EasyERP.Controllers
 {
     public class HomeController : Controller
     {
+        private DatabaseContext db = new DatabaseContext();
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            var products = (from p in db.Products
+                           orderby p.Id descending
+                           select p).Take(9);
+            return View(products);
         }
 
         public ActionResult About()

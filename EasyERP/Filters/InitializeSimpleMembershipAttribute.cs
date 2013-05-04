@@ -52,8 +52,6 @@ namespace EasyERP.Filters
                         Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
                     }
 
-                    //if (!Roles.GetRolesForUser("Admin").Equals("Administrator"))
-                    //   Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
                 }
                 catch (Exception ex)
                 {

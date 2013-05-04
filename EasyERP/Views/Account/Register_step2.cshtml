@@ -16,33 +16,33 @@ using (Html.BeginForm()) {
         <legend>Formularz rejestracji</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.Name)
+                @Html.Label("Nazwa")
                 @Html.TextBoxFor(m => m.Name)
             </li>
             <li>
-                @Html.LabelFor(m => m.City)
+                @Html.Label("Miasto")
                 @Html.TextBoxFor(m => m.City)
             </li>
             <li>
-                @Html.LabelFor(m => m.ZipCode)
+                @Html.Label("Kod pocztowy")
                 @Html.TextBoxFor(m => m.ZipCode)
             </li>
         </ol>
                 <ol>
             <li>
-                @Html.LabelFor(m => m.Street)
+                @Html.Label("Ulica")
                 @Html.TextBoxFor(m => m.Street)
             </li>
             <li>
-                @Html.LabelFor(m => m.Telephone)
+                @Html.Label("Telefon")
                 @Html.TextBoxFor(m => m.Telephone)
             </li>
             <li>
-                @Html.LabelFor(m => m.Email)
+                @Html.Label("E-mail")
                 @Html.TextBoxFor(m => m.Email)
             </li>
         </ol>
-        <input type="submit" value="Create" />
+        <input type="submit" value="Utwórz konto!" />
     </fieldset>
 }
 } else {

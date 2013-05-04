@@ -16,19 +16,19 @@
         <legend>Formularz rejestracji</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
+                @Html.Label("Login")
                 @Html.TextBoxFor(m => m.UserName)
             </li>
             <li>
-                @Html.LabelFor(m => m.Password)
+                @Html.Label("Hasło")
                 @Html.PasswordFor(m => m.Password)
             </li>
             <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.Label("Powtórz Hasło")
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
-        <input type="submit" value="Register" />
+        <input type="submit" value="Dalej" />
     </fieldset>
 }
 

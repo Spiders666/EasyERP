@@ -68,9 +68,9 @@ namespace EasyERP.Models
                 new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
                 new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
                 new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 1", Price = 131.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 2", Price = 221.0m, Availability = false },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Z Wypełnienie 3", Price = 311.0m, Availability = true }
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Trociny", Price = 131.0m, Availability = true },
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Szmaty", Price = 221.0m, Availability = false },
+                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Bawełna luksusowa", Price = 311.0m, Availability = true }
             };
 
             materials.ForEach(m => context.Materials.Add(m));
