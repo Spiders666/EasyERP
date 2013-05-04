@@ -10,17 +10,17 @@ namespace EasyERP.Models
         private HttpContextBase httpContext { get; set; }
         private const string ConfiguratorSessionKey = "ConfiguratorId";
 
-        public static Configurator GetInstance(HttpContextBase databaseContext)
+        public static Configurator GetInstance(HttpContextBase httpContext)
         {
-            Configurator configuratorContext = new Configurator();
-            configuratorContext.httpContext = databaseContext;
+            Configurator configurator = new Configurator();
+            configurator.httpContext = httpContext;
 
-            if (databaseContext.Session[ConfiguratorSessionKey] == null)
+            if (httpContext.Session[ConfiguratorSessionKey] == null)
             {
-                databaseContext.Session[ConfiguratorSessionKey] = new List<Material>();
+                httpContext.Session[ConfiguratorSessionKey] = new List<Material>();
             }
 
-            return configuratorContext;
+            return configurator;
         }
 
         public List<Material> GetConfiguration()

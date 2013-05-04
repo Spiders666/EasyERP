@@ -170,7 +170,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
@@ -283,18 +282,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Contact.cshtml" />
     <Content Include="Areas\Admin\Views\Home\About.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Manage.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Index.cshtml" />
