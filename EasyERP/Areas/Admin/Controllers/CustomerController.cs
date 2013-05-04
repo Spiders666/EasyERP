@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
+using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -15,9 +16,7 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var query = from c in db.Customers
-                        select c;
-
+            var query = from c in db.Customers select c;
             var customers = query.ToList();
 
             return View(customers);
@@ -41,7 +40,12 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Customer customer = db.Customers.Find(id);
+            var query = from s in db.Customers
+                        where s.Id == id
+                        select s;
+
+            var customer = query.FirstOrDefault();
+
             if (customer == null)
             {
                 return HttpNotFound();
@@ -52,12 +56,41 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Customer customer)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(customer).State = EntityState.Modified;
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(
+                        this,
+                        HttpContext.GetGlobalResourceObject(
+                            "Resources",
+                            "AdminControllerEditSuccess").ToString(),
+                        FlashMessageHelper.TypeOption.Success
+                    );
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditError").ToString(),
+                    FlashMessageHelper.TypeOption.Error
+                );
             }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditWarning").ToString(),
+                    FlashMessageHelper.TypeOption.Warning
+                );
+            }
+
             return View(customer);
         }
 

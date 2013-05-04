@@ -18,7 +18,10 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Suppliers.ToList());
+            var query = from s in db.Suppliers select s;
+            var suppliers = query.ToList();
+
+            return View(suppliers);
         }
 
         public ActionResult Details(int id = 0)
@@ -51,15 +54,33 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Suppliers.Add(supplier);
                     db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this, "Nowy dostawca został dodany do bazy.", FlashMessageHelper.TypeOption.Success);
+                    FlashMessageHelper.SetMessage(
+                        this,
+                        HttpContext.GetGlobalResourceObject(
+                            "Resources",
+                            "AdminControllerCreateSuccess").ToString(),
+                        FlashMessageHelper.TypeOption.Success
+                    );
                     return RedirectToAction("Index");
                 }
 
-                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas zapisywania nowych danych. Należy poprawić zaistniałe błędy.", FlashMessageHelper.TypeOption.Error);
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerCreateError").ToString(),
+                    FlashMessageHelper.TypeOption.Error
+                );
             }
             catch (Exception)
             {
-                FlashMessageHelper.SetMessage(this, "Z niewiadomych przyczyn dane nie zostały utworzone.", FlashMessageHelper.TypeOption.Warning);
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerCreateWarning").ToString(),
+                    FlashMessageHelper.TypeOption.Warning
+                );
             }
 
             return View(supplier);
@@ -67,11 +88,17 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Supplier supplier = db.Suppliers.Find(id);
+            var query = from s in db.Suppliers
+                        where s.Id == id
+                        select s;
+
+            var supplier = query.FirstOrDefault();
+
             if (supplier == null)
             {
                 return HttpNotFound();
             }
+
             return View(supplier);
         }
 
@@ -84,15 +111,33 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Entry(supplier).State = EntityState.Modified;
                     db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this, "Dane zostały zaktualizowane.", FlashMessageHelper.TypeOption.Success);
+                    FlashMessageHelper.SetMessage(
+                        this,
+                        HttpContext.GetGlobalResourceObject(
+                            "Resources",
+                            "AdminControllerEditSuccess").ToString(),
+                        FlashMessageHelper.TypeOption.Success
+                    );
                     return RedirectToAction("Index");
                 }
 
-                FlashMessageHelper.SetMessage(this, "Wystąpił błąd podczas aktualizacji. Należy poprawić dane.", FlashMessageHelper.TypeOption.Error);
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditError").ToString(),
+                    FlashMessageHelper.TypeOption.Error
+                );
             }
             catch(Exception)
             {
-                FlashMessageHelper.SetMessage(this, "Dane został zaktualizowane przez inną osobę. Należy odświeżyć daną stronę w celu wczytania nowych danych.", FlashMessageHelper.TypeOption.Warning);
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditWarning").ToString(),
+                    FlashMessageHelper.TypeOption.Warning
+                );
             }
 
             return View(supplier);

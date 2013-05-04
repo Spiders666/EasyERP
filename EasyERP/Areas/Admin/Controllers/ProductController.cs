@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
+using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -15,15 +16,20 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var products = from p in db.Products
-                           select p;
+            var query = from s in db.Products select s;
+            var products = query.ToList();
 
             return View(products);
         }
 
         public ActionResult Details(int id = 0)
         {
-            Product product = db.Products.Find(id);
+            var query = from s in db.Products
+                        where s.Id == id
+                        select s;
+
+            var product = query.FirstOrDefault();
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -31,7 +37,6 @@ namespace EasyERP.Areas.Admin.Controllers
 
             return View(product);
         }
-
 
         public ActionResult Create()
         {
@@ -41,11 +46,39 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(
+                        this,
+                        HttpContext.GetGlobalResourceObject(
+                            "Resources",
+                            "AdminControllerCreateSuccess").ToString(),
+                        FlashMessageHelper.TypeOption.Success
+                    );
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerCreateError").ToString(),
+                    FlashMessageHelper.TypeOption.Error
+                );
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerCreateWarning").ToString(),
+                    FlashMessageHelper.TypeOption.Warning
+                );
             }
 
             return View(product);
@@ -53,7 +86,12 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Product product = db.Products.Find(id);
+            var query = from s in db.Products
+                        where s.Id == id
+                        select s;
+
+            var product = query.FirstOrDefault();
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -64,12 +102,41 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(
+                        this,
+                        HttpContext.GetGlobalResourceObject(
+                            "Resources",
+                            "AdminControllerEditSuccess").ToString(),
+                        FlashMessageHelper.TypeOption.Success
+                    );
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditError").ToString(),
+                    FlashMessageHelper.TypeOption.Error
+                );
             }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(
+                    this,
+                    HttpContext.GetGlobalResourceObject(
+                        "Resources",
+                        "AdminControllerEditWarning").ToString(),
+                    FlashMessageHelper.TypeOption.Warning
+                );
+            }
+
             return View(product);
         }
 
