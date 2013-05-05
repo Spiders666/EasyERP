@@ -7,7 +7,15 @@ namespace EasyERP.Models
 {
     public class Configurator
     {
-        private HttpContextBase httpContext { get; set; }
+        private class Setting
+        {
+            public MaterialType MaterialType { get; set; }
+            public int MaterialId { get; set; }
+        }
+
+        private List<Setting> configuration;
+
+        private HttpContextBase httpContext;
         private const string ConfiguratorSessionKey = "ConfiguratorId";
 
         public static Configurator GetInstance(HttpContextBase httpContext)
@@ -17,35 +25,52 @@ namespace EasyERP.Models
 
             if (httpContext.Session[ConfiguratorSessionKey] == null)
             {
-                httpContext.Session[ConfiguratorSessionKey] = new List<Material>();
+                configurator.configuration = new List<Setting>();
+                httpContext.Session[ConfiguratorSessionKey] = configurator.configuration;
+            }
+            else
+            {
+                configurator.configuration = (List<Setting>)httpContext.Session[ConfiguratorSessionKey];
             }
 
             return configurator;
         }
 
-        public List<Material> GetConfiguration()
+        public void SetMaterial(MaterialType materialType, int materialId)
         {
-            return (List<Material>)httpContext.Session[ConfiguratorSessionKey];
-        }
-
-        public void AddToConfiguration(Material material)
-        {
-            List<Material> materials = GetConfiguration();
-
-            if (materials.Find(m => m.Id == material.Id) == null)
+            Setting setting = new Setting
             {
-                materials.Add(material);
+                MaterialType = materialType,
+                MaterialId = materialId
+            };
+
+            int index = configuration.FindIndex(c => c.MaterialType == materialType);
+
+            if (index == -1)
+            {
+                configuration.Add(setting);
+            }
+            else
+            {
+                configuration[index] = setting;
             }
 
-            httpContext.Session[ConfiguratorSessionKey] = materials;
+            httpContext.Session[ConfiguratorSessionKey] = configuration;
         }
 
-        public void RemoveFromConfiguration(Material material)
+        public int GetMaterialId(MaterialType materialType)
         {
-            List<Material> materials = GetConfiguration();
-            materials.Remove(material);
+            return configuration.Find(c => c.MaterialType == materialType).MaterialId;
+        }
 
-            httpContext.Session[ConfiguratorSessionKey] = materials;
+        public void RemoveMaterial(MaterialType materialType)
+        {
+            configuration.RemoveAt(configuration.FindIndex(c => c.MaterialType == materialType));
+        }
+
+        public bool isMaterialExists(MaterialType materialType)
+        {
+            return configuration.Exists(c => c.MaterialType == materialType);
         }
     }
 }

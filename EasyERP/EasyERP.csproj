@@ -178,6 +178,7 @@
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Admin\ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConfiguratorUnitTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -352,6 +353,8 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\ConfiguratorUnitTest\Set.cshtml" />
+    <Content Include="Views\ConfiguratorUnitTest\Get.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
