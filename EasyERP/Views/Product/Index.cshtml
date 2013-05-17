@@ -4,25 +4,30 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row">
+    <div class="span2">
 <h2>List of Products</h2>
-
+@*<ol>
+@foreach (var product in Model) {
+        <li>@Html.DisplayFor(modelItem => product.Type)</li>
+}
+</ol>*@
+</div>
+    <div class="span9">
+        <div class="row">
     @foreach(var product in ViewBag.OnePageOfProducts){
         <div class="span3">
-        <ul>
-        <li>@product.Name</li>
-        <li>@product.ImageName</li>
-        <li>@product.Price</li>
-        <li>@product.Availability</li>
-        </ul>
+            <div class="row">
+            <div class="span12">@product.Name</div>
+            <div class="span12">@Html.ActionLink("Więcej", "../Product/Details", new { id=product.Id })</div>
+            <div class="span12">@product.ImageName</div>
+            <div class="span1">@product.Price</div>
+            <div class="span1">@product.Availability</div>
+            </div>
         </div>
     }
-
-
+</div>
 <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-@Html.PagedListPager( (IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }) )
+</div>
+</div>
+<div class="span6 offset5">@Html.PagedListPager( (IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }) )</div>

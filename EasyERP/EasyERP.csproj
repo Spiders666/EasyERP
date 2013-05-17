@@ -355,6 +355,7 @@
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\ConfiguratorUnitTest\Set.cshtml" />
     <Content Include="Views\ConfiguratorUnitTest\Get.cshtml" />
+    <Content Include="Views\Configurator\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

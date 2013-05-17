@@ -29,3 +29,8 @@ _ReSharper*/
 $tf*/
 App_Data/
 EasyERP/App_Data/
+# SQL Server files
+*/App_Data/*.mdf
+*/App_Data/*.ldf
+*/EasyERP/App_Data/*.mdf
+*/EasyERP/App_Data/*.ldf

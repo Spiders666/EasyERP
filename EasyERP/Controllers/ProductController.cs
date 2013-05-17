@@ -30,25 +30,47 @@ namespace EasyERP.Controllers
         }
 
         //
-        // GET: /Product/List
-
-        public ActionResult List(int? page)
-        {
-            ViewBag.pge = page;
-            return View(db.Products.ToList());
-        }
-
-        //
         // GET: /Product/Details/5
 
         public ActionResult Details(int id = 0)
         {
+            var database = db.Materials;
+
+            var queryfill = 
+            from a in database
+            where a.Type == MaterialType.FILL && a.Availability == true
+            select a;
+
+            var queryupholstery =
+            from a in database
+            where a.Type == MaterialType.UPHOLSTERY && a.Availability == true
+            select a; 
+
+            var fill = queryfill.ToList();
+            var upholstery = queryupholstery.ToList();
+
             Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.fill = fill;
+            ViewBag.upholstery = upholstery;
             return View(product);
+        }
+
+        //
+        // POST: /Product/Details/5
+
+        [HttpPost]
+        public ActionResult Details(Order order, OrderItem orderitem)
+        {
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
