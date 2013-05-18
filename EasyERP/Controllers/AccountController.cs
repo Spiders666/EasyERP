@@ -8,12 +8,13 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using EasyERP.Filters;
 using EasyERP.Models;
+using EasyERP.Filters;
 
 namespace EasyERP.Controllers
 {
     [Authorize]
+    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
@@ -294,7 +295,7 @@ namespace EasyERP.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (DatabaseContext db = new DatabaseContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

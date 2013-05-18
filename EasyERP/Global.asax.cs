@@ -1,5 +1,4 @@
-﻿using EasyERP.Filters;
-using EasyERP.Models;
+﻿using EasyERP.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
