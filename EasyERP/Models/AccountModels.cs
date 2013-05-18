@@ -8,16 +8,6 @@ using System.Web.Security;
 
 namespace EasyERP.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DatabaseContext")
-        {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
-
     [Table("UserProfile")]
     public class UserProfile
     {

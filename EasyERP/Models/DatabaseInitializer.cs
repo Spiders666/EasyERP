@@ -1,5 +1,4 @@
-﻿using EasyERP.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,17 +10,23 @@ namespace EasyERP.Models
 {
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<DatabaseContext>
     {
-        [InitializeSimpleMembership]
         protected override void Seed(DatabaseContext context)
         {
             WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+
             var roles = (SimpleRoleProvider)Roles.Provider;
             var membership = (SimpleMembershipProvider)Membership.Provider;
 
             if (!Roles.RoleExists("Administrator"))
+            {
                 Roles.CreateRole("Administrator");
+            }
+
             if (!Roles.RoleExists("User"))
+            {
                 Roles.CreateRole("User");
+            }
+
             if (!WebSecurity.UserExists("Admin"))
             {
                 WebSecurity.CreateUserAndAccount("Admin", "password");

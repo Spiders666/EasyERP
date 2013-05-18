@@ -26,17 +26,22 @@ namespace EasyERP.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<DatabaseContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new DatabaseContext())
                     {
                         if (!context.Database.Exists())
                         {
                             // Create the SimpleMembership database without Entity Framework migration schema
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
                         }
+                    }
+
+                    if (!WebSecurity.Initialized)
+                    {
+                        WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: false);
                     }
                 }
                 catch (Exception ex)

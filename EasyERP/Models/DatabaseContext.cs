@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using WebMatrix.WebData;
 
 namespace EasyERP.Models
 {
@@ -16,6 +17,8 @@ namespace EasyERP.Models
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Material> Materials { get; set; }
+
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
