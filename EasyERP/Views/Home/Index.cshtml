@@ -54,7 +54,7 @@
     <li>@ProductHelpers.DisplayTypeName(product.Type)</li>
     <li>@PriceFormatHelper.DisplayFormatPrice(product.Price)</li>
     <li>@Html.DisplayFor(modelItem => product.Availability)</li>
-    <li>@Html.ActionLink("Więcej", "../Product/Details", new { id=product.Id }) </li>
+    <li>@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id }) </li>
         </ul>
     </div>
 }

@@ -754,3 +754,40 @@ tr.pager td {
             margin: 0;
         }
 }
+/*adddeb by marcin*/
+/*not_confirmed table color*/
+.table tbody tr.not_confirmed > td {
+  background-color: #db7e99;
+}
+.table-hover tbody tr.not_confirmed:hover > td {
+  background-color: #db7e99;
+}
+/*pending table color*/
+.table tbody tr.pending > td {
+  background-color: #c8c8c8;
+}
+.table-hover tbody tr.pending:hover > td {
+  background-color: #c8c8c8;
+}
+/*canceled table color*/
+.table tbody tr.canceled > td {
+  background-color: #832842;
+}
+.table-hover tbody tr.canceled:hover > td {
+  background-color: #832842;
+}
+/*sent table color*/
+.table tbody tr.sent > td {
+  background-color: #dff0d8;
+}
+.table-hover tbody tr.sent:hover > td {
+  background-color: #d0e9c6;
+}
+
+
+
+
+
+
+
+

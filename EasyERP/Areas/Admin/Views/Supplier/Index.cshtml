@@ -12,19 +12,19 @@
     </ul>
 </div>
 
-<table class="display-records">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Id</th>
             <th>Nazwa</th>
-            <th></th>
+            <th>Kontrolki</th>
         </tr>
     </thead>
 
     <tbody>
-@{int i = 0;}
+
 @foreach (var supplier in Model) {
-    <tr class="row@(i % 2)">
+    <tr>
         <td>@Html.DisplayFor(modelItem => supplier.Id)</td>
         <td>@Html.DisplayFor(modelItem => supplier.Name)</td>
         <td>
@@ -32,7 +32,6 @@
             @Html.ActionLink("edycja", "Edit", "Supplier", new { id=supplier.Id }, null)
         </td>
     </tr>
-i = i + 1;
 }
     </tbody>
 </table>

@@ -12,7 +12,7 @@
     </ul>
 </div>
 
-<table class="display-records">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -25,9 +25,8 @@
     </thead>
 
     <tbody>
-@{int i = 0;}
 @foreach (var product in Model) {
-    <tr class="row@(i % 2)">
+    <tr>
         <td>@Html.DisplayFor(modelItem => product.Id)</td>
         <td>@ProductHelpers.DisplayTypeName(product.Type)</td>
         <td>@Html.DisplayFor(modelItem => product.Name)</td>
@@ -39,7 +38,6 @@
             @Html.ActionLink("usuń", "Delete", new { id=product.Id })
         </td>
     </tr>
-i = i + 1;
 }
     </tbody>
 </table>

@@ -11,7 +11,7 @@
     </ul>
 </div>
 
-<table class="display-records">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -19,14 +19,13 @@
             <th>Nazwa</th>
             <th>Cena</th>
             <th>Dostępność</th>
-            <th></th>
+            <th>Kontrolki</th>
         </tr>
     </thead>
 
     <tbody>
-@{int i = 0;}
 @foreach (var material in Model) {
-    <tr class="row@(i % 2)">
+    <tr>
         <td>@Html.DisplayFor(modelItem => material.Id)</td>
         <td>@MaterialHelpers.DisplayTypeName(material.Type)</td>
         <td>@Html.DisplayFor(modelItem => material.Name)</td>
@@ -37,7 +36,6 @@
             @Html.ActionLink("edycja", "Edit", new { id = material.Id })
         </td>
     </tr>
-i = i + 1;
 }
     </tbody>
 </table>
