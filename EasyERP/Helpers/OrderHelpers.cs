@@ -25,6 +25,10 @@ namespace EasyERP.Helpers
                     return null;
             }
         }
+        public static string GetStateClass(OrderState state)
+        {
+            return state.ToString().ToLower();
+        }
 
         public static SelectList GetSelectList()
         {

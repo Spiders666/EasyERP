@@ -11,7 +11,7 @@
     </ul>
 </div>
 
-<table class="display-records">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -24,9 +24,8 @@
     </thead>
 
     <tbody>
-@{int i = 0;}
 @foreach (var order in Model) {
-    <tr class="row@(i % 2)">
+    <tr class="@OrderHelpers.GetStateClass(order.State)">
         <td>@Html.DisplayFor(modelItem => order.Id)</td>
         <td>@Html.DisplayFor(modelItem => order.Customer.Name)</td>
         <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
@@ -37,7 +36,6 @@
             @Html.ActionLink("dane klienta", "Details", "Customer", new { id=order.Id }, null)
         </td>
     </tr>
-i = i + 1;
 }
     </tbody>
 </table>

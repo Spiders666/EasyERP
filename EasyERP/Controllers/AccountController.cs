@@ -14,7 +14,6 @@ using EasyERP.Models;
 namespace EasyERP.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private DatabaseContext db = new DatabaseContext();

@@ -1,21 +1,42 @@
-﻿using System;
+﻿using EasyERP.Filters;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace EasyERP.Models
 {
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<DatabaseContext>
     {
+        [InitializeSimpleMembership]
         protected override void Seed(DatabaseContext context)
         {
+            WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            var membership = (SimpleMembershipProvider)Membership.Provider;
+
+            if (!Roles.RoleExists("Administrator"))
+                Roles.CreateRole("Administrator");
+            if (!Roles.RoleExists("User"))
+                Roles.CreateRole("User");
+            if (!WebSecurity.UserExists("Admin"))
+            {
+                WebSecurity.CreateUserAndAccount("Admin", "password");
+                Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
+            }
+
             /* Klienci */
             var customers = new List<Customer>
             {
-                new Customer { Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A" },
+
+                new Customer { Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A", UserId = 2 },
                 new Customer { Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B" },
+                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
+                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
+                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
                 new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
             };
 

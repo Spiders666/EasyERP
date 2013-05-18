@@ -1,4 +1,5 @@
-﻿using EasyERP.Models;
+﻿using EasyERP.Filters;
+using EasyERP.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,6 +9,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace EasyERP
 {
@@ -16,10 +19,10 @@ namespace EasyERP
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        
         protected void Application_Start()
         {
             Database.SetInitializer<DatabaseContext>(new DatabaseInitializer());
-
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
