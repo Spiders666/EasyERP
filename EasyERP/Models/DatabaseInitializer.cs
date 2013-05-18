@@ -35,9 +35,6 @@ namespace EasyERP.Models
                 new Customer { Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A", UserId = 2 },
                 new Customer { Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B" },
                 new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
-                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
-                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
-                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
             };
 
             customers.ForEach(c => context.Customers.Add(c));
@@ -100,10 +97,10 @@ namespace EasyERP.Models
             /* Produkty */
             var products = new List<Product>
             {
-                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 1", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 2", Price = 1.0m, Availability = false },
-                new Product { Type = ProductType.SOFA, Name = "Sofa 1", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.BED, Name = "Łóżko 1", Price = 777.0m, Availability = true }
+                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 2", Description = "opis", Price = 1.0m, Availability = false },
+                new Product { Type = ProductType.SOFA, Name = "Sofa 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { Type = ProductType.BED, Name = "Łóżko 1", Description = "opis", Price = 777.0m, Availability = true }
             };
 
             products.ForEach(p => context.Products.Add(p));

@@ -11,14 +11,14 @@ using PagedList.Mvc;
 
 namespace EasyERP.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
 
         //
         // GET: /Product/
 
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, int? category)
         {
             var products = db.Products.ToList(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
 
@@ -29,6 +29,39 @@ namespace EasyERP.Controllers
             return View();
         }
 
+        public ActionResult List(int? page, int? category)
+        {
+            var products = db.Products; //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
+
+            var productchosen = new ProductType();
+
+            if (category == 1)
+            { productchosen = ProductType.ARMCHAIR;
+            }
+            else if (category == 2)
+            { productchosen = ProductType.BED;
+            }
+            else if (category == 3)
+            { productchosen = ProductType.SOFA;
+            }
+            else
+            {
+                productchosen = ProductType.ARMCHAIR;
+            }
+
+            var queryproducts =
+            from a in products
+            where a.Type == productchosen
+            select a;
+
+            var cat = queryproducts.ToList();
+
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var onePageOfProducts = cat.ToPagedList(pageNumber, 9); // will only contain 9 products max because of the pageSize
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            return View();
+        }
         //
         // GET: /Product/Details/5
 

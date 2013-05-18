@@ -35,5 +35,28 @@ namespace EasyERP.Helpers
 
             return new SelectList(items, "Value", "Text");
         }
+        public static string DisplayCategoryName(string name)
+        {
+            switch (name)
+            {
+                case "Fotel":
+                    return "Fotele";
+                case "Sofa":
+                    return "Sofy";
+                case "Łóżko":
+                    return "Łóżka";
+                default:
+                    return null;
+            }
+        }
+
+        public static List<string> GetCategories()
+        {
+        List<string> Categories = new List<string>();
+            Categories.Add(DisplayTypeName(ProductType.ARMCHAIR));
+            Categories.Add(DisplayTypeName(ProductType.SOFA));
+            Categories.Add(DisplayTypeName(ProductType.BED));
+        return Categories;
+        }
     }
 }

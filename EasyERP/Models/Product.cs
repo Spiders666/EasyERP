@@ -24,6 +24,9 @@ namespace EasyERP.Models
         [Required]
         public String Name { get; set; }
 
+        [Required]
+        public String Description { get; set; }
+
         public string ImageName { get; set; }
 
         [Column(TypeName = "money")]
