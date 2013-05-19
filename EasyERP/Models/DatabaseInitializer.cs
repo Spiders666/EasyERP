@@ -14,9 +14,6 @@ namespace EasyERP.Models
         {
             WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
-            var roles = (SimpleRoleProvider)Roles.Provider;
-            var membership = (SimpleMembershipProvider)Membership.Provider;
-
             if (!Roles.RoleExists("Administrator"))
             {
                 Roles.CreateRole("Administrator");

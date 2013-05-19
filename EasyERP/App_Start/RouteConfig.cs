@@ -19,12 +19,6 @@ namespace EasyERP
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new[] { "EasyERP.Controllers" }
             );
-            // will allow for Products/Item/2/1
-            routes.MapRoute(
-                    "ProductsList",
-                    "Products/List/{id}/{category}",
-                    new { controller = "Products", action = "List" }
-            );
         }
     }
 }

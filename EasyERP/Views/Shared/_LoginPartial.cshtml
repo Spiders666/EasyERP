@@ -1,11 +1,12 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@using EasyERP.Helpers
+@if (Request.IsAuthenticated) {
     <ul>
         <li>Witaj, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Zarządzaj" })!</li>
-@*        @if (User.IsInRole("Administrator")) {<li>@Html.ActionLink("Strefa Admina", null, null, new { Area="Admin" }, null)</li>}*@
+        @if (EasyERP.Helpers.AccountHelpers.CheckAdminRole() == true) {
+            <li>@Html.ActionLink("Strefa Admina", null, null, new { Area="Admin" }, null)</li> }
         @using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
-    
         }
     </ul>
 } else {

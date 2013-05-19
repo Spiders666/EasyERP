@@ -185,6 +185,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AccountHelpers.cs" />
     <Compile Include="Helpers\FlashMessageHelper.cs" />
     <Compile Include="Helpers\MaterialHelpers.cs" />
     <Compile Include="Helpers\OrderHelpers.cs" />
@@ -213,6 +214,8 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\armchair.png" />
+    <Content Include="Content\images\bed.png" />
     <Content Include="Content\images\coach.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
