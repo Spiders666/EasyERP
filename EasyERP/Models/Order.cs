@@ -9,10 +9,10 @@ namespace EasyERP.Models
 {
     public enum OrderState
     {
-        NOT_CONFIRMED = 0, //oczekiwanie na potwierdzenie zamówienia
-        CANCELED = 1, //zamówienie anulowane
-        PENDING = 2, //oczekiwanie zapłaty
-        SENT = 3 //produkt wysłany do klienta
+        NotConfirmed = 0, //oczekiwanie na potwierdzenie zamówienia
+        Canceled = 1, //zamówienie anulowane
+        Pending = 2, //oczekiwanie zapłaty
+        Sent = 3 //produkt wysłany do klienta
     }
 
     public class Order

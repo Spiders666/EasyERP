@@ -8,6 +8,12 @@ using System.Web.Security;
 
 namespace EasyERP.Models
 {
+    public struct UserRole
+    {
+        public const string Administrator = "Administrator";
+        public const string User = "User";
+    }
+
     [Table("UserProfile")]
     public class UserProfile
     {

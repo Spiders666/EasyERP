@@ -10,6 +10,7 @@ using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
+    [Authorize(Roles = UserRole.Administrator)]
     public class ProductController : Controller
     {
         private DatabaseContext db = new DatabaseContext();

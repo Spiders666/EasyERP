@@ -135,4 +135,16 @@
   <data name="AdminControllerEditWarning" xml:space="preserve">
     <value>Dane został zaktualizowane przez inną osobę. Należy odświeżyć stronę w celu wczytania nowych danych.</value>
   </data>
+  <data name="OrderStateCanceled" xml:space="preserve">
+    <value>Anulowane</value>
+  </data>
+  <data name="OrderStateNotConfirmed" xml:space="preserve">
+    <value>Nie potwierdzone</value>
+  </data>
+  <data name="OrderStatePending" xml:space="preserve">
+    <value>Oczekiwane</value>
+  </data>
+  <data name="OrderStateSent" xml:space="preserve">
+    <value>Wysłane</value>
+  </data>
 </root>

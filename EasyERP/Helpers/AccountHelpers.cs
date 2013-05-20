@@ -16,12 +16,11 @@ namespace EasyERP.Helpers
         public static bool CheckAdminRole()
         {
             if (!WebSecurity.Initialized)
-                WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            if (Roles.IsUserInRole("Administrator"))
             {
-                return true;
-            } else
-                return false;
+                WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: false);
+            }
+
+            return Roles.IsUserInRole(UserRole.Administrator) ? true : false;
         }
     }
 }

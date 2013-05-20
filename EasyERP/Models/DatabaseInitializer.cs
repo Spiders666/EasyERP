@@ -14,20 +14,20 @@ namespace EasyERP.Models
         {
             WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
-            if (!Roles.RoleExists("Administrator"))
+            if (!Roles.RoleExists(UserRole.Administrator))
             {
-                Roles.CreateRole("Administrator");
+                Roles.CreateRole(UserRole.Administrator);
             }
 
-            if (!Roles.RoleExists("User"))
+            if (!Roles.RoleExists(UserRole.User))
             {
-                Roles.CreateRole("User");
+                Roles.CreateRole(UserRole.User);
             }
 
             if (!WebSecurity.UserExists("Admin"))
             {
                 WebSecurity.CreateUserAndAccount("Admin", "password");
-                Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
+                Roles.AddUserToRole("Admin", UserRole.Administrator);
             }
 
             /* Klienci */
@@ -45,9 +45,10 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NOT_CONFIRMED,  },
-                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.SENT },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.PENDING }
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NotConfirmed,  },
+                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Sent },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.Pending },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Sofa 1", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Canceled }
             };
 
             orders.ForEach(o => context.Orders.Add(o));

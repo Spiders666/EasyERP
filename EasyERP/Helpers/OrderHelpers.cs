@@ -11,19 +11,8 @@ namespace EasyERP.Helpers
     {
         public static string DisplayStateName(OrderState state)
         {
-            switch (state)
-            {
-                case OrderState.NOT_CONFIRMED:
-                    return "Nie potwierdzone";
-                case OrderState.CANCELED:
-                    return "Anulowane";
-                case OrderState.PENDING:
-                    return "Oczekiwane";
-                case OrderState.SENT:
-                    return "Wysłane";
-                default:
-                    return null;
-            }
+            string resourceName = "OrderState" + state.ToString();
+            return HttpContext.GetGlobalResourceObject("Resources", resourceName).ToString();
         }
         public static string GetStateClass(OrderState state)
         {
@@ -34,10 +23,10 @@ namespace EasyERP.Helpers
         {
             var items = new[]
             {
-                new SelectListItem { Value = OrderState.NOT_CONFIRMED.ToString(), Text = DisplayStateName(OrderState.NOT_CONFIRMED) },
-                new SelectListItem { Value = OrderState.CANCELED.ToString(), Text = DisplayStateName(OrderState.CANCELED) },
-                new SelectListItem { Value = OrderState.PENDING.ToString(), Text = DisplayStateName(OrderState.PENDING) },
-                new SelectListItem { Value = OrderState.SENT.ToString(), Text = DisplayStateName(OrderState.SENT) }
+                new SelectListItem { Value = OrderState.NotConfirmed.ToString(), Text = DisplayStateName(OrderState.NotConfirmed) },
+                new SelectListItem { Value = OrderState.Canceled.ToString(), Text = DisplayStateName(OrderState.Canceled) },
+                new SelectListItem { Value = OrderState.Pending.ToString(), Text = DisplayStateName(OrderState.Pending) },
+                new SelectListItem { Value = OrderState.Sent.ToString(), Text = DisplayStateName(OrderState.Sent) }
             };
 
             return new SelectList(items, "Value", "Text");
