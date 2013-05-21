@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EasyERP.Models.Material>
+
+@{
+    ViewBag.Title = "MaterialList";
+}
+
+<h2>MaterialList</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.OnePageOfProducts)
+{
+    <tr>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.ImageName
+        </td>
+        <td>
+            @item.Price
+        </td>
+        <td>@Html.ActionLink("Wybierz", "../Products/Set", new { id=item.Id, type=ViewBag.Type, returnurl=ViewBag.ReturnUrl})
+        </td>
+
+    </tr>
+}
+
+</table>

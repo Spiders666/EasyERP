@@ -1,5 +1,4 @@
-﻿@using EasyERP.Helpers
-@model EasyERP.Models.Product
+﻿@model EasyERP.Models.Product
 
 @{
     ViewBag.Title = "Details";
@@ -7,14 +6,24 @@
 
 <h2>Details</h2>
 
-<fieldset>
-    <legend>Product</legend>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <legend>Product</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Name)
+         @Html.HiddenFor(model => model.Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
     </div>
 
     <div class="display-label">
@@ -37,6 +46,23 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Availability)
     </div>
-    <div>@Html.DropDownList("Fill", new SelectList(ViewBag.fill, "Name", "Name"))</div>
-    <div>@Html.DropDownList("Upholstery", new SelectList(ViewBag.upholstery, "Name", "Name"))</div>
-</fieldset>
+    <div class="display-field">
+        @Html.ActionLink("Wybierz Wypełnienie", "../Products/MaterialList", new { page=1, type=1, returnurl=ViewBag.ReturnUrl })
+        @ViewBag.MaterialFill
+    </div>
+    <div class="display-field">
+        @Html.ActionLink("Wybierz Obicie", "../Products/MaterialList", new { page=1, type=2, returnurl=ViewBag.ReturnUrl })
+        @ViewBag.MaterialUp
+    </div>
+      <p>
+            <input type="submit" value="Create" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

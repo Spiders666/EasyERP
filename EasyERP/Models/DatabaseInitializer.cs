@@ -15,14 +15,10 @@ namespace EasyERP.Models
             WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
             if (!Roles.RoleExists("Administrator"))
-            {
                 Roles.CreateRole("Administrator");
-            }
 
             if (!Roles.RoleExists("User"))
-            {
                 Roles.CreateRole("User");
-            }
 
             if (!WebSecurity.UserExists("Admin"))
             {
@@ -31,12 +27,29 @@ namespace EasyERP.Models
             }
 
             /* Klienci */
+
+            if (!WebSecurity.UserExists("A"))
+            {
+                WebSecurity.CreateUserAndAccount("A", "password");
+                Roles.AddUsersToRoles(new[] { "A" }, new[] { "User" });
+            }
+            if (!WebSecurity.UserExists("B"))
+            {
+                WebSecurity.CreateUserAndAccount("B", "password");
+                Roles.AddUsersToRoles(new[] { "B" }, new[] { "User" });
+            }
+            if (!WebSecurity.UserExists("C"))
+            {
+                WebSecurity.CreateUserAndAccount("C", "password");
+                Roles.AddUsersToRoles(new[] { "C" }, new[] { "User" });
+            }
+
             var customers = new List<Customer>
             {
 
                 new Customer { Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A", UserId = 2 },
-                new Customer { Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B" },
-                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C" },
+                new Customer { Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B", UserId = 3 },
+                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C", UserId = 4 },
             };
 
             customers.ForEach(c => context.Customers.Add(c));

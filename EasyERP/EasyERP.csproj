@@ -351,10 +351,13 @@
     <Content Include="Views\Account\Register_step2.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\List.cshtml" />
     <Content Include="Views\ConfiguratorUnitTest\Set.cshtml" />
     <Content Include="Views\ConfiguratorUnitTest\Get.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Set.cshtml" />
+    <Content Include="Views\Products\Get.cshtml" />
+    <Content Include="Views\Products\MaterialList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

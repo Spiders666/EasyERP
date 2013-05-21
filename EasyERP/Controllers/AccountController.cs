@@ -97,7 +97,6 @@ namespace EasyERP.Controllers
         //
         // GET: /Account/Register_step2
 
-        [AllowAnonymous]
         public ActionResult Register_step2()
         {
             return View();

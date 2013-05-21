@@ -1,0 +1,11 @@
+﻿@{
+    Layout = null;
+}
+<script type="text/javascript">
+    window.setTimeout(function() {
+        window.location.href = '@Url.Action("Details", "Products", new { id = @ViewBag.ReturnUrl })';
+    }, 1000);
+</script>
+<h1>SET</h1>
+Material ID: @ViewBag.MaterialId
+Material TYPE: @ViewBag.MaterialType
