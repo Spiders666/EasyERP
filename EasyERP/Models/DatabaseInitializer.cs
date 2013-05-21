@@ -58,9 +58,10 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NOT_CONFIRMED,  },
-                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.SENT },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.PENDING }
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NotConfirmed,  },
+                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Sent },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.Pending },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Sofa 1", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Canceled }
             };
 
             orders.ForEach(o => context.Orders.Add(o));

@@ -113,5 +113,41 @@ namespace EasyERP.App_GlobalResources {
                 return ResourceManager.GetString("AdminControllerEditWarning", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anulowane.
+        /// </summary>
+        internal static string OrderStateCanceled {
+            get {
+                return ResourceManager.GetString("OrderStateCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie potwierdzone.
+        /// </summary>
+        internal static string OrderStateNotConfirmed {
+            get {
+                return ResourceManager.GetString("OrderStateNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oczekiwane.
+        /// </summary>
+        internal static string OrderStatePending {
+            get {
+                return ResourceManager.GetString("OrderStatePending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wysłane.
+        /// </summary>
+        internal static string OrderStateSent {
+            get {
+                return ResourceManager.GetString("OrderStateSent", resourceCulture);
+            }
+        }
     }
 }

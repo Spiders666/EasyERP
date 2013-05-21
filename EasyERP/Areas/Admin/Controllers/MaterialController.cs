@@ -6,11 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
-using EasyERP.Areas.Admin.ViewModels;
 using EasyERP.Helpers;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
+    [Authorize(Roles = UserRole.Administrator)]
     public class MaterialController : Controller
     {
         private DatabaseContext db = new DatabaseContext();

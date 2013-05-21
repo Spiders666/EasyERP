@@ -6,11 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
-using EasyERP.Areas.Admin.ViewModels;
 using System.Dynamic;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
+    [Authorize(Roles = UserRole.Administrator)]
     public class OrderController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
@@ -35,9 +35,9 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            decimal totalPrice = order.OrderItems.Sum(o => o.Price);
-
-            return View(new OrderDetailsViewModel(order, totalPrice));
+            decimal totalPrice = order.ProductPrice + order.OrderItems.Sum(o => o.Price);
+            ViewBag.TotalPrice = totalPrice;
+            return View(order);
         }
 
         protected override void Dispose(bool disposing)

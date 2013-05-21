@@ -18,8 +18,6 @@ namespace EasyERP.Models
         public int Id { get; set; }
         public int SupplierId { get; set; }
 
-        public int test { get; set; }
-
         [Required]
         public MaterialType Type { get; set; }
 
