@@ -353,6 +353,7 @@
     <Content Include="Views\Products\Set.cshtml" />
     <Content Include="Views\Products\Get.cshtml" />
     <Content Include="Views\Products\MaterialList.cshtml" />
+    <Content Include="Views\Products\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

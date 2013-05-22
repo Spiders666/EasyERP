@@ -1,4 +1,5 @@
 ﻿@model EasyERP.Models.Product
+@using EasyERP.Helpers
 
 @{
     ViewBag.Title = "Details";
@@ -45,6 +46,11 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Availability)
+    </div>
+        <div class="display-field">
+            Get customer id : @AccountHelpers.GetCustomerId()
+            <br />
+            Currrent user id : @WebSecurity.CurrentUserId
     </div>
     <div class="display-field">
         @Html.ActionLink("Wybierz Wypełnienie", "../Products/MaterialList", new { page=1, type=1, returnurl=ViewBag.ReturnUrl })

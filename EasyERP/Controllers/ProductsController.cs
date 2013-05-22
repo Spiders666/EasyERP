@@ -112,7 +112,7 @@ namespace EasyERP.Controllers
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login","Account");
-            order.CustomerId = WebSecurity.CurrentUserId;
+            order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
             order.ProductName = product.Name;
             order.ProductPrice = 100.00m;
             order.CreatedAt = DateTime.Now;
@@ -121,7 +121,7 @@ namespace EasyERP.Controllers
 
             //add order save
             //
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Cart", "Products");
         }
 
         //
@@ -129,7 +129,15 @@ namespace EasyERP.Controllers
 
         public ActionResult Cart()
         {
-            return View();
+            if (!WebSecurity.Initialized)
+                WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: false);
+
+            var CustomerId = Helpers.AccountHelpers.GetCustomerId();
+            var orders = from o in db.Orders.Include(o => o.Customer)
+                         where o.CustomerId == CustomerId
+                         select o;
+
+            return View(orders);
         }
 
         public ActionResult Set(int type = 1, int id = 1, int returnurl = 1)
