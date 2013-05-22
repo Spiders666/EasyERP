@@ -63,5 +63,13 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $('#myCarousel').carousel({
+                  interval: 5000,
+                  cycle: true
+              });
+          });
+    </script>
   </body>
 </html>

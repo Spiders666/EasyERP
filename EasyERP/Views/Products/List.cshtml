@@ -21,11 +21,10 @@
     @foreach(var product in ViewBag.OnePageOfProducts){
         <div class="span3">
             <div class="row">
-            <div class="span12">@product.Name</div>
-            <div class="span12">@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id })</div>
-            <div class="span12">@product.ImageName</div>
-            <div class="span1">@product.Price</div>
-            <div class="span1">@product.Availability</div>
+            <div class="span3"><h4>@product.Name</h4></div>
+            <div class="span3"><p>@Html.ActionLink(" ", "../Products/Details", new { id = product.Id }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @product.ImageName</p></div>
+            <div class="span3"><p>Cena: @PriceFormatHelper.DisplayFormatPrice(product.Price)</p></div>
+            <div class="span3"><p>@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id })</div>
             </div>
         </div>
     }

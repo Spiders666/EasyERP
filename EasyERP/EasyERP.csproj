@@ -351,7 +351,6 @@
     <Content Include="Views\ConfiguratorUnitTest\Get.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Set.cshtml" />
-    <Content Include="Views\Products\Get.cshtml" />
     <Content Include="Views\Products\MaterialList.cshtml" />
     <Content Include="Views\Products\Cart.cshtml" />
   </ItemGroup>

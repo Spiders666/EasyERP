@@ -1,41 +1,26 @@
 ﻿@model IEnumerable<EasyERP.Models.Material>
+@using PagedList.Mvc; 
+@using PagedList; 
+@using EasyERP.Helpers;
 
 @{
-    ViewBag.Title = "MaterialList";
+    ViewBag.Title = "Lista materiałów";
 }
 
-<h2>MaterialList</h2>
-
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in ViewBag.OnePageOfProducts)
-{
-    <tr>
-        <td>
-            @item.Name
-        </td>
-        <td>
-            @item.ImageName
-        </td>
-        <td>
-            @item.Price
-        </td>
-        <td>@Html.ActionLink("Wybierz", "../Products/Set", new { id=item.Id, type=ViewBag.Type, returnurl=ViewBag.ReturnUrl})
-        </td>
-
-    </tr>
-}
-
-</table>
+<h2>Lista materiałów:</h2>
+<div class="row">
+    <div class="span2">@Html.ActionLink("Wróć", "../Products/Details", new { id = ViewBag.ReturnUrl })</div>
+    <div class="span9">
+        <div class="row">
+    @foreach (var item in ViewBag.OnePageOfProducts)
+    {   <div class="span3">
+            <div class="row">
+            <div class="span3"><h4>@Html.ActionLink((string)item.Name, "../Products/Set", new { id = item.Id, type = ViewBag.Type, returnurl = ViewBag.ReturnUrl })</h4></div>
+            <div class="span3"><p>@Html.ActionLink(" ", "../Products/Set", new { id = item.Id, type = ViewBag.Type, returnurl = ViewBag.ReturnUrl }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @item.ImageName</p></div>
+            <div class="span3"><p>Cena: @PriceFormatHelper.DisplayFormatPrice(item.Price)</p></div>
+            </div>
+        </div>}
+        </div>
+    </div>
+</div>
+<div class="span6 offset5">@Html.PagedListPager( (IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }) )</div>

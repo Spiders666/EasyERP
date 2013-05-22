@@ -20,44 +20,45 @@
                   <li data-target="#myCarousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="/Content/images/coach.png" alt="">
+                  <div class="active item">
+                    <a href="~/Products/List/1/1">
+                    <img src="/Content/images/armchair.png" alt="">
                     <div class="carousel-caption">
                       <h4>First Thumbnail label</h4>
                       <p>Chose from our collection of coches</p>
                     </div>
+                    </a>
                   </div>
                   <div class="item">
+                    <a href="~/Products/List/1/2">
                     <img src="/Content/images/bed.png" alt="">
                     <div class="carousel-caption">
                       <h4>Łóżka</h4>
                       <p>Chose from a varierity of beds .</p>
                     </div>
+                    </a>
                   </div>
                   <div class="item">
-                    <img src="/Content/images/armchair.png" alt="">
+                    <a href="~/Products/List/1/3">
+                    <img src="/Content/images/coach.png" alt="">
                     <div class="carousel-caption">
                       <h4>Third Thumbnail label</h4>
-                      <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                      <p>Chose from our collection of archairs.</p>
                     </div>
+                    </a>
                   </div>
                 </div>
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
               </div>
-<h3>We suggest the following:</h3>
+<h3>Nasze produkty:</h3>
 <div class="span10">
 @foreach (var product in Model) {
     <div class="span3">
-        <ul>
-    <li>@Html.DisplayFor(modelItem => product.Name)</li>
-    <li>@ProductHelpers.DisplayTypeName(product.Type)</li>
-    <li>@PriceFormatHelper.DisplayFormatPrice(product.Price)</li>
-    <li>@Html.DisplayFor(modelItem => product.Availability)</li>
-    <li>@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id }) </li>
-        </ul>
+            <div class="span3"><h4>@product.Name</h4></div>
+            <div class="span3"><p>@Html.ActionLink(" ", "../Products/Details", new { id = product.Id }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @product.ImageName</p></div>
+            <div class="span3"><p>Cena: @PriceFormatHelper.DisplayFormatPrice(product.Price)</p></div>
+            <div class="span3"><p>@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id })</div>
     </div>
 }
 </div>
-
-

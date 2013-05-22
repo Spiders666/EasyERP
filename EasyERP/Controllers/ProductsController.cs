@@ -110,8 +110,18 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult Details(Product product, Order order)
         {
+            Configurator configuratorfill = Configurator.GetInstance(this.HttpContext);
+            Configurator configuratorupholstery = Configurator.GetInstance(this.HttpContext);
+
+            var ProductId = product.Id;
+
+            if (!configuratorfill.isMaterialExists(MaterialType.FILL))
+                return RedirectToAction("Details", "Products", new {id = ProductId});
+            if (!configuratorupholstery.isMaterialExists(MaterialType.UPHOLSTERY))
+                return RedirectToAction("Details", "Products", new {id = ProductId});
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login","Account");
+
             order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
             order.ProductName = product.Name;
             order.ProductPrice = 100.00m;
@@ -166,39 +176,6 @@ namespace EasyERP.Controllers
             return View();
         }
 
-
-        public ActionResult Get()
-        {
-            Configurator configuratorfill = Configurator.GetInstance(this.HttpContext);
-            Configurator configuratorupholstery = Configurator.GetInstance(this.HttpContext);
-
-            if (!configuratorfill.isMaterialExists(MaterialType.UPHOLSTERY) | !configuratorupholstery.isMaterialExists(MaterialType.UPHOLSTERY))
-            {
-                return HttpNotFound();
-            }
-
-            int idfill = configuratorfill.GetMaterialId(MaterialType.FILL);
-            int idup = configuratorupholstery.GetMaterialId(MaterialType.UPHOLSTERY);
-
-            var queryfill = from m in db.Materials
-                        where m.Id == idfill
-                        select m;
-            var queryup = from m in db.Materials
-                        where m.Id == idup
-                        select m;
-
-            var materialfill = queryfill.FirstOrDefault();
-            var materialup = queryup.FirstOrDefault();
-
-            if (materialfill == null | materialup == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.MaterialfillId = idfill.ToString();
-            ViewBag.MaterialupId = idup.ToString();
-            return View();
-        }
         public ActionResult MaterialList(int? page, int? type, int returnurl)
         {
             if (page == null | type == null)
