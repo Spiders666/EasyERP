@@ -41,9 +41,10 @@
                   </a>
                   <div class="nav-collapse">
                         <ul class="nav">
-                          <li class="active"><a href="~/Home/Index">Strona główna</a></li>
-                          <li><a href="~/Products/Index">Lista produktów</a></li>
-                          <li><a href="#contact">Kontakt</a></li>
+                          <li class="active"><a href="~/Home/Index"><i class="icon-home icon-large icon-white"></i> Strona główna</a></li>
+                          <li><a href="~/Products/Index"><i class="icon-tags icon-large icon-white"></i> Lista produktów</a></li>
+                          <li><a href="~/Home/Contact"><i class="icon-envelope icon-large icon-white"></i> Kontakt</a></li>
+                          <li><a href="~/Home/About"><i class="icon-heart icon-large icon-white"></i> O nas</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -52,6 +53,8 @@
         </div>
         <div class="container span11">
         @RenderBody()
+        </div>
+        <div class="container span11">
         <div class="navbar navbar-inverse">
             <div class="navbar-inner" style="text-align:center">
                 <h4 class="brand" style="float:none">Copyright EasyERP @DateTime.Now.Year</h4>

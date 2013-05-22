@@ -41,14 +41,20 @@
                   </a>
                   <div class="nav-collapse">
                         <ul class="nav">
-                          <li class="active"><a href="~/Home/Index">Strona główna</a></li>
+                          <li class="active"><a href="~/Home/Index"><i class="icon-home icon-large icon-white"></i> Strona główna</a></li>
+                          <li><a href="~/Admin/Supplier/Index"><i class="icon-globe icon-large icon-white"></i> Dostawcy</a></li>
+                          <li><a href="~/Admin/Material/Index"><i class="icon-wrench icon-large icon-white"></i> Materiały</a></li>
+                          <li><a href="~/Admin/Product/Index"><i class="icon-barcode icon-large icon-white"></i> Produkty</a></li>
+                          <li><a href="~/Admin/Order/Index"><i class="icon-shopping-cart icon-large icon-white"></i> Zamówienia</a></li>
+                          <li><a href="~/Admin/Customer/Index"><i class="icon-user icon-large icon-white"></i> Klienci</a></li>
+@*                        
+                            http://bloggingabout.net/blogs/rick/archive/2012/11/07/how-to-create-an-actionlink-with-a-twitter-bootstrap-icon-in-mvc4.aspx
                           <li>@Html.ActionLink("Dostawcy", "Index", "Supplier")</li>
                           <li>@Html.ActionLink("Materiały", "Index", "Material")</li>
                           <li>@Html.ActionLink("Produkty", "Index", "Product")</li>
                           <li>@Html.ActionLink("Zamówienia", "Index", "Order")</li>
                           <li>@Html.ActionLink("Klienci", "Index", "Customer")</li>
-                          <li><a href="~/Products/Index">Lista produktów</a></li>
-                          <li><a href="#contact">Kontakt</a></li>
+*@
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -57,11 +63,13 @@
         </div>
         <div class="container span11">
         @if (EasyERP.Helpers.FlashMessageHelper.IsMessage(TempData)) {
-            @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
+            </div>
         }
         @RenderBody()
         </div>
-
     </div>  
   </div>
     <!-- /container -->

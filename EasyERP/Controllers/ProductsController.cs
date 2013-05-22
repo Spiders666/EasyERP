@@ -121,6 +121,8 @@ namespace EasyERP.Controllers
                 return RedirectToAction("Details", "Products", new {id = ProductId});
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login","Account");
+            if (Helpers.AccountHelpers.GetCustomerId() == 0)
+                return RedirectToAction("Details", "Products", new {id = ProductId});
 
             order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
             order.ProductName = product.Name;

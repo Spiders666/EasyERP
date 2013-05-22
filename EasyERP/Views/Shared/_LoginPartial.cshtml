@@ -1,17 +1,17 @@
 ﻿@using EasyERP.Helpers
 @if (Request.IsAuthenticated) {
-    <ul>
-        <li>Witaj, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Zarządzaj" })!</li>
+    <div class="span2">
+        <div class="span2">Witaj, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Zarządzaj kontem" })!</div>
         @if (EasyERP.Helpers.AccountHelpers.CheckAdminRole() == true) {
-            <li>@Html.ActionLink("Strefa Admina", "Index", "Order", new { Area = "Admin" }, null)</li> }
+            <div class="span2">@Html.ActionLink("Strefa Admina", "Index", "Order", new { Area = "Admin" }, null)</div> }
         @using (Html.BeginForm("Logoff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+            <div class="span2"><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></div>
         }
-    </ul>
+    </div>
 } else {
-    <ul>
-        <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <div class="span2">
+        <div class="span2">@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</div>
+        <div class="span2">@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</div>
+    </div>
 }

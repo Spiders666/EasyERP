@@ -9,13 +9,6 @@
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CurrentVersion)
 
-<div class="actions">
-	<ul>
-        <li><input type="submit" value="Zapisz" /></li>
-        <li><input type="reset" value="Reset" /></li>
-	</ul>
-</div>
-
 <table class="cu-record">
     <tbody>
         <tr>
@@ -50,6 +43,9 @@
         </tr>
     </tbody>
 </table>
+<div class="actions">
+        <input type="submit" value="Zapisz" class="btn btn-inverse"/> | <input type="reset" value="Reset" class="btn btn-inverse"/>
+</div>
 }
 
 @section Scripts {
