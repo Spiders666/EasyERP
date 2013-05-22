@@ -51,14 +51,26 @@
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
               </div>
-<h3>Nasze produkty:</h3>
-<div class="span10">
+<div class="row">
+<div class="span2">
+@{int i = 1;}
+<h4>@Html.ActionLink("Kategorie:", "../Products/Index")</h4>
+    <ul>
+        @foreach (var category in ProductHelpers.GetCategories())
+        { <li>@Html.ActionLink(@ProductHelpers.DisplayCategoryName(category), "../Products/List/1/"+i)</li>
+            i = i + 1;
+        }
+    </ul>
+</div>
+<div class="span9">
+    <h3>Ostatnio dodane produkty:</h3>
 @foreach (var product in Model) {
-    <div class="span3">
+    <div class="span3" style="margin-left: 0px">
             <div class="span3"><h4>@product.Name</h4></div>
             <div class="span3"><p>@Html.ActionLink(" ", "../Products/Details", new { id = product.Id }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @product.ImageName</p></div>
             <div class="span3"><p>Cena: @PriceFormatHelper.DisplayFormatPrice(product.Price)</p></div>
             <div class="span3"><p>@Html.ActionLink("Więcej", "../Products/Details", new { id=product.Id })</div>
     </div>
 }
+</div>
 </div>

@@ -16,7 +16,16 @@ namespace EasyERP.Helpers
         }
         public static string GetStateClass(OrderState state)
         {
-            return state.ToString().ToLower();
+            var Classes = "";
+            if (state == OrderState.Canceled)
+                Classes = "alert alert-error";
+            if (state == OrderState.NotConfirmed)
+                Classes = "alert alert-info";
+            if (state == OrderState.Pending)
+                Classes = "alert alert-info";
+            if (state == OrderState.Sent)
+                Classes = "alert alert-success";
+            return Classes;
         }
 
         public static SelectList GetSelectList()
