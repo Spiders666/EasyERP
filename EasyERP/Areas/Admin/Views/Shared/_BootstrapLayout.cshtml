@@ -63,10 +63,7 @@
         </div>
         <div class="container span11">
         @if (EasyERP.Helpers.FlashMessageHelper.IsMessage(TempData)) {
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
-            </div>
+            @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData)
         }
         @RenderBody()
         </div>
