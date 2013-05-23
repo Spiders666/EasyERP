@@ -34,6 +34,8 @@ namespace EasyERP.Helpers
             
             TagBuilder flashMessage = new TagBuilder("div");
             flashMessage.AddCssClass("alert alert-" + result.Class);
+            flashMessage.MergeAttribute("id", "fadein");
+            flashMessage.MergeAttribute("style", "display: none;");
             flashMessage.InnerHtml = closeButton.ToString()
                 + result.Message.ToString();
 
