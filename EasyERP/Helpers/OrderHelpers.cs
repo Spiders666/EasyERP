@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EasyERP.App_GlobalResources;
 
 namespace EasyERP.Helpers
 {
@@ -12,7 +13,19 @@ namespace EasyERP.Helpers
         public static string DisplayStateName(OrderState state)
         {
             string resourceName = "OrderState" + state.ToString();
-            return HttpContext.GetGlobalResourceObject("Resources", resourceName).ToString();
+            switch (state)
+            {
+                case OrderState.Canceled:
+                    return Resources.OrderStateCanceled;
+                case OrderState.NotConfirmed:
+                    return Resources.OrderStateNotConfirmed;
+                case OrderState.Pending:
+                    return Resources.OrderStatePending;
+                case OrderState.Sent:
+                    return Resources.OrderStateSent;
+                default:
+                    return "";
+            }
         }
         public static string GetStateClass(OrderState state)
         {
