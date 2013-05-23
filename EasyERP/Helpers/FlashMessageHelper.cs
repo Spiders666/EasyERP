@@ -25,12 +25,19 @@ namespace EasyERP.Helpers
 
         public static MvcHtmlString DisplayMessage(TempDataDictionary tempData)
         {
-            var result = tempData.Where(item => item.Key.StartsWith("flash-message-")).Select(item => new { Class = item.Key, Message = item.Value }).SingleOrDefault();
+            var result = tempData.Where(item => item.Key.StartsWith("flash-message-")).Select(item => new { Class = item.Key.Replace("flash-message-", ""), Message = item.Value }).SingleOrDefault();
 
-            TagBuilder tagBuilder = new TagBuilder("div");
-            tagBuilder.AddCssClass(result.Class.ToString());
-            tagBuilder.SetInnerText(result.Message.ToString());
-            return MvcHtmlString.Create(tagBuilder.ToString());
+            TagBuilder closeButton = new TagBuilder("button");
+            closeButton.AddCssClass("close");
+            closeButton.MergeAttribute("data-dismiss", "alert");
+            closeButton.InnerHtml = "&times;";
+            
+            TagBuilder flashMessage = new TagBuilder("div");
+            flashMessage.AddCssClass("alert alert-" + result.Class);
+            flashMessage.InnerHtml = closeButton.ToString()
+                + result.Message.ToString();
+
+            return MvcHtmlString.Create(flashMessage.ToString());
         }
 
         public static bool IsMessage(TempDataDictionary tempData)
