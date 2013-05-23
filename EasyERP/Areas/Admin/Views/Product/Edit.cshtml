@@ -23,6 +23,11 @@
             <td>@Html.ValidationMessageFor(model => model.Name)</td>
         </tr>
         <tr>
+            <td class="title"><label>Opis</label></td>
+            <td>@Html.EditorFor(model => model.Description)</td>
+            <td>@Html.ValidationMessageFor(model => model.Description)</td>
+        </tr>
+        <tr>
             <td class="title"><label>Cena</label></td>
             <td>@Html.EditorFor(model => model.Price)</td>
             <td>@Html.ValidationMessageFor(model => model.Price)</td>

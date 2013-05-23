@@ -18,6 +18,7 @@
             <th>Id</th>
             <th>Typ</th>
             <th>Nazwa</th>
+            <th>Opis</th>
             <th>Cena</th>
             <th>Dostępność</th>
             <th></th>
@@ -30,6 +31,7 @@
         <td>@Html.DisplayFor(modelItem => product.Id)</td>
         <td>@ProductHelpers.DisplayTypeName(product.Type)</td>
         <td>@Html.DisplayFor(modelItem => product.Name)</td>
+        <td>@Html.DisplayFor(modelItem => product.Description)</td>
         <td>@PriceFormatHelper.DisplayFormatPrice(product.Price)</td>
         <td>@Html.DisplayFor(modelItem => product.Availability)</td>
         <td>
