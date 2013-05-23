@@ -16,9 +16,13 @@ namespace EasyERP.Areas.Admin.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        public ActionResult Index()
+        public ActionResult Index(string name = "")
         {
-            var query = from s in db.Suppliers select s;
+            var query = from q in db.Suppliers
+                        where q.Name.Contains(name)
+                        orderby q.Id descending
+                        select q;
+
             var suppliers = query.ToList();
 
             return View(suppliers);

@@ -12,6 +12,14 @@
     </ul>
 </div>
 
+<div class="search">
+    @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+    {
+        @Html.TextBox("name")
+        <input type="submit" value="Szukaj" />
+    }
+</div>
+
 <table class="table table-bordered">
     <thead>
         <tr>

@@ -17,8 +17,11 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var orders = from o in db.Orders.Include(o => o.Customer)
-                         select o;
+            var query = from q in db.Orders.Include(o => o.Customer)
+                         orderby q.Id descending
+                         select q;
+
+            var orders = query.ToList();
 
             return View(orders);
         }
@@ -28,6 +31,7 @@ namespace EasyERP.Areas.Admin.Controllers
             var query = from o in db.Orders.Include(o => o.Customer).Include(o => o.OrderItems)
                         where o.Id == id
                         select o;
+
             var order = query.FirstOrDefault();
 
             if (order == null)
