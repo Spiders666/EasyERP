@@ -23,7 +23,7 @@ namespace EasyERP.Helpers
             controller.TempData[string.Format("flash-message-{0}", type.ToString().ToLower())] = message;
         }
 
-        public static MvcHtmlString DisplayMessage(TempDataDictionary tempData)
+        public static MvcHtmlString DisplayMessage(TempDataDictionary tempData, string id, string style)
         {
             var result = tempData.Where(item => item.Key.StartsWith("flash-message-")).Select(item => new { Class = item.Key.Replace("flash-message-", ""), Message = item.Value }).SingleOrDefault();
 
@@ -34,8 +34,8 @@ namespace EasyERP.Helpers
             
             TagBuilder flashMessage = new TagBuilder("div");
             flashMessage.AddCssClass("alert alert-" + result.Class);
-            flashMessage.MergeAttribute("id", "fadein");
-            flashMessage.MergeAttribute("style", "display: none;");
+            flashMessage.MergeAttribute("id", id);
+            flashMessage.MergeAttribute("style", style);
             flashMessage.InnerHtml = closeButton.ToString()
                 + result.Message.ToString();
 

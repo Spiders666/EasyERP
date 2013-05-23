@@ -23,18 +23,21 @@ namespace EasyERP.Helpers
         public static int GetCustomerId()
         {
             if (!WebSecurity.Initialized)
+            {
                 WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: false);
-            
+            }
+
             DatabaseContext db = new DatabaseContext();
-            var customers = db.Customers;
+
             var UserId = WebSecurity.CurrentUserId;
-            var result = from m in customers
+
+            var query = from m in db.Customers
                         where m.UserId == UserId
                         select m.Id;
-            var query = result.FirstOrDefault();
-            var Converted = Convert.ToInt16(query);
 
-            return (query);
+            var customer = query.FirstOrDefault();
+
+            return (customer);
         }
     }
 }

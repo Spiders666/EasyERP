@@ -35,23 +35,13 @@ namespace EasyERP.Controllers
 
         public ActionResult List(int? page, int? category)
         {
-            var products = db.Products; //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
+            ProductType productType = (Enum.IsDefined(typeof(ProductType), category) ? (ProductType)category : ProductType.ARMCHAIR);
 
-            var productchosen = new ProductType();
-
-            if (category == 1)
-                productchosen = ProductType.ARMCHAIR;
-            else if (category == 2)
-                productchosen = ProductType.BED;
-            else if (category == 3)
-                productchosen = ProductType.SOFA;
-            else
-                productchosen = ProductType.ARMCHAIR;
-
-            var queryproducts =
-            from a in products
-            where a.Type == productchosen
-            select a;
+            var queryproducts = 
+                from a in db.Products
+                where a.Type == productType
+                orderby a.Name
+                select a;
 
             var cat = queryproducts.ToList();
 
@@ -66,17 +56,16 @@ namespace EasyERP.Controllers
 
         public ActionResult Details(int id)
         {
-            Configurator configuratorfill = Configurator.GetInstance(this.HttpContext);
-            Configurator configuratorupholstery = Configurator.GetInstance(this.HttpContext);
+            Configurator configurator = Configurator.GetInstance(this.HttpContext);
 
-            if (!configuratorfill.isMaterialExists(MaterialType.FILL))
+            if (!configurator.isMaterialExists(MaterialType.FILL))
                 ViewBag.MaterialFill = "nie wybrano!";
-            if (!configuratorupholstery.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
                 ViewBag.MaterialUp = "nie wybrano!";
 
-            if (configuratorfill.isMaterialExists(MaterialType.FILL))
+            if (configurator.isMaterialExists(MaterialType.FILL))
             {
-                int idfill = configuratorfill.GetMaterialId(MaterialType.FILL);
+                int idfill = configurator.GetMaterialId(MaterialType.FILL);
                 var queryfill = from m in db.Materials
                                 where m.Id == idfill
                                 select m;
@@ -85,9 +74,9 @@ namespace EasyERP.Controllers
                     return HttpNotFound();
                 ViewBag.MaterialFill = idfill.ToString();
             }
-            if (configuratorupholstery.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (configurator.isMaterialExists(MaterialType.UPHOLSTERY))
             {
-                int idup = configuratorupholstery.GetMaterialId(MaterialType.UPHOLSTERY);
+                int idup = configurator.GetMaterialId(MaterialType.UPHOLSTERY);
                 var queryup = from m in db.Materials
                               where m.Id == idup
                               select m;
@@ -110,14 +99,13 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult Details(Product product, Order order)
         {
-            Configurator configuratorfill = Configurator.GetInstance(this.HttpContext);
-            Configurator configuratorupholstery = Configurator.GetInstance(this.HttpContext);
+            Configurator configurator = Configurator.GetInstance(this.HttpContext);
 
             var ProductId = product.Id;
 
-            if (!configuratorfill.isMaterialExists(MaterialType.FILL))
+            if (!configurator.isMaterialExists(MaterialType.FILL))
                 return RedirectToAction("Details", "Products", new {id = ProductId});
-            if (!configuratorupholstery.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
                 return RedirectToAction("Details", "Products", new {id = ProductId});
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login","Account");
@@ -126,7 +114,7 @@ namespace EasyERP.Controllers
 
             order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
             order.ProductName = product.Name;
-            order.ProductPrice = 100.00m;
+            order.ProductPrice = product.Price;
             order.CreatedAt = DateTime.Now;
             db.Orders.Add(order);
             db.SaveChanges();
@@ -154,8 +142,7 @@ namespace EasyERP.Controllers
 
         public ActionResult Set(int type = 1, int id = 1, int returnurl = 1)
         {
-            Configurator configuratorfill = Configurator.GetInstance(this.HttpContext);
-            Configurator configuratorupholstery = Configurator.GetInstance(this.HttpContext);
+            Configurator configurator = Configurator.GetInstance(this.HttpContext);
 
             var query = from m in db.Materials
                         where m.Id == id
@@ -168,9 +155,9 @@ namespace EasyERP.Controllers
                 return HttpNotFound();
             }
             if (type == 1)
-                configuratorfill.SetMaterial(material.Type, material.Id);
+                configurator.SetMaterial(material.Type, material.Id);
             else
-                configuratorupholstery.SetMaterial(material.Type, material.Id);
+                configurator.SetMaterial(material.Type, material.Id);
 
             ViewBag.MaterialId = material.Id;
             ViewBag.MaterialType = material.Type.ToString();
@@ -183,20 +170,13 @@ namespace EasyERP.Controllers
             if (page == null | type == null)
                 return RedirectToAction("List");
 
-            var Materials = db.Materials;
-            var TypeChosed = new MaterialType();
+            MaterialType materialType = (Enum.IsDefined(typeof(MaterialType), type) ? (MaterialType)type : MaterialType.FILL);
 
-            if (type == 1)
-                TypeChosed = MaterialType.FILL;
-            else if (type == 2)
-                TypeChosed = MaterialType.UPHOLSTERY;
-            else
-                TypeChosed = MaterialType.FILL;
-
-            var query = from a in Materials
-                        where a.Type == TypeChosed
-                        orderby a.Name
-                        select a;
+            var query =
+                from a in db.Materials
+                where a.Type == materialType
+                orderby a.Name
+                select a;
 
             var pageNumber = page ?? 1; 
             var onePageOfProducts = query.ToPagedList(pageNumber, 9); 

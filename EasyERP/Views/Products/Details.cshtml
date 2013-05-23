@@ -1,5 +1,6 @@
 ﻿@model EasyERP.Models.Product
 @using EasyERP.Helpers
+@using EasyERP.Models
 
 @{
     ViewBag.Title = "Details";
@@ -34,11 +35,11 @@
     </div>
 
     <div class="display-field">
-        @Html.ActionLink("Wybierz Wypełnienie", "../Products/MaterialList", new { page=1, type=1, returnurl=ViewBag.ReturnUrl })
+        @Html.ActionLink("Wybierz Wypełnienie", "../Products/MaterialList", new { page=1, type=(int)MaterialType.FILL, returnurl=ViewBag.ReturnUrl })
         @ViewBag.MaterialFill
     </div>
     <div class="display-field">
-        @Html.ActionLink("Wybierz Obicie", "../Products/MaterialList", new { page=1, type=2, returnurl=ViewBag.ReturnUrl })
+        @Html.ActionLink("Wybierz Obicie", "../Products/MaterialList", new { page=1, type=(int)MaterialType.UPHOLSTERY, returnurl=ViewBag.ReturnUrl })
         @ViewBag.MaterialUp
     </div>
       <p>
