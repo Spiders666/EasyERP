@@ -32,14 +32,14 @@ namespace EasyERP.Controllers
 
         //
         // GET: /Product/List/1/1
-
+        
         public ActionResult List(int? page, int? category)
         {
-            ProductType productType = (Enum.IsDefined(typeof(ProductType), category) ? (ProductType)category : ProductType.ARMCHAIR);
+            //ProductType productType = (Enum.IsDefined(typeof(ProductType), category) ? (ProductType)category : ProductType.ARMCHAIR);
 
             var queryproducts = 
                 from a in db.Products
-                where a.Type == productType
+                where a.ProductTypeId == category
                 orderby a.Name
                 select a;
 
@@ -53,19 +53,19 @@ namespace EasyERP.Controllers
         }
         //
         // GET: /Product/Details/1
-
+        
         public ActionResult Details(int id)
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            if (!configurator.isMaterialExists(MaterialType.FILL))
+            if (!sessionSettings.isMaterialExists(1))
                 ViewBag.MaterialFill = "nie wybrano!";
-            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (!sessionSettings.isMaterialExists(2))
                 ViewBag.MaterialUp = "nie wybrano!";
 
-            if (configurator.isMaterialExists(MaterialType.FILL))
+            if (sessionSettings.isMaterialExists(2))
             {
-                int idfill = configurator.GetMaterialId(MaterialType.FILL);
+                int idfill = sessionSettings.GetMaterialId(2);
                 var queryfill = from m in db.Materials
                                 where m.Id == idfill
                                 select m;
@@ -74,9 +74,9 @@ namespace EasyERP.Controllers
                     return HttpNotFound();
                 ViewBag.MaterialFill = idfill.ToString();
             }
-            if (configurator.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (sessionSettings.isMaterialExists(1))
             {
-                int idup = configurator.GetMaterialId(MaterialType.UPHOLSTERY);
+                int idup = sessionSettings.GetMaterialId(1);
                 var queryup = from m in db.Materials
                               where m.Id == idup
                               select m;
@@ -99,13 +99,13 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult Details(Product product, Order order)
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
             var ProductId = product.Id;
 
-            if (!configurator.isMaterialExists(MaterialType.FILL))
+            if (!sessionSettings.isMaterialExists(2))
                 return RedirectToAction("Details", "Products", new {id = ProductId});
-            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (!sessionSettings.isMaterialExists(1))
                 return RedirectToAction("Details", "Products", new {id = ProductId});
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login","Account");
@@ -123,7 +123,7 @@ namespace EasyERP.Controllers
             //
             return RedirectToAction("Cart", "Products");
         }
-
+        
         //
         // GET: /Products/Cart
 
@@ -142,9 +142,9 @@ namespace EasyERP.Controllers
 
         public ActionResult Set(int type = 1, int id = 1, int returnurl = 1)
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            var query = from m in db.Materials
+            var query = from m in db.Materials.Include(m => m.Type)
                         where m.Id == id
                         select m;
 
@@ -155,16 +155,16 @@ namespace EasyERP.Controllers
                 return HttpNotFound();
             }
             if (type == 1)
-                configurator.SetMaterial(material.Type, material.Id);
+                sessionSettings.SetMaterial(material.Type.Id, material.Id);
             else
-                configurator.SetMaterial(material.Type, material.Id);
+                sessionSettings.SetMaterial(material.Type.Id, material.Id);
 
             ViewBag.MaterialId = material.Id;
             ViewBag.MaterialType = material.Type.ToString();
             ViewBag.ReturnUrl = returnurl;
             return View();
         }
-
+        /*
         public ActionResult MaterialList(int? page, int? type, int returnurl)
         {
             if (page == null | type == null)
@@ -185,6 +185,6 @@ namespace EasyERP.Controllers
             ViewBag.ReturnUrl = returnurl;
             ViewBag.Type = type;
             return View();
-        }
+        }*/
     }
 }

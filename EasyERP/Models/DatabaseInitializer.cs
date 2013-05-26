@@ -44,6 +44,65 @@ namespace EasyERP.Models
                 Roles.AddUsersToRoles(new[] { "C" }, new[] { "User" });
             }
 
+            /* Dostawcy */
+            var suppliers = new List<Supplier>
+            {
+                new Supplier { NIP = "1234567890", Name = "X_NAME", City = "X", ZipCode = "12-123", Street = "X 1", Telephone = "+48 123-123-123", Email = "X@o2.pl", BankAccount = "12345678901234567890123456" },
+                new Supplier { NIP = "1234567890", Name = "Y_NAME", City = "Y", ZipCode = "12-123", Street = "Y 2", Telephone = "+48 123-123-123", Email = "Y@o2.pl", BankAccount = "12345678901234567890123456" },
+                new Supplier { NIP = "1234567890", Name = "Z_NAME", City = "Z", ZipCode = "12-123", Street = "Z 3", Telephone = "+48 123-123-123", Email = "Z@o2.pl", BankAccount = "12345678901234567890123456" },
+            };
+
+            suppliers.ForEach(s => context.Suppliers.Add(s));
+            context.SaveChanges();
+
+            /* Rodzaje materiału */
+            var materialTypes = new List<MaterialType>
+            {
+                new MaterialType { Name = "Obicie" },
+                new MaterialType { Name = "Wypełnienie" }
+            };
+
+            materialTypes.ForEach(s => context.MaterialTypes.Add(s));
+            context.SaveChanges();
+
+            /* Części */
+            var materials = new List<Material>
+            {
+                new Material { SupplierId = 1, MaterialTypeId = 1, Name = "X Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 1, MaterialTypeId = 1, Name = "X Obicie 2", Price = 1.0m, Availability = false },
+                new Material { SupplierId = 2, MaterialTypeId = 1, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 2, MaterialTypeId = 1, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, MaterialTypeId = 1, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Trociny", Price = 131.0m, Availability = true },
+                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Szmaty", Price = 221.0m, Availability = false },
+                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Bawełna luksusowa", Price = 311.0m, Availability = true }
+            };
+
+            materials.ForEach(m => context.Materials.Add(m));
+            context.SaveChanges();
+
+            var productTypes = new List<ProductType>()
+            {
+                new ProductType { Name = "Fotel" },
+                new ProductType { Name = "Sofa" },
+                new ProductType { Name = "Łóżko" }
+            };
+
+            productTypes.ForEach(m => context.ProductTypes.Add(m));
+            context.SaveChanges();
+
+            /* Produkty */
+            var products = new List<Product>
+            {
+                new Product { ProductTypeId = 1, Name = "Fotel 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { ProductTypeId = 1, Name = "Fotel 2", Description = "opis", Price = 1.0m, Availability = false },
+                new Product { ProductTypeId = 2, Name = "Sofa 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { ProductTypeId = 3, Name = "Łóżko 1", Description = "opis", Price = 777.0m, Availability = true }
+            };
+
+            products.ForEach(p => context.Products.Add(p));
+            context.SaveChanges();
+
             var customers = new List<Customer>
             {
 
@@ -58,10 +117,10 @@ namespace EasyERP.Models
             /* Zamówienia */
             var orders = new List<Order>
             {
-                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductName = "Fotel 1", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.NotConfirmed,  },
-                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductName = "Sofa 2", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Sent },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Fotel 2", ProductPrice = 100.00m, ProductType = ProductType.ARMCHAIR, State = OrderState.Pending },
-                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductName = "Sofa 1", ProductPrice = 100.00m, ProductType = ProductType.SOFA, State = OrderState.Canceled }
+                new Order { CustomerId = 1, CreatedAt = DateTime.Now, ProductTypeName = "Fotel", ProductName = "Fotel 1", ProductPrice = 100.00m, State = OrderState.NotConfirmed,  },
+                new Order { CustomerId = 2, CreatedAt = DateTime.Now, ProductTypeName = "Sofa", ProductName = "Sofa 2", ProductPrice = 100.00m, State = OrderState.Sent },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductTypeName = "Fotel", ProductName = "Fotel 2", ProductPrice = 100.00m, State = OrderState.Pending },
+                new Order { CustomerId = 3, CreatedAt = DateTime.Now, ProductTypeName = "Sofa", ProductName = "Sofa 1", ProductPrice = 100.00m, State = OrderState.Canceled }
             };
 
             orders.ForEach(o => context.Orders.Add(o));
@@ -70,56 +129,17 @@ namespace EasyERP.Models
             /* Pozycje zamówionego zestawu */
             var orderItems = new List<OrderItem>
             {
-                new OrderItem { OrderId = 1, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
-                new OrderItem { OrderId = 1, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
+                new OrderItem { OrderId = 1, MaterialTypeName = "Obicie", MaterialName = "X Obicie 1", Price = 109.99m },
+                new OrderItem { OrderId = 1, MaterialTypeName = "Wypełnienie", MaterialName = "Z Wypełnienie 1", Price = 109.99m },
 
-                new OrderItem { OrderId = 2, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
-                new OrderItem { OrderId = 2, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
+                new OrderItem { OrderId = 2, MaterialTypeName = "Obicie", MaterialName = "X Obicie 1", Price = 109.99m },
+                new OrderItem { OrderId = 2, MaterialTypeName = "Wypełnienie", MaterialName = "Z Wypełnienie 1", Price = 109.99m },
 
-                new OrderItem { OrderId = 3, MaterialName = "X Obicie 1", Price = 109.99m, MaterialType = MaterialType.UPHOLSTERY },
-                new OrderItem { OrderId = 3, MaterialName = "Z Wypełnienie 1", Price = 109.99m, MaterialType = MaterialType.FILL },
+                new OrderItem { OrderId = 3, MaterialTypeName = "Obicie", MaterialName = "X Obicie 1", Price = 109.99m },
+                new OrderItem { OrderId = 3, MaterialTypeName = "Wypełnienie", MaterialName = "Z Wypełnienie 1", Price = 109.99m },
             };
 
             orderItems.ForEach(o => context.OrderItems.Add(o));
-            context.SaveChanges();
-
-            /* Dostawcy */
-            var suppliers = new List<Supplier>
-            {
-                new Supplier { NIP = "1234567890", Name = "X_NAME", City = "X", ZipCode = "12-123", Street = "X 1", Telephone = "+48 123-123-123", Email = "X@o2.pl", BankAccount = "12345678901234567890123456" },
-                new Supplier { NIP = "1234567890", Name = "Y_NAME", City = "Y", ZipCode = "12-123", Street = "Y 2", Telephone = "+48 123-123-123", Email = "Y@o2.pl", BankAccount = "12345678901234567890123456" },
-                new Supplier { NIP = "1234567890", Name = "Z_NAME", City = "Z", ZipCode = "12-123", Street = "Z 3", Telephone = "+48 123-123-123", Email = "Z@o2.pl", BankAccount = "12345678901234567890123456" },
-            };
-
-            suppliers.ForEach(s => context.Suppliers.Add(s));
-            context.SaveChanges();
-
-            /* Części */
-            var materials = new List<Material>
-            {
-                new Material { SupplierId = 1, Type = MaterialType.UPHOLSTERY, Name = "X Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 1, Type = MaterialType.UPHOLSTERY, Name = "X Obicie 2", Price = 1.0m, Availability = false },
-                new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 2, Type = MaterialType.UPHOLSTERY, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.UPHOLSTERY, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Trociny", Price = 131.0m, Availability = true },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Szmaty", Price = 221.0m, Availability = false },
-                new Material { SupplierId = 3, Type = MaterialType.FILL, Name = "Bawełna luksusowa", Price = 311.0m, Availability = true }
-            };
-
-            materials.ForEach(m => context.Materials.Add(m));
-            context.SaveChanges();
-
-            /* Produkty */
-            var products = new List<Product>
-            {
-                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 1", Description = "opis", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.ARMCHAIR, Name = "Fotel 2", Description = "opis", Price = 1.0m, Availability = false },
-                new Product { Type = ProductType.SOFA, Name = "Sofa 1", Description = "opis", Price = 1.0m, Availability = true },
-                new Product { Type = ProductType.BED, Name = "Łóżko 1", Description = "opis", Price = 777.0m, Availability = true }
-            };
-
-            products.ForEach(p => context.Products.Add(p));
             context.SaveChanges();
         }
     }

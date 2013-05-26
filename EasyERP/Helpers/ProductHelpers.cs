@@ -9,21 +9,7 @@ namespace EasyERP.Helpers
 {
     public class ProductHelpers
     {
-        public static string DisplayTypeName(ProductType type)
-        {
-            switch (type)
-            {
-                case ProductType.ARMCHAIR:
-                    return "Fotel";
-                case ProductType.SOFA:
-                    return "Sofa";
-                case ProductType.BED:
-                    return "Łóżko";
-                default:
-                    return null;
-            }
-        }
-
+        /*
         public static SelectList GetSelectList()
         {
             var items = new[]
@@ -34,7 +20,7 @@ namespace EasyERP.Helpers
             };
 
             return new SelectList(items, "Value", "Text");
-        }
+        }*/
         public static string DisplayCategoryName(string name)
         {
             switch (name)
@@ -52,11 +38,25 @@ namespace EasyERP.Helpers
 
         public static List<string> GetCategories()
         {
-        List<string> Categories = new List<string>();
-            Categories.Add(DisplayTypeName(ProductType.ARMCHAIR));
-            Categories.Add(DisplayTypeName(ProductType.SOFA));
-            Categories.Add(DisplayTypeName(ProductType.BED));
-        return Categories;
+            DatabaseContext db = new DatabaseContext();
+            var query = from q in db.ProductTypes
+                        select q;
+
+            var productTypes = query.ToList();
+
+            if (productTypes == null)
+            {
+                return  null;
+            }
+
+            List<string> result = new List<string>();
+
+            foreach(var productType in productTypes)
+            {
+                result.Add(productType.Name);
+            }
+
+            return result;
         }
     }
 }

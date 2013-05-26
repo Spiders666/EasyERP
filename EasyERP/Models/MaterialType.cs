@@ -7,17 +7,14 @@ using System.Web;
 
 namespace EasyERP.Models
 {
-    public class Setting
+    public class MaterialType
     {
         public int Id { get; set; }
 
-        public int ProductTypeId { get; set; }
-        public int MaterialTypeId { get; set; }
+        [Required]
+        public string Name { get; set; }
 
         [Timestamp]
         public byte[] CurrentVersion { get; set; }
-
-        public MaterialType MaterialType { get; set; }
-        public ProductType ProductType { get; set; }
     }
 }

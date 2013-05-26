@@ -23,7 +23,7 @@ namespace EasyERP.Models
         public int CustomerId { get; set; }
 
         [Required]
-        public ProductType ProductType { get; set; }
+        public string ProductTypeName { get; set; }
 
         [Required]
         public String ProductName { get; set; }

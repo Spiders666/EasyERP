@@ -19,8 +19,8 @@ namespace EasyERP.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var query = from q in db.Orders.Include(o => o.Customer)
-                         orderby q.Id descending
-                         select q;
+                        orderby q.Id descending
+                        select q;
 
             var orders = query.ToList();
 

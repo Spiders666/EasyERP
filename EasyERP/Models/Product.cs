@@ -7,19 +7,12 @@ using System.Web;
 
 namespace EasyERP.Models
 {
-    public enum ProductType
-    {
-        ARMCHAIR = 1, //fotel
-        SOFA = 2, //sofa
-        BED = 3 //łóżko
-    }
-
     public class Product
     {
         public int Id { get; set; }
 
         [Required]
-        public ProductType Type { get; set; }
+        public int ProductTypeId { get; set; }
 
         [Required]
         public String Name { get; set; }
@@ -37,5 +30,7 @@ namespace EasyERP.Models
 
         [Timestamp]
         public byte[] CurrentVersion { get; set; }
+
+        public ProductType Type { get; set; }
     }
 }

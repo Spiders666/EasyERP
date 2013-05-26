@@ -9,28 +9,20 @@ namespace EasyERP.Helpers
 {
     public class MaterialHelpers
     {
-        public static string DisplayTypeName(MaterialType type)
-        {
-            switch (type)
-            {
-                case MaterialType.UPHOLSTERY:
-                    return "Obicie";
-                case MaterialType.FILL:
-                    return "Wypełnienie";
-                default:
-                    return null;
-            }
-        }
-
         public static SelectList GetSelectList()
         {
-            var items = new []
-            {
-                new SelectListItem { Value = MaterialType.UPHOLSTERY.ToString(), Text = DisplayTypeName(MaterialType.UPHOLSTERY) },
-                new SelectListItem { Value = MaterialType.FILL.ToString(), Text = DisplayTypeName(MaterialType.FILL) }
-            };
+            DatabaseContext db = new DatabaseContext();
+            var query = from q in db.MaterialTypes
+                        select q;
 
-            return new SelectList(items, "Value", "Text");
+            var materialTypes = query.ToList();
+
+            if (materialTypes == null)
+            {
+                return null;
+            }
+
+            return new SelectList(materialTypes, "Id", "Name");
         }
     }
 }

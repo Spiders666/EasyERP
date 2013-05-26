@@ -14,9 +14,9 @@ namespace EasyERP.Controllers
 
         public ActionResult Set(int id = 0)
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            var query = from m in db.Materials
+            var query = from m in db.Materials.Include("Type")
                         where m.Id == id
                         select m;
 
@@ -27,12 +27,12 @@ namespace EasyERP.Controllers
                 return HttpNotFound();
             }
 
-            configurator.SetMaterial(material.Type, material.Id);
+            sessionSettings.SetMaterial(material.Type.Id, material.Id);
 
             ViewBag.MaterialId = material.Id;
             return View();
         }
-
+        /*
         public ActionResult Get()
         {
             Configurator configurator = Configurator.GetInstance(this.HttpContext);
@@ -58,5 +58,6 @@ namespace EasyERP.Controllers
             ViewBag.MaterialId = id.ToString();
             return View();
         }
+        */
     }
 }

@@ -7,19 +7,15 @@ using System.Web;
 
 namespace EasyERP.Models
 {
-    public enum MaterialType
-    {
-        UPHOLSTERY = 1, //obicie
-        FILL = 2 //wypełnienie
-    }
-
     public class Material
     {
         public int Id { get; set; }
-        public int SupplierId { get; set; }
 
         [Required]
-        public MaterialType Type { get; set; }
+        public int MaterialTypeId { get; set; }
+
+        [Required]
+        public int SupplierId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -36,6 +32,7 @@ namespace EasyERP.Models
         [Timestamp]
         public byte[] CurrentVersion { get; set; }
 
+        public MaterialType Type { get; set; }
         public Supplier Supplier { get; set; }
     }
 }

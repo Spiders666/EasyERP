@@ -15,7 +15,7 @@ namespace EasyERP.Models
         public int OrderId { get; set; }
 
         [Required]
-        public MaterialType MaterialType { get; set; }
+        public string MaterialTypeName { get; set; }
 
         [Required]
         public String MaterialName { get; set; }
