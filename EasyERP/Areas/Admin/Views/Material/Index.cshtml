@@ -35,7 +35,7 @@
 @foreach (var material in Model) {
     <tr>
         <td>@Html.DisplayFor(modelItem => material.Id)</td>
-        <td>@MaterialHelpers.DisplayTypeName(material.Type)</td>
+        <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
         <td>@Html.DisplayFor(modelItem => material.Name)</td>
         <td>@PriceFormatHelper.DisplayFormatPrice(material.Price)</td>
         <td>@Html.DisplayFor(modelItem => material.Availability)</td>

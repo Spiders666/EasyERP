@@ -17,7 +17,7 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Index(string name = "")
         {
-            var query = from q in db.Materials
+            var query = from q in db.Materials.Include(m => m.Type)
                         where q.Name.Contains(name)
                         orderby q.Id descending
                         select q;
@@ -29,7 +29,7 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            var query = from m in db.Materials.Include(m => m.Supplier)
+            var query = from m in db.Materials.Include(m => m.Supplier).Include(m => m.Type)
                         where m.Id == id
                         select m;
 
