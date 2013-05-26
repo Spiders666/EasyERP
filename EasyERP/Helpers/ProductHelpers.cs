@@ -9,18 +9,22 @@ namespace EasyERP.Helpers
 {
     public class ProductHelpers
     {
-        /*
         public static SelectList GetSelectList()
         {
-            var items = new[]
-            {
-                new SelectListItem { Value = ProductType.ARMCHAIR.ToString(), Text = DisplayTypeName(ProductType.ARMCHAIR) },
-                new SelectListItem { Value = ProductType.SOFA.ToString(), Text = DisplayTypeName(ProductType.SOFA) },
-                new SelectListItem { Value = ProductType.BED.ToString(), Text = DisplayTypeName(ProductType.BED) }
-            };
+            DatabaseContext db = new DatabaseContext();
+            var query = from q in db.ProductTypes
+                        select q;
 
-            return new SelectList(items, "Value", "Text");
-        }*/
+            var productTypes = query.ToList();
+
+            if (productTypes == null)
+            {
+                return null;
+            }
+
+            return new SelectList(productTypes, "Id", "Name");
+        }
+
         public static string DisplayCategoryName(string name)
         {
             switch (name)
@@ -32,7 +36,7 @@ namespace EasyERP.Helpers
                 case "Łóżko":
                     return "Łóżka";
                 default:
-                    return null;
+                    return "nieznane";
             }
         }
 
@@ -46,7 +50,7 @@ namespace EasyERP.Helpers
 
             if (productTypes == null)
             {
-                return  null;
+                return  new List<string>();
             }
 
             List<string> result = new List<string>();

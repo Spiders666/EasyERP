@@ -305,6 +305,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Areas\Admin\Views\Shared\_BootstrapLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\CreateType.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\CreateType.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

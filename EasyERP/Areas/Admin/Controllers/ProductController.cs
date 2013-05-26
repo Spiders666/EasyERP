@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Helpers;
+using EasyERP.App_GlobalResources;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -87,6 +88,41 @@ namespace EasyERP.Areas.Admin.Controllers
             }
 
             return View(product);
+        }
+
+        public ActionResult CreateType()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateType(ProductType productType)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.ProductTypes.Add(productType);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerCreateSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
+                    return RedirectToAction("Index");
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditWarning,
+                    FlashMessageHelper.TypeOption.Warning);
+            }
+
+            return View(productType);
         }
 
         public ActionResult Edit(int id = 0)
