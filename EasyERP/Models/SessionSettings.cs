@@ -60,7 +60,12 @@ namespace EasyERP.Models
 
         public int GetMaterialId(int materialTypeId)
         {
-            return settings.Find(c => c.MaterialTypeId == materialTypeId).MaterialId;
+            if (isMaterialExists(materialTypeId))
+            {
+                return 0;
+            }
+
+            return settings.Find(c => c.MaterialTypeId == materialTypeId).MaterialTypeId;
         }
 
         public void RemoveMaterial(int materialTypeId)

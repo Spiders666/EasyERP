@@ -193,7 +193,7 @@
     <Compile Include="Models\SessionSettings.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\ProductType.cs" />
-    <Compile Include="Models\Configurator.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
@@ -307,6 +307,11 @@
     <Content Include="Areas\Admin\Views\Shared\_BootstrapLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Material\CreateType.cshtml" />
     <Content Include="Areas\Admin\Views\Product\CreateType.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Types.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\SetTypeConfiguration.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\Types.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\EditType.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\EditType.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

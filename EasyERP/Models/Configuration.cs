@@ -7,7 +7,7 @@ using System.Web;
 
 namespace EasyERP.Models
 {
-    public class Setting
+    public class Configuration
     {
         public int Id { get; set; }
 

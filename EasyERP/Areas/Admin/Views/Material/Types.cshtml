@@ -1,0 +1,32 @@
+﻿@model IEnumerable<EasyERP.Models.MaterialType>
+@{
+    ViewBag.Title = "Rodzaje materiału";
+}
+
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("odśwież", "Types")</li>
+    </ul>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Kontrolki</th>
+        </tr>
+    </thead>
+
+    <tbody>
+@foreach (var type in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => type.Id)</td>
+        <td>@Html.DisplayFor(modelItem => type.Name)</td>
+        <td>
+            @Html.ActionLink("edycja", "EditType", new { id = type.Id })
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<EasyERP.Models.MaterialType>
+
+@{
+    ViewBag.Title = "SetTypeConfigurator";
+}
+
+@foreach (var materialType in Model) {
+    @Html.DisplayFor(model => materialType.Name)
+
+}

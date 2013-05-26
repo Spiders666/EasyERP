@@ -104,41 +104,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(material);
         }
 
-        public ActionResult CreateType()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateType(MaterialType materialType)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.MaterialTypes.Add(materialType);
-                    db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this, 
-                        Resources.AdminControllerCreateSuccess,
-                        FlashMessageHelper.TypeOption.Success);
-
-                    return RedirectToAction("Index");
-                }
-
-                FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateError,
-                    FlashMessageHelper.TypeOption.Error);
-            }
-            catch (Exception)
-            {
-                FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateWarning,
-                    FlashMessageHelper.TypeOption.Warning);
-            }
-
-            return View(materialType);
-        }
-
         public ActionResult Edit(int id = 0)
         {
             var query = from s in db.Materials
@@ -213,6 +178,96 @@ namespace EasyERP.Areas.Admin.Controllers
             db.Materials.Remove(material);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Types()
+        {
+            var query = from q in db.MaterialTypes
+                        select q;
+
+            var materialTypes = query.ToList();
+
+            return View(materialTypes);
+        }
+
+        public ActionResult CreateType()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateType(MaterialType materialType)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.MaterialTypes.Add(materialType);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerCreateSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
+                    return RedirectToAction("Types");
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateWarning,
+                    FlashMessageHelper.TypeOption.Warning);
+            }
+
+            return View(materialType);
+        }
+
+        public ActionResult EditType(int id = 0)
+        {
+            var query = from q in db.MaterialTypes
+                        where q.Id == id
+                        select q;
+
+            var materialType = query.FirstOrDefault();
+
+            if (materialType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(materialType);
+        }
+
+        [HttpPost]
+        public ActionResult EditType(MaterialType materialType)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.MaterialTypes.Add(materialType);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerCreateSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
+                    return RedirectToAction("Types");
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditWarning,
+                    FlashMessageHelper.TypeOption.Warning);
+            }
+
+            return View(materialType);
         }
 
         protected override void Dispose(bool disposing)

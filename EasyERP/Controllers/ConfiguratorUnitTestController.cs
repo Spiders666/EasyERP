@@ -28,24 +28,25 @@ namespace EasyERP.Controllers
             }
 
             sessionSettings.SetMaterial(material.Type.Id, material.Id);
+            sessionSettings.SetMaterial(2, 8);
 
             ViewBag.MaterialId = material.Id;
             return View();
         }
-        /*
+        
         public ActionResult Get()
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
+            if (!sessionSettings.isMaterialExists(2))
             {
                 return HttpNotFound();
             }
 
-            int id = configurator.GetMaterialId(MaterialType.UPHOLSTERY);
+            int materialfillId = sessionSettings.GetMaterialId(2);
 
             var query = from m in db.Materials
-                        where m.Id == id
+                        where m.Id == materialfillId
                         select m;
 
             var material = query.FirstOrDefault();
@@ -55,9 +56,28 @@ namespace EasyERP.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.MaterialId = id.ToString();
+            if (!sessionSettings.isMaterialExists(1))
+            {
+                return HttpNotFound();
+            }
+
+            int materialupId = sessionSettings.GetMaterialId(1);
+
+            var query2 = from m in db.Materials
+                         where m.Id == materialupId
+                         select m;
+
+            var material2 = query.FirstOrDefault();
+
+            if (material2 == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.MaterialfillId = materialfillId.ToString();
+            ViewBag.MaterialupId = materialupId.ToString();
             return View();
         }
-        */
+        
     }
 }

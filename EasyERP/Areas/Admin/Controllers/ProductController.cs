@@ -90,41 +90,6 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(product);
         }
 
-        public ActionResult CreateType()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateType(ProductType productType)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.ProductTypes.Add(productType);
-                    db.SaveChanges();
-                    FlashMessageHelper.SetMessage(this,
-                        Resources.AdminControllerCreateSuccess,
-                        FlashMessageHelper.TypeOption.Success);
-
-                    return RedirectToAction("Index");
-                }
-
-                FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateError,
-                    FlashMessageHelper.TypeOption.Error);
-            }
-            catch (Exception)
-            {
-                FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerEditWarning,
-                    FlashMessageHelper.TypeOption.Warning);
-            }
-
-            return View(productType);
-        }
-
         public ActionResult Edit(int id = 0)
         {
             var query = from s in db.Products
@@ -199,6 +164,115 @@ namespace EasyERP.Areas.Admin.Controllers
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /**
+         * Product types
+         */
+
+        public ActionResult Types()
+        {
+            var query = from q in db.ProductTypes
+                        select q;
+
+            var productTypes = query.ToList();
+
+            return View(productTypes);
+        }
+
+        public ActionResult CreateType()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateType(ProductType productType)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.ProductTypes.Add(productType);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerCreateSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
+                    return RedirectToAction("Types");
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditWarning,
+                    FlashMessageHelper.TypeOption.Warning);
+            }
+
+            return View(productType);
+        }
+
+        public ActionResult EditType(int id = 0)
+        {
+            var query = from q in db.ProductTypes
+                        where q.Id == id
+                        select q;
+
+            var productType = query.FirstOrDefault();
+
+            if (productType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productType);
+        }
+
+        [HttpPost]
+        public ActionResult EditType(ProductType productType)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.ProductTypes.Add(productType);
+                    db.SaveChanges();
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerCreateSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
+                    return RedirectToAction("Types");
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+            catch (Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditWarning,
+                    FlashMessageHelper.TypeOption.Warning);
+            }
+
+            return View(productType);
+        }
+
+        public ActionResult SetTypeConfiguration(int id = 0)
+        {
+            var query = from q in db.MaterialTypes
+                        select q;
+
+            var materialTypes = query.ToList();
+
+            if (materialTypes == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(materialTypes);
         }
 
         protected override void Dispose(bool disposing)
