@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
-
+using EasyERP.Helpers;
+using EasyERP.App_GlobalResources;
 
 namespace EasyERP.Controllers
 {
@@ -16,9 +19,9 @@ namespace EasyERP.Controllers
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            var query = from m in db.Materials.Include("Type")
-                        where m.Id == id
-                        select m;
+            var query = from q in db.Materials.Include(m => m.Type)
+                        where q.Id == id
+                        select q;
 
             var material = query.FirstOrDefault();
 
@@ -28,7 +31,6 @@ namespace EasyERP.Controllers
             }
 
             sessionSettings.SetMaterial(material.Type.Id, material.Id);
-            sessionSettings.SetMaterial(2, 8);
 
             ViewBag.MaterialId = material.Id;
             return View();
@@ -38,45 +40,19 @@ namespace EasyERP.Controllers
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            if (!sessionSettings.isMaterialExists(2))
+            var query = from q in db.Configurations
+                        select q.MaterialType;
+
+            var materialTypes = query.ToList();
+
+            List<int> listId= new List<int>();
+
+            foreach (var materialType in materialTypes)
             {
-                return HttpNotFound();
+                listId.Add(sessionSettings.GetMaterialId(materialType.Id));
             }
 
-            int materialfillId = sessionSettings.GetMaterialId(2);
-
-            var query = from m in db.Materials
-                        where m.Id == materialfillId
-                        select m;
-
-            var material = query.FirstOrDefault();
-
-            if (material == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (!sessionSettings.isMaterialExists(1))
-            {
-                return HttpNotFound();
-            }
-
-            int materialupId = sessionSettings.GetMaterialId(1);
-
-            var query2 = from m in db.Materials
-                         where m.Id == materialupId
-                         select m;
-
-            var material2 = query.FirstOrDefault();
-
-            if (material2 == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.MaterialfillId = materialfillId.ToString();
-            ViewBag.MaterialupId = materialupId.ToString();
-            return View();
+            return View(listId);
         }
         
     }
