@@ -115,33 +115,22 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
-                    FlashMessageHelper.SetMessage(
-                        this,
-                        HttpContext.GetGlobalResourceObject(
-                            "Resources",
-                            "AdminControllerEditSuccess").ToString(),
-                        FlashMessageHelper.TypeOption.Success
-                    );
+                    FlashMessageHelper.SetMessage(this,
+                        Resources.AdminControllerEditSuccess,
+                        FlashMessageHelper.TypeOption.Success);
+
                     return RedirectToAction("Index");
                 }
 
-                FlashMessageHelper.SetMessage(
-                    this,
-                    HttpContext.GetGlobalResourceObject(
-                        "Resources",
-                        "AdminControllerEditError").ToString(),
-                    FlashMessageHelper.TypeOption.Error
-                );
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditError,
+                    FlashMessageHelper.TypeOption.Error);
             }
             catch (Exception)
             {
-                FlashMessageHelper.SetMessage(
-                    this,
-                    HttpContext.GetGlobalResourceObject(
-                        "Resources",
-                        "AdminControllerEditWarning").ToString(),
-                    FlashMessageHelper.TypeOption.Warning
-                );
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerEditWarning,
+                    FlashMessageHelper.TypeOption.Warning);
             }
 
             return View(product);
@@ -238,17 +227,17 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.ProductTypes.Add(productType);
+                    db.Entry(productType).State = EntityState.Modified;
                     db.SaveChanges();
                     FlashMessageHelper.SetMessage(this,
-                        Resources.AdminControllerCreateSuccess,
+                        Resources.AdminControllerEditSuccess,
                         FlashMessageHelper.TypeOption.Success);
 
                     return RedirectToAction("Types");
                 }
 
                 FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateError,
+                    Resources.AdminControllerEditError,
                     FlashMessageHelper.TypeOption.Error);
             }
             catch (Exception)
@@ -354,7 +343,7 @@ namespace EasyERP.Areas.Admin.Controllers
                 }
 
                 FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateSuccess,
+                    Resources.AdminControllerEditSuccess,
                     FlashMessageHelper.TypeOption.Success);
 
                 return RedirectToAction("Types");
@@ -363,7 +352,7 @@ namespace EasyERP.Areas.Admin.Controllers
             catch(Exception)
             {
                 FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateError,
+                    Resources.AdminControllerEditError,
                     FlashMessageHelper.TypeOption.Error);
             }
 

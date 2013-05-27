@@ -11,6 +11,14 @@
     </ul>
 </div>
 
+<div class="search">
+    @using (Html.BeginForm("Index", "Order", FormMethod.Get))
+    {
+        @Html.DropDownList("state", @OrderHelpers.GetSelectList())
+        <input type="submit" value="Wyświetl" />
+    }
+</div>
+
 <table class="table table-bordered">
     <thead>
         <tr>

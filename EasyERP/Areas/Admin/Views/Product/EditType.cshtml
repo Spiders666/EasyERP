@@ -7,6 +7,9 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CurrentVersion)
+
 <table class="cu-record">
     <tbody>
         <tr>

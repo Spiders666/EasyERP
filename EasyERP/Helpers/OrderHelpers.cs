@@ -45,6 +45,7 @@ namespace EasyERP.Helpers
         {
             var items = new[]
             {
+                new SelectListItem { Value = "", Text = "-- status zamówienia --" },
                 new SelectListItem { Value = OrderState.NotConfirmed.ToString(), Text = DisplayStateName(OrderState.NotConfirmed) },
                 new SelectListItem { Value = OrderState.Canceled.ToString(), Text = DisplayStateName(OrderState.Canceled) },
                 new SelectListItem { Value = OrderState.Pending.ToString(), Text = DisplayStateName(OrderState.Pending) },

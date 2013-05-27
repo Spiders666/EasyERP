@@ -247,17 +247,17 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.MaterialTypes.Add(materialType);
+                    db.Entry(materialType).State = EntityState.Modified;
                     db.SaveChanges();
                     FlashMessageHelper.SetMessage(this,
-                        Resources.AdminControllerCreateSuccess,
+                        Resources.AdminControllerEditSuccess,
                         FlashMessageHelper.TypeOption.Success);
 
                     return RedirectToAction("Types");
                 }
 
                 FlashMessageHelper.SetMessage(this,
-                    Resources.AdminControllerCreateError,
+                    Resources.AdminControllerEditError,
                     FlashMessageHelper.TypeOption.Error);
             }
             catch (Exception)
