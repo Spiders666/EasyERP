@@ -4,17 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using EasyERP.Models;
 
-namespace EasyERP.Models
+namespace EasyERP.Areas.Admin.ViewModels
 {
-    public class Configuration
+    public class ConfigurationViewModel
     {
-        public int Id { get; set; }
-
-        public int ProductTypeId { get; set; }
-        public int MaterialTypeId { get; set; }
-
-        public MaterialType MaterialType { get; set; }
         public ProductType ProductType { get; set; }
+        public List<MaterialType> MaterialTypes { get; set; }
+        public List<bool> Configuration { get; set; }
     }
 }

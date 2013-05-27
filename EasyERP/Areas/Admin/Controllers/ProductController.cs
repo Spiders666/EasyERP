@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Helpers;
 using EasyERP.App_GlobalResources;
+using EasyERP.Areas.Admin.ViewModels;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -262,17 +263,111 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult SetTypeConfiguration(int id = 0)
         {
-            var query = from q in db.MaterialTypes
+            var query = from q in db.ProductTypes
+                        where q.Id == id
                         select q;
 
-            var materialTypes = query.ToList();
+            var productType = query.FirstOrDefault();
 
-            if (materialTypes == null)
+            if (productType == null)
             {
                 return HttpNotFound();
             }
 
-            return View(materialTypes);
+            var query2 = from q in db.MaterialTypes
+                         select q;
+
+            var materialTypes = query2.ToList();
+
+            var query3 = from q in db.Configurations
+                         where q.ProductTypeId == productType.Id
+                         select q.MaterialType;
+
+            var configuration = query3.ToList();
+
+            ConfigurationViewModel configurationViewModel = new ConfigurationViewModel();
+            configurationViewModel.ProductType = productType;
+            configurationViewModel.MaterialTypes = materialTypes;
+            configurationViewModel.Configuration = new List<bool>();
+
+            foreach (var materialType in materialTypes)
+            {
+                configurationViewModel.Configuration.Add(configuration.Contains(materialType));
+            }
+
+            return View(configurationViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SetTypeConfiguration(ConfigurationViewModel configurationViewModelCommand)
+        {
+            var query = from q in db.ProductTypes
+                        where q.Id == configurationViewModelCommand.ProductType.Id
+                        select q;
+
+            var productType = query.FirstOrDefault();
+
+            if (productType == null)
+            {
+                return HttpNotFound();
+            }
+
+            var query2 = from q in db.MaterialTypes
+                         select q;
+
+            var materialTypes = query2.ToList();
+
+            if (configurationViewModelCommand.Configuration.Count != materialTypes.Count)
+            {
+                return HttpNotFound();
+            }
+
+            var query3 = from q in db.Configurations
+                         where q.ProductTypeId == productType.Id
+                         select q.MaterialType;
+
+            var configuration = query3.ToList();
+
+            ConfigurationViewModel configurationViewModel = new ConfigurationViewModel();
+            configurationViewModel.ProductType = productType;
+            configurationViewModel.MaterialTypes = materialTypes;
+            configurationViewModel.Configuration = configurationViewModelCommand.Configuration;
+
+            try
+            {
+                int i = 0;
+                foreach (var materialType in materialTypes)
+                {
+                    if (configuration.Contains(materialType) == true && configurationViewModelCommand.Configuration[i] == false)
+                    {
+                        db.Configurations.Remove(db.Configurations.Find(materialType.Id));
+                        db.SaveChanges();
+                    }
+
+                    if (configuration.Contains(materialType) == false && configurationViewModelCommand.Configuration[i] == true)
+                    {
+                        db.Configurations.Add(new Configuration { MaterialTypeId = materialType.Id, ProductTypeId = productType.Id });
+                        db.SaveChanges();
+                    }
+
+                    i++;
+                }
+
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateSuccess,
+                    FlashMessageHelper.TypeOption.Success);
+
+                return RedirectToAction("Types");
+
+            }
+            catch(Exception)
+            {
+                FlashMessageHelper.SetMessage(this,
+                    Resources.AdminControllerCreateError,
+                    FlashMessageHelper.TypeOption.Error);
+            }
+
+            return View(configurationViewModel);
         }
 
         protected override void Dispose(bool disposing)

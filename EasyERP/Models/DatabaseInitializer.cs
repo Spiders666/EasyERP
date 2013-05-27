@@ -59,7 +59,8 @@ namespace EasyERP.Models
             var materialTypes = new List<MaterialType>
             {
                 new MaterialType { Name = "Obicie" },
-                new MaterialType { Name = "Wypełnienie" }
+                new MaterialType { Name = "Wypełnienie" },
+                new MaterialType { Name = "Testowy materiał" }
             };
 
             materialTypes.ForEach(s => context.MaterialTypes.Add(s));
@@ -101,6 +102,16 @@ namespace EasyERP.Models
             };
 
             products.ForEach(p => context.Products.Add(p));
+            context.SaveChanges();
+
+            /* Konfigurator */
+            var configuration = new List<Configuration>
+            {
+                new Configuration { ProductTypeId = 1, MaterialTypeId = 1 },
+                new Configuration { ProductTypeId = 1, MaterialTypeId = 2 },
+            };
+
+            configuration.ForEach(p => context.Configurations.Add(p));
             context.SaveChanges();
 
             var customers = new List<Customer>
