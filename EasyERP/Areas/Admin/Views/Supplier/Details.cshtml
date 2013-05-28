@@ -53,6 +53,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Typ</th>
             <th>Nazwa</th>
             <th>Cena</th>
             <th>Dostępność</th>
@@ -65,6 +66,7 @@
 @foreach (var material in Model.Materials) {
         <tr>
             <td>@Html.DisplayFor(modelItem => material.Id)</td>
+            <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
             <td>@Html.DisplayFor(modelItem => material.Name)</td>
             <td>@Html.DisplayFor(modelItem => material.Price)</td>
             <td>@Html.DisplayFor(modelItem => material.Availability)</td>

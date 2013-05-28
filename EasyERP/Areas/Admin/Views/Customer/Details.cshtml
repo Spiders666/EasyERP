@@ -56,7 +56,7 @@
 @foreach (var order in Model.Orders) {
         <tr>
             <td>@Html.DisplayFor(modelItem => order.Id)</td>
-            <td>@ProductHelpers.DisplayTypeName(order.ProductType)</td>
+            <td>@Html.DisplayFor(modelItem => order.ProductTypeName)</td>
             <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
             <td>@PriceFormatHelper.DisplayFormatPrice(order.ProductPrice)</td>
             <td>

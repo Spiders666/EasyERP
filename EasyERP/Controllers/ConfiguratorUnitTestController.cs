@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Models;
-
+using EasyERP.Helpers;
+using EasyERP.App_GlobalResources;
 
 namespace EasyERP.Controllers
 {
@@ -16,9 +19,9 @@ namespace EasyERP.Controllers
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            var query = from m in db.Materials.Include("Type")
-                        where m.Id == id
-                        select m;
+            var query = from q in db.Materials.Include(m => m.Type)
+                        where q.Id == id
+                        select q;
 
             var material = query.FirstOrDefault();
 
@@ -32,32 +35,25 @@ namespace EasyERP.Controllers
             ViewBag.MaterialId = material.Id;
             return View();
         }
-        /*
+        
         public ActionResult Get()
         {
-            Configurator configurator = Configurator.GetInstance(this.HttpContext);
+            SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            if (!configurator.isMaterialExists(MaterialType.UPHOLSTERY))
+            var query = from q in db.Configurations
+                        select q.MaterialType;
+
+            var materialTypes = query.ToList();
+
+            List<int> listId= new List<int>();
+
+            foreach (var materialType in materialTypes)
             {
-                return HttpNotFound();
+                listId.Add(sessionSettings.GetMaterialId(materialType.Id));
             }
 
-            int id = configurator.GetMaterialId(MaterialType.UPHOLSTERY);
-
-            var query = from m in db.Materials
-                        where m.Id == id
-                        select m;
-
-            var material = query.FirstOrDefault();
-
-            if (material == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.MaterialId = id.ToString();
-            return View();
+            return View(listId);
         }
-        */
+        
     }
 }

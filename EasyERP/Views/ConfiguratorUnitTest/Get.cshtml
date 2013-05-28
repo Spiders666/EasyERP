@@ -1,0 +1,9 @@
+﻿@model IEnumerable<int>
+@{
+    Layout = null;
+}
+GET:
+@foreach (var id in Model) {
+    @id
+    <br />
+}

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<EasyERP.Models.ProductType>
+@{
+    ViewBag.Title = "Rodzaje produktu";
+}
+
+<div class="actions">
+    <ul>
+        <li>@Html.ActionLink("utwórz typ", "CreateType", "Product")</li>
+        <li>@Html.ActionLink("odśwież", "Types")</li>
+    </ul>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Kontrolki</th>
+        </tr>
+    </thead>
+
+    <tbody>
+@foreach (var type in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => type.Id)</td>
+        <td>@Html.DisplayFor(modelItem => type.Name)</td>
+        <td>
+            @Html.ActionLink("ustaw konfigurator", "SetTypeConfiguration", new { id = type.Id }) |
+            @Html.ActionLink("edycja", "EditType", new { id = type.Id })
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

@@ -9,20 +9,21 @@ namespace EasyERP.Helpers
 {
     public class MaterialHelpers
     {
-        public static SelectList GetSelectList()
+        public static List<MaterialType> GetList()
         {
             DatabaseContext db = new DatabaseContext();
+
             var query = from q in db.MaterialTypes
                         select q;
 
             var materialTypes = query.ToList();
 
-            if (materialTypes == null)
-            {
-                return null;
-            }
+            return materialTypes;
+        }
 
-            return new SelectList(materialTypes, "Id", "Name");
+        public static SelectList GetSelectList()
+        {
+            return new SelectList(GetList(), "Id", "Name");
         }
     }
 }

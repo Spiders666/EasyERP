@@ -11,8 +11,8 @@
     <tbody>
         <tr>
             <td class="title"><label>Typ</label></td>
-            <td>@Html.DropDownListFor(model => model.Type , ProductHelpers.GetSelectList(), "-- rodzaje --")</td>
-            <td>@Html.ValidationMessageFor(model => model.Type)</td>
+            <td>@Html.DropDownListFor(model => model.ProductTypeId , ProductHelpers.GetSelectList(), "-- rodzaje --")</td>
+            <td>@Html.ValidationMessageFor(model => model.ProductTypeId)</td>
         </tr>
         <tr>
             <td class="title"><label>Nazwa</label></td>

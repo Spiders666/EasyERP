@@ -175,6 +175,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfiguratorUnitTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,7 +194,7 @@
     <Compile Include="Models\SessionSettings.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\ProductType.cs" />
-    <Compile Include="Models\Configurator.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
@@ -306,6 +307,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Areas\Admin\Views\Shared\_BootstrapLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\CreateType.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\CreateType.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Types.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\SetTypeConfiguration.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\Types.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\EditType.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\EditType.cshtml" />
     <Content Include="Content\fonts\MotorwerkOblique.ttf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

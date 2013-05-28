@@ -1,0 +1,29 @@
+﻿@using EasyERP.Helpers;
+@model EasyERP.Areas.Admin.ViewModels.ConfigurationViewModel
+
+@{
+    ViewBag.Title = "SetTypeConfigurator";
+}
+@Model.ProductType.Name
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ProductType.CurrentVersion)
+    @Html.HiddenFor(model => model.ProductType.Id)
+    
+    int i = 0;
+    <table>
+    @foreach (var materialTypes in Model.MaterialTypes) {
+        <tr>
+            <td>@Html.CheckBoxFor(model => Model.Configuration[i])</td>
+            <td>@Html.DisplayFor(model => materialTypes.Name)</td>
+        </tr>
+        i = i + 1;
+    }
+    </table>
+
+    <div class="actions">
+        <input type="submit" value="Zapisz" class="btn"/>
+        <input type="reset" value="Reset" class="btn"/>
+    </div>
+}

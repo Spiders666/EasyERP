@@ -47,14 +47,14 @@
 
     <tbody>
         <tr>
-            <th>@ProductHelpers.DisplayTypeName(Model.ProductType)</th>
+            <th>@Html.DisplayFor(model => model.ProductTypeName)</th>
             <th>@Html.DisplayFor(model => model.ProductName)</th>
             <td>@PriceFormatHelper.DisplayFormatPrice(@Model.ProductPrice)</td>
         </tr>
 
         @foreach (var orderItem in Model.OrderItems) {
         <tr>
-            <th>@MaterialHelpers.DisplayTypeName(orderItem.MaterialType)</th>
+            <th>@Html.DisplayFor(modelItem => orderItem.MaterialTypeName)</th>
             <th>@Html.DisplayFor(modelItem => orderItem.MaterialName)</th>
             <td>@PriceFormatHelper.DisplayFormatPrice(orderItem.Price)</td>
         </tr>

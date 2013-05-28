@@ -41,6 +41,13 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            foreach (Material material in supplier.Materials)
+            {
+                material.Type = (from q in db.MaterialTypes
+                                 where q.Id == material.MaterialTypeId
+                                 select q).FirstOrDefault();
+            }
+
             return View(supplier);
         }
 

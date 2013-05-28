@@ -1,0 +1,22 @@
+﻿@using EasyERP.Helpers;
+@model EasyERP.Models.MaterialType
+
+@{
+    ViewBag.Title = "Rodzaj materiału - Nowy";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+<table class="cu-record">
+    <tbody>
+        <tr>
+            <td class="title"><label>Nazwa</label></td>
+            <td>@Html.EditorFor(model => model.Name)</td>
+            <td>@Html.ValidationMessageFor(model => model.Name)</td>
+        </tr>
+    </tbody>
+</table>
+<div class="actions">
+        <input type="submit" value="Zapisz" class="btn btn-inverse"/> | <input type="reset" value="Reset" class="btn btn-inverse"/>
+</div>
+}

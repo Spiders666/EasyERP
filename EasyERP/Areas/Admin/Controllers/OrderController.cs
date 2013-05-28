@@ -27,6 +27,24 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(orders);
         }
 
+        [HttpGet]
+        public ActionResult Index(OrderState state = (OrderState)(-1))
+        {
+            if (!Enum.IsDefined(typeof(OrderState), state))
+            {
+                return Index();
+            }
+
+            var query = from q in db.Orders.Include(o => o.Customer)
+                        orderby q.Id descending
+                        where q.State == state
+                        select q;
+
+            var orders = query.ToList();
+
+            return View(orders);
+        }
+
         public ActionResult Details(int id = 0)
         {
             var query = from o in db.Orders.Include(o => o.Customer).Include(o => o.OrderItems)
@@ -48,11 +66,6 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Details(int id = 0, OrderState state = (OrderState)(-1))
         {
-            if (!Enum.IsDefined(typeof(OrderState), state))
-            {
-                return HttpNotFound();
-            }
-
             var query = from o in db.Orders.Include(o => o.Customer).Include(o => o.OrderItems)
                         where o.Id == id
                         select o;
@@ -62,6 +75,13 @@ namespace EasyERP.Areas.Admin.Controllers
             if (order == null)
             {
                 return HttpNotFound();
+            }
+
+            order.State = state;
+
+            if (!Enum.IsDefined(typeof(OrderState), state))
+            {
+                ModelState.AddModelError("state", new Exception());
             }
 
             try

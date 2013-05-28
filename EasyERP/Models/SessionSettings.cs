@@ -44,28 +44,25 @@ namespace EasyERP.Models
                 MaterialId = materialId
             };
 
-            int index = settings.FindIndex(c => c.MaterialTypeId == materialTypeId);
-
-            if (index == -1)
+            if (!isMaterialExists(materialTypeId))
             {
                 settings.Add(setting);
             }
-            else
-            {
-                settings[index] = setting;
-            }
+
+            int index = settings.FindIndex(c => c.MaterialTypeId == materialTypeId);
+            settings[index] = setting;
 
             httpContext.Session[SessionSettingsKey] = settings;
         }
 
         public int GetMaterialId(int materialTypeId)
         {
-            return settings.Find(c => c.MaterialTypeId == materialTypeId).MaterialId;
-        }
+            if (!isMaterialExists(materialTypeId))
+            {
+                return -1;
+            }
 
-        public void RemoveMaterial(int materialTypeId)
-        {
-            settings.RemoveAt(settings.FindIndex(c => c.MaterialTypeId == materialTypeId));
+            return settings.Find(c => c.MaterialTypeId == materialTypeId).MaterialId;
         }
 
         public bool isMaterialExists(int materialTypeId)

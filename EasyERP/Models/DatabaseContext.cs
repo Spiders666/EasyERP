@@ -17,7 +17,7 @@ namespace EasyERP.Models
         public DbSet<MaterialType> MaterialTypes { get; set; }
         public DbSet<Material> Materials { get; set; }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Configuration> Configurations { get; set; }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Customer> Customers { get; set; }
