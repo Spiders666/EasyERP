@@ -1,0 +1,35 @@
+﻿@model FormCollection
+@{
+    ViewBag.Title = "Zmiana hasła";
+}
+@Html.ValidationSummary()
+@if(ViewBag.Allow == 1){
+using (Html.BeginForm()) {
+    
+    <fieldset>
+        <legend>Formularz zmiany hasła</legend>
+        <ol>
+            <li>
+                @Html.Label("Email")
+                @Html.TextBox("Email")
+            </li>
+            <li>
+                @Html.Label("Hasło")
+                @Html.TextBox("Password")
+            </li>
+            <li>
+                @Html.Label("Powtórz hasło")
+                @Html.TextBox("RepeatPassword")
+            </li>
+        </ol>
+        <input type="submit" value="Ustaw!" class="btn btn-inverse"/>
+    </fieldset>
+}
+} else {
+    <p>Zły link :(</p>
+}
+
+@ViewBag.ReturnMsg
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

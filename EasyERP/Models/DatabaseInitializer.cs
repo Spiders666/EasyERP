@@ -117,9 +117,9 @@ namespace EasyERP.Models
             var customers = new List<Customer>
             {
 
-                new Customer { Name = "A", City = "A", ZipCode = "A", Street = "A", Telephone = "A", Email = "A", UserId = 2 },
-                new Customer { Name = "B", City = "B", ZipCode = "B", Street = "B", Telephone = "B", Email = "B", UserId = 3 },
-                new Customer { Name = "C", City = "C", ZipCode = "C", Street = "C", Telephone = "C", Email = "C", UserId = 4 },
+                new Customer { Name = "A123456a", SurName="A123456a", City = "A12345a6", ZipCode = "80-800", Street = "A123456", Telephone = "123456789", Email = "stefanszczepan@gmail.com", ActivationLink="", Activation=true, UserId = 2 },
+                new Customer { Name = "BA123456", SurName="aA123456", City = "BA123456", ZipCode = "10-200", Street = "1000000", Telephone = "111111111", Email = "blendermaster@gmail.com", ActivationLink="", Activation=true, UserId = 3 },
+                new Customer { Name = "CA123456", SurName="aA123456", City = "CA123456", ZipCode = "23-000", Street = "7600000", Telephone = "111111111", Email = "mastablasta@gmail.com", ActivationLink="", Activation=true, UserId = 4 },
             };
 
             customers.ForEach(c => context.Customers.Add(c));
