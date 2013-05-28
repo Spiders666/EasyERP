@@ -38,6 +38,9 @@ namespace EasyERP.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
+        [Timestamp]
+        public byte[] CurrentVersion { get; set; }
+
         public Customer Customer { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
     }

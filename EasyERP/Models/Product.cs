@@ -12,7 +12,7 @@ namespace EasyERP.Models
         public int Id { get; set; }
 
         [Required]
-        public int ProductTypeId { get; set; }
+        public int TypeId { get; set; }
 
         [Required]
         public String Name { get; set; }
@@ -22,6 +22,7 @@ namespace EasyERP.Models
 
         public string ImageName { get; set; }
 
+        [Required]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 

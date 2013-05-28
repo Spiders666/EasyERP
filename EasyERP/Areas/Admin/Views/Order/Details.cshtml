@@ -14,7 +14,6 @@
 
 <div class="display-order-states-form">
     @using (Html.BeginForm()) {
-        @Html.Hidden("CurrentVersion")
         @Html.DropDownList("state", @OrderHelpers.GetSelectList())
         <input type="submit" value="Zapisz" class="btn btn-inverse"//>
     }

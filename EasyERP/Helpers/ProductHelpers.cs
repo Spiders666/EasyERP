@@ -22,7 +22,11 @@ namespace EasyERP.Helpers
                 return null;
             }
 
-            return new SelectList(productTypes, "Id", "Name");
+            List<SelectListItem> result = new SelectList(productTypes, "Id", "Name").ToList();
+
+            result.Insert(0, new SelectListItem { Value = "", Text = "-- rodzaj produktu --" });
+
+            return new SelectList(result, "Value", "Text");
         }
 
         public static string DisplayCategoryName(string name)

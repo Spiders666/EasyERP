@@ -14,16 +14,16 @@ namespace EasyERP.Models
         {
             WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
-            if (!Roles.RoleExists("Administrator"))
-                Roles.CreateRole("Administrator");
+            if (!Roles.RoleExists(UserRole.Administrator))
+                Roles.CreateRole(UserRole.Administrator);
 
-            if (!Roles.RoleExists("User"))
-                Roles.CreateRole("User");
+            if (!Roles.RoleExists(UserRole.User))
+                Roles.CreateRole(UserRole.User);
 
             if (!WebSecurity.UserExists("Admin"))
             {
                 WebSecurity.CreateUserAndAccount("Admin", "password");
-                Roles.AddUsersToRoles(new[] { "Admin" }, new[] { "Administrator" });
+                Roles.AddUserToRole("Admin", UserRole.Administrator);
             }
 
             /* Klienci */
@@ -31,17 +31,17 @@ namespace EasyERP.Models
             if (!WebSecurity.UserExists("A"))
             {
                 WebSecurity.CreateUserAndAccount("A", "password");
-                Roles.AddUsersToRoles(new[] { "A" }, new[] { "User" });
+                Roles.AddUserToRole("A", UserRole.User);
             }
             if (!WebSecurity.UserExists("B"))
             {
                 WebSecurity.CreateUserAndAccount("B", "password");
-                Roles.AddUsersToRoles(new[] { "B" }, new[] { "User" });
+                Roles.AddUserToRole("B", UserRole.User);
             }
             if (!WebSecurity.UserExists("C"))
             {
                 WebSecurity.CreateUserAndAccount("C", "password");
-                Roles.AddUsersToRoles(new[] { "C" }, new[] { "User" });
+                Roles.AddUserToRole("C", UserRole.User);
             }
 
             /* Dostawcy */
@@ -69,14 +69,14 @@ namespace EasyERP.Models
             /* Części */
             var materials = new List<Material>
             {
-                new Material { SupplierId = 1, MaterialTypeId = 1, Name = "X Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 1, MaterialTypeId = 1, Name = "X Obicie 2", Price = 1.0m, Availability = false },
-                new Material { SupplierId = 2, MaterialTypeId = 1, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 2, MaterialTypeId = 1, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, MaterialTypeId = 1, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
-                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Trociny", Price = 131.0m, Availability = true },
-                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Szmaty", Price = 221.0m, Availability = false },
-                new Material { SupplierId = 3, MaterialTypeId = 2, Name = "Bawełna luksusowa", Price = 311.0m, Availability = true }
+                new Material { SupplierId = 1, TypeId = 1, Name = "X Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 1, TypeId = 1, Name = "X Obicie 2", Price = 1.0m, Availability = false },
+                new Material { SupplierId = 2, TypeId = 1, Name = "Y Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 2, TypeId = 1, Name = "Y Obicie 2", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, TypeId = 1, Name = "Z Obicie 1", Price = 1.0m, Availability = true },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Trociny", Price = 131.0m, Availability = true },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Szmaty", Price = 221.0m, Availability = false },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Bawełna luksusowa", Price = 311.0m, Availability = true }
             };
 
             materials.ForEach(m => context.Materials.Add(m));
@@ -95,10 +95,10 @@ namespace EasyERP.Models
             /* Produkty */
             var products = new List<Product>
             {
-                new Product { ProductTypeId = 1, Name = "Fotel 1", Description = "opis", Price = 1.0m, Availability = true },
-                new Product { ProductTypeId = 1, Name = "Fotel 2", Description = "opis", Price = 1.0m, Availability = false },
-                new Product { ProductTypeId = 2, Name = "Sofa 1", Description = "opis", Price = 1.0m, Availability = true },
-                new Product { ProductTypeId = 3, Name = "Łóżko 1", Description = "opis", Price = 777.0m, Availability = true }
+                new Product { TypeId = 1, Name = "Fotel 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { TypeId = 1, Name = "Fotel 2", Description = "opis", Price = 1.0m, Availability = false },
+                new Product { TypeId = 2, Name = "Sofa 1", Description = "opis", Price = 1.0m, Availability = true },
+                new Product { TypeId = 3, Name = "Łóżko 1", Description = "opis", Price = 777.0m, Availability = true }
             };
 
             products.ForEach(p => context.Products.Add(p));
@@ -113,6 +113,8 @@ namespace EasyERP.Models
 
             configuration.ForEach(p => context.Configurations.Add(p));
             context.SaveChanges();
+
+            /* Klienci */
 
             var customers = new List<Customer>
             {

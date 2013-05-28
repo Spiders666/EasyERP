@@ -44,7 +44,7 @@ namespace EasyERP.Areas.Admin.Controllers
             foreach (Material material in supplier.Materials)
             {
                 material.Type = (from q in db.MaterialTypes
-                                 where q.Id == material.MaterialTypeId
+                                 where q.Id == material.TypeId
                                  select q).FirstOrDefault();
             }
 

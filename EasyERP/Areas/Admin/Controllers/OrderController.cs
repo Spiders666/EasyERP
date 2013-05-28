@@ -88,7 +88,6 @@ namespace EasyERP.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    order.State = state;
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
 

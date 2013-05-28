@@ -39,7 +39,7 @@ namespace EasyERP.Controllers
 
             var queryproducts = 
                 from a in db.Products
-                where a.ProductTypeId == category
+                where a.TypeId == category
                 orderby a.Name
                 select a;
 

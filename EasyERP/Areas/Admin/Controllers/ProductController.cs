@@ -29,6 +29,30 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(products);
         }
 
+        [HttpGet]
+        public ActionResult Index(string name = "", int type = -1)
+        {
+            var query1 = from q in db.ProductTypes
+                         where q.Id == type
+                         select q;
+
+            var productType = query1.FirstOrDefault();
+
+            if (productType == null)
+            {
+                return Index(name);
+            }
+
+            var query = from s in db.Products.Include(p => p.Type)
+                        where s.Name.Contains(name) && s.TypeId == type
+                        orderby s.Id descending
+                        select s;
+
+            var products = query.ToList();
+
+            return View(products);
+        }
+
         public ActionResult Details(int id = 0)
         {
             var query = from s in db.Products.Include(p => p.Type)
@@ -47,7 +71,7 @@ namespace EasyERP.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new Product());
         }
 
         [HttpPost]
@@ -311,9 +335,9 @@ namespace EasyERP.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var query3 = from q in db.Configurations
+            var query3 = from q in db.Configurations.Include(c => c.MaterialType)
                          where q.ProductTypeId == productType.Id
-                         select q.MaterialType;
+                         select q;
 
             var configuration = query3.ToList();
 
@@ -325,22 +349,27 @@ namespace EasyERP.Areas.Admin.Controllers
             try
             {
                 int i = 0;
+                bool test1, test2;
+
                 foreach (var materialType in materialTypes)
                 {
-                    if (configuration.Contains(materialType) == true && configurationViewModelCommand.Configuration[i] == false)
+                    test1 = configuration.Find(c => c.MaterialTypeId == materialType.Id) != null;
+                    test2 = configurationViewModelCommand.Configuration[i];
+
+                    if (test1 == true && test2 == false)
                     {
-                        db.Configurations.Remove(db.Configurations.Find(materialType.Id));
-                        db.SaveChanges();
+                        db.Configurations.Remove(configuration.Find(m => m.MaterialTypeId == materialType.Id));
                     }
 
-                    if (configuration.Contains(materialType) == false && configurationViewModelCommand.Configuration[i] == true)
+                    else if (test1 == false && test2 == true)
                     {
                         db.Configurations.Add(new Configuration { MaterialTypeId = materialType.Id, ProductTypeId = productType.Id });
-                        db.SaveChanges();
                     }
 
                     i++;
                 }
+
+                db.SaveChanges();
 
                 FlashMessageHelper.SetMessage(this,
                     Resources.AdminControllerEditSuccess,
