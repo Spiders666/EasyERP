@@ -5,7 +5,7 @@
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Associate your @ViewBag.ProviderDisplayName account.</h2>
+    <h2>Skojarz swoje konto @ViewBag.ProviderDisplayName.</h2>
 </hgroup>
 
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
@@ -27,7 +27,7 @@
             </li>
         </ol>
         @Html.HiddenFor(m => m.ExternalLoginData)
-        <input type="submit" value="Register" />
+        <input type="submit" value="Zarejestruj" />
     </fieldset>
 }
 

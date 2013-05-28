@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using EasyERP.Models;
 using EasyERP.Filters;
+using System.Net;
+using System.Net.Mail;
 
 namespace EasyERP.Controllers
 {
@@ -82,7 +84,7 @@ namespace EasyERP.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Register_step2", "Account");
+                    return RedirectToAction("Register2", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -95,35 +97,46 @@ namespace EasyERP.Controllers
         }
 
         //
-        // GET: /Account/Register_step2
+        // GET: /Account/Register2
 
-        public ActionResult Register_step2()
+        public ActionResult Register2()
         {
             return View();
         }
 
         //
-        // POST: /Account/Register_step2
+        // POST: /Account/Register2
 
         [HttpPost]
         [ValidateInput(false)]
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public ActionResult Register_step2(Customer customer)
+        public ActionResult Register2(Customer customer)
         {
             if (ModelState.IsValid)
             {
+                var Query = from m in db.Customers
+                            where m.Email == customer.Email
+                            select m;
+
                 // Attempt to fill customer data
+                if (!Query.Any())
+                {
                     customer.UserId = WebSecurity.CurrentUserId;
+                    customer.ActivationLink = System.IO.Path.GetRandomFileName().Replace(".", string.Empty);
                     db.Customers.Add(customer);
                     db.SaveChanges();
-                    Roles.AddUsersToRoles(new[] {WebSecurity.CurrentUserName}, new[] { "User" });
-                    return RedirectToAction("Index", "Home");
+                    Roles.AddUsersToRoles(new[] { WebSecurity.CurrentUserName }, new[] { "User" });
+                    return RedirectToAction("SendEmail", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "W naszej bazie danych już istnieje konto z takim adresem email.");
+                }
+                // If we got this far, something failed, redisplay form
             }
-            // If we got this far, something failed, redisplay form
             return View();
         }
-
         //
         // POST: /Account/Disassociate
 
@@ -159,9 +172,9 @@ namespace EasyERP.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Twoje hasło zostało zmienione."
+                : message == ManageMessageId.SetPasswordSuccess ? "Twoje hasło zostało ustawione."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Zewnętrzny login skasowany."
                 : "";
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -311,7 +324,7 @@ namespace EasyERP.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                        ModelState.AddModelError("UserName", "Nazwa użytkownika już istnieje. Proszę wybrać inną.");
                     }
                 }
             }
@@ -358,7 +371,184 @@ namespace EasyERP.Controllers
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
+        // Get: /Account/ResetForm
+        [AllowAnonymous]
+        public ActionResult ResetForm()
+        {
+            return View();
+        }
+        // Post: /Account/ResetForm
+        [AllowAnonymous]
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ResetForm(FormCollection formCollection)
+        {
+            string GetEmail = formCollection["email"].ToString();
+            var Query = from m in db.Customers
+                        where m.Email == GetEmail
+                        select m;
 
+            var SiteAddress = Request.Url.Authority;
+            var GetQuery = Query.FirstOrDefault();
+
+            if (Query.FirstOrDefault() == null)
+            {
+                ModelState.AddModelError("","Nie ma takiego adresu email w bazie danych!");
+            } 
+            else 
+            {
+                ModelState.AddModelError("", "Znaleziono adres email z resetem hasła wysłany!");
+
+                // generation of new reset link
+                Customer customer = db.Customers.Single(p => p.Email == GetEmail);
+                customer.ActivationLink = System.IO.Path.GetRandomFileName().Replace(".", string.Empty);
+                db.SaveChanges();
+                //sending new link trough email
+                var subject = "Easy ERP - Formularz resetu hasła";
+                var fromAddress = new MailAddress("easyerp@o2.pl", "Easy ERP");
+                var toAddress = new MailAddress(GetQuery.Email, GetQuery.Name + " " + GetQuery.SurName);
+                const string fromPassword = "easyerp_123";
+                var smtp = new SmtpClient
+                {
+                    Host = "poczta.o2.pl",
+                    Port = 587,
+                    Timeout = 30000,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    IsBodyHtml = true,
+                    Body = "<h1>Easy ERP</h1><h4>Witaj " + GetQuery.Name + " " + GetQuery.SurName + "</h4>Twój link resetu: <a target==\"_blank\" href=\"" + SiteAddress + "/Account/Reset/" + GetQuery.ActivationLink + "\">" + SiteAddress + "/Account/Reset/" + GetQuery.ActivationLink + "</a>"
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            return View(formCollection);
+        }
+        // Get: /Account/Reset
+        [AllowAnonymous]
+        public ActionResult Reset(string id)
+        {
+            var Query = from m in db.Customers
+                        where m.ActivationLink == id
+                        select m;
+            var GetQuery = Query.FirstOrDefault();
+            ViewBag.ReturnMsg = "";
+            ViewBag.Allow = 0;
+            if (GetQuery != null)
+            {
+                ViewBag.Allow = 1;
+            }
+            return View();
+        }
+
+        // Post: /Account/Reset
+        [AllowAnonymous]
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Reset(FormCollection formCollection)
+        {
+            string GetEmail = formCollection["Email"].ToString();
+            string GetPassword = formCollection["Password"].ToString();
+            string GetRepeatPassword = formCollection["RepeatPassword"].ToString();
+
+            var Query = from m in db.Customers
+                        where m.Email == GetEmail
+                        select m;
+            var GetCustomer = Query.FirstOrDefault();
+            if (Query.FirstOrDefault() == null)
+            {
+                ModelState.AddModelError("", "Nie ma takiego adresu email w bazie danych!");
+            }
+            else
+            {
+                if (GetPassword != GetRepeatPassword)
+                {
+                    ModelState.AddModelError("", "Hasła się nie zgadzają!");
+                }
+                else
+                {
+                    var QueryUserName = from a in db.UserProfiles
+                                        where a.UserId == GetCustomer.UserId
+                                        select a.UserName;
+                    var GetUserName = QueryUserName.FirstOrDefault();
+                    var token = WebSecurity.GeneratePasswordResetToken(GetUserName, 1);
+                    var result = WebSecurity.ResetPassword(token, GetPassword);
+                    Customer customer = db.Customers.Single(p => p.ActivationLink == GetCustomer.ActivationLink);
+                    customer.ActivationLink = null;
+                    db.SaveChanges();
+                    return RedirectToAction("Login");
+                }
+            }
+            return View(formCollection);
+        }
+        // Get: /Account/SendEmail
+        public ActionResult SendEmail()
+        {
+            // id=1 activation, id=2 password reset
+            var CustomerId = Helpers.AccountHelpers.GetCustomerId();
+            string subject = "Easy ERP - Formularz aktywacji konta";
+            Customer customer = db.Customers.Single(p => p.Id == CustomerId);
+            customer.ActivationLink = System.IO.Path.GetRandomFileName().Replace(".", string.Empty);
+            db.SaveChanges();
+
+            var Query = from m in db.Customers
+                        where m.Id == CustomerId
+                        select m;
+
+            // zrobic run only on password reset form
+            var Address = Request.Url.Authority;
+            var GetQuery = Query.FirstOrDefault();
+
+            var fromAddress = new MailAddress("easyerp@o2.pl", "Easy ERP");
+            var toAddress = new MailAddress(GetQuery.Email, GetQuery.Name+" "+GetQuery.SurName);
+            const string fromPassword = "easyerp_123";
+
+            var smtp = new SmtpClient
+            {
+                Host = "poczta.o2.pl",
+                Port = 587,
+                Timeout = 30000,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                IsBodyHtml = true,
+                Body = "<h1>Easy ERP</h1>Witaj oto twój link aktywacji: <a target==\"_blank\" href=\"" + Address + "/Account/Activation/" + GetQuery.ActivationLink + "\">" + Address + "/Account/Activation/" + GetQuery.ActivationLink + "</a>"
+            })
+            {
+                smtp.Send(message);
+            }
+            return View();
+        }
+        public ActionResult Activation(string id)
+        {
+            var Query = from m in db.Customers
+                        where m.ActivationLink == id
+                        select m;
+            var GetQuery = Query.FirstOrDefault();
+            if (GetQuery == null) {
+                ViewBag.ActivationStatus = "nic nie znalazlem :(";
+            } else {
+                ViewBag.ActivationStatus = "Aktywowałem :)";
+                Customer customer = db.Customers.Single(p => p.ActivationLink == id);
+                customer.ActivationLink = null;
+                customer.Activation = true;
+                db.SaveChanges();
+            }
+            return View();
+        }
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {

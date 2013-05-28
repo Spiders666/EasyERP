@@ -1,5 +1,4 @@
 ﻿html {
-    background-color: #e2e2e2;
     margin: 0;
     padding: 0;
 }
@@ -10,8 +9,8 @@ body {
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
     padding: 0;
+    background-image: url(images/background.jpg);
 }
 
 a {
@@ -756,6 +755,18 @@ tr.pager td {
 }
 /*adddeb by marcin*/
 /*not_confirmed table color*/
+@font-face {
+	font-family: MotorwerkOblique;
+	src: url('fonts/MotorwerkOblique.ttf') format('truetype');
+}
+.logo {
+    font-family: "MotorwerkOblique", Georgia, serif;
+    font-weight:900;
+}
+
+.white_bg {
+    background-color:white;
+}
 .table tbody tr.not_confirmed > td {
   background-color: #db7e99;
 }

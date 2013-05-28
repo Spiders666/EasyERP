@@ -1,0 +1,14 @@
+﻿@model FormCollection
+@{
+    ViewBag.Title = "Resetowanie hasła";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Reset hasła</h2>
+</hgroup>
+
+@ViewBag.ActivationStatus
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

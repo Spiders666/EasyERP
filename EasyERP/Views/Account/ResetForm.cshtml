@@ -1,0 +1,28 @@
+﻿@model FormCollection
+@{
+    ViewBag.Title = "Resetowanie hasła";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Reset hasła</h2>
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Formularz resetu hasła</legend>
+        <ol>
+            <li>
+                @Html.Label("Email")
+                @Html.TextBox("email")
+            </li>
+        </ol>
+        <input type="submit" value="Resetuj!" class="btn btn-inverse"/>
+    </fieldset>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -13,21 +13,22 @@ namespace EasyERP.Controllers
         public ActionResult Index()
         {
             var products = (from p in db.Products
-                           orderby p.Id descending
-                           select p).Take(9);
+                            orderby p.Id descending
+                            select p).Take(9);
             return View(products);
+            //return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Strona opisu.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Strona Kontaktowa.";
 
             return View();
         }

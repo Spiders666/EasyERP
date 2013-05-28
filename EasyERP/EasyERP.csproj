@@ -216,6 +216,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\armchair.png" />
+    <Content Include="Content\images\background.jpg" />
     <Content Include="Content\images\bed.png" />
     <Content Include="Content\images\coach.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
@@ -305,6 +306,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Areas\Admin\Views\Shared\_BootstrapLayout.cshtml" />
+    <Content Include="Content\fonts\MotorwerkOblique.ttf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -347,16 +349,18 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Account\Register_step2.cshtml" />
+    <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\List.cshtml" />
-    <Content Include="Views\ConfiguratorUnitTest\Set.cshtml" />
-    <Content Include="Views\ConfiguratorUnitTest\Get.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Set.cshtml" />
     <Content Include="Views\Products\MaterialList.cshtml" />
     <Content Include="Views\Products\Cart.cshtml" />
+    <Content Include="Views\Account\SendEmail.cshtml" />
+    <Content Include="Views\Account\ResetForm.cshtml" />
+    <Content Include="Views\Account\Activation.cshtml" />
+    <Content Include="Views\Account\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

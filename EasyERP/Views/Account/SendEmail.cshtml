@@ -1,0 +1,9 @@
+﻿@{
+    Layout = null;
+}
+<script type="text/javascript">
+    window.onload = function () {
+        window.location.href = '@Url.Action("Index", "Home", new { id = @ViewBag.ReturnUrl })';
+    };
+</script>
+
