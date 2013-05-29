@@ -15,8 +15,8 @@
     @foreach (var item in ViewBag.OnePageOfProducts)
     {   <div class="span3">
             <div class="row">
-            <div class="span3"><h4>@Html.ActionLink((string)item.Name, "../Products/Set", new { id = item.Id, type = ViewBag.Type, returnurl = ViewBag.ReturnUrl })</h4></div>
-            <div class="span3"><p>@Html.ActionLink(" ", "../Products/Set", new { id = item.Id, type = ViewBag.Type, returnurl = ViewBag.ReturnUrl }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @item.ImageName</p></div>
+            <div class="span3"><h4>@Html.ActionLink((string)item.Name, "../Products/Set", new { id = item.Id, type = ViewBag.ReturnUrl, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</h4></div>
+            <div class="span3"><p>@Html.ActionLink(" ", "../Products/Set", new { id = item.Id, type = ViewBag.ReturnUrl, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl }, new { style = "background: url('" + Url.Content("~/Content/images/bed.png") + "') no-repeat center right; display:block; height:200px; width:200px;" }) @item.ImageName</p></div>
             <div class="span3"><p>Cena: @PriceFormatHelper.DisplayFormatPrice(item.Price)</p></div>
             </div>
         </div>}

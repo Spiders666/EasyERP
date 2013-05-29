@@ -3,9 +3,9 @@
 }
 <script type="text/javascript">
     window.setTimeout(function() {
-        window.location.href = '@Url.Action("Details", "Products", new { id = @ViewBag.ReturnUrl })';
+        window.location.href = '@Url.Action("Details", "Products", new { id = @ViewBag.ReturnUrl, type = @ViewBag.Category })';
     }, 1);
 </script>
-@*<h1>SET</h1>
-Material ID: @ViewBag.MaterialId
-Material TYPE: @ViewBag.MaterialType*@
+<h1>SET</h1>
+Material ID: @ViewBag.ReturnUrl
+Material TYPE: @ViewBag.Type

@@ -7,7 +7,6 @@
 }
 
 <h2>Details</h2>
-
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -18,7 +17,11 @@
          @Html.HiddenFor(model => model.Name)
          @Html.DisplayFor(model => model.Name)
     </div>
-
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TypeId)
+         @Html.HiddenFor(model => model.TypeId)
+         @Html.DisplayFor(model => model.TypeId)
+    </div>
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Description)
         @Html.DisplayFor(model => model.Description)
@@ -33,19 +36,27 @@
         @Html.DisplayNameFor(model => model.Price)
         @Html.DisplayFor(model => model.Price)
     </div>
-
-    <div class="display-field">
-        @Html.ActionLink("Wybierz Wypełnienie", "../Products/MaterialList", new { page=1, type=(int)MaterialType.FILL, returnurl=ViewBag.ReturnUrl })
-        @ViewBag.MaterialFill
-    </div>
-    <div class="display-field">
-        @Html.ActionLink("Wybierz Obicie", "../Products/MaterialList", new { page=1, type=(int)MaterialType.UPHOLSTERY, returnurl=ViewBag.ReturnUrl })
-        @ViewBag.MaterialUp
-    </div>
-      <p>
+    <p class="span12">
         <input type="submit" value="Dodaj do koszyka!" class="btn btn-inverse"/>
-      </p>
-}
+    </p>
+    } @*End of validation summary*@
+    @ViewBag.Test
+    @foreach (var i in ViewBag.ConfigurationList)
+    {
+        string Name = @i.MaterialType.Name;
+        int Type = @i.MaterialType.Id;
+        <div class="span4">
+            <div class="row">
+            <div class="span4"><h4>@Name</h4>@Html.ActionLink("Wybierz: "+@Name, "../Products/MaterialList", new { page = 1, type = Type, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</div>
+            </div>
+        </div>
+    }
+    @foreach (var a in ViewBag.Chosen)
+    {
+        <div>@a</div>
+    }
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

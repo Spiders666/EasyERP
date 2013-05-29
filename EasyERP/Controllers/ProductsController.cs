@@ -35,13 +35,10 @@ namespace EasyERP.Controllers
         
         public ActionResult List(int? page, int? category)
         {
-            //ProductType productType = (Enum.IsDefined(typeof(ProductType), category) ? (ProductType)category : ProductType.ARMCHAIR);
-
-            var queryproducts = 
-                from a in db.Products
-                where a.TypeId == category
-                orderby a.Name
-                select a;
+            var queryproducts = from a in db.Products
+                                where a.TypeId == category
+                                orderby a.Name
+                                select a;
 
             var cat = queryproducts.ToList();
 
@@ -54,42 +51,30 @@ namespace EasyERP.Controllers
         //
         // GET: /Product/Details/1
         
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int type)
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            if (!sessionSettings.isMaterialExists(1))
-                ViewBag.MaterialFill = "nie wybrano!";
-            if (!sessionSettings.isMaterialExists(2))
-                ViewBag.MaterialUp = "nie wybrano!";
+            var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
+                            where m.ProductTypeId == type
+                            select m;
+            ViewBag.Test = ConfQuery.ToList().Count();
+            ViewBag.ConfigurationList = ConfQuery.ToList();
+            ViewBag.ReturnUrl = id;
+            ViewBag.MaterialId = sessionSettings.GetMaterialId(id);
 
-            if (sessionSettings.isMaterialExists(2))
-            {
-                int idfill = sessionSettings.GetMaterialId(2);
-                var queryfill = from m in db.Materials
-                                where m.Id == idfill
-                                select m;
-                var materialfill = queryfill.FirstOrDefault();
-                if (materialfill == null)
-                    return HttpNotFound();
-                ViewBag.MaterialFill = idfill.ToString();
+            List<int> listId = new List<int>();
+
+            foreach (var i in ConfQuery.ToList()){
+                var MaterialId = i.MaterialTypeId;
+                listId.Add(sessionSettings.GetMaterialId(MaterialId));
             }
-            if (sessionSettings.isMaterialExists(1))
-            {
-                int idup = sessionSettings.GetMaterialId(1);
-                var queryup = from m in db.Materials
-                              where m.Id == idup
-                              select m;
-                var materialup = queryup.FirstOrDefault();
-                if (materialup == null)
-                    return HttpNotFound();
-                ViewBag.MaterialUp = idup.ToString();
-            }
+            ViewBag.Chosen = listId;
+            ViewBag.Category = type;
 
             Product product = db.Products.Find(id);
             if (product == null)
                 return HttpNotFound();
-            ViewBag.ReturnUrl = id;
             return View(product);
         }
 
@@ -100,19 +85,20 @@ namespace EasyERP.Controllers
         public ActionResult Details(Product product, Order order)
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
-
+            
             var ProductId = product.Id;
 
-            if (!sessionSettings.isMaterialExists(2))
-                return RedirectToAction("Details", "Products", new {id = ProductId});
-            if (!sessionSettings.isMaterialExists(1))
-                return RedirectToAction("Details", "Products", new {id = ProductId});
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Login","Account");
-            if (Helpers.AccountHelpers.GetCustomerId() == 0)
-                return RedirectToAction("Details", "Products", new {id = ProductId});
+            //if (!sessionSettings.isMaterialExists(2))
+            //    return RedirectToAction("Details", "Products", new {id = ProductId});
+            //if (!sessionSettings.isMaterialExists(1))
+            //    return RedirectToAction("Details", "Products", new {id = ProductId});
+            //if (!User.Identity.IsAuthenticated)
+            //    return RedirectToAction("Login","Account");
+            //if (Helpers.AccountHelpers.GetCustomerId() == 0)
+            //    return RedirectToAction("Details", "Products", new {id = ProductId});
 
             order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
+            order.ProductTypeName = "costam";
             order.ProductName = product.Name;
             order.ProductPrice = product.Price;
             order.CreatedAt = DateTime.Now;
@@ -140,13 +126,13 @@ namespace EasyERP.Controllers
             return View(orders);
         }
 
-        public ActionResult Set(int type = 1, int id = 1, int returnurl = 1)
+        public ActionResult Set(int id = 1,int category = 1, int returnurl = 1)
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 
-            var query = from m in db.Materials.Include(m => m.Type)
-                        where m.Id == id
-                        select m;
+            var query = from q in db.Materials.Include(m => m.Type)
+                        where q.Id == id
+                        select q;
 
             var material = query.FirstOrDefault();
 
@@ -154,37 +140,29 @@ namespace EasyERP.Controllers
             {
                 return HttpNotFound();
             }
-            if (type == 1)
-                sessionSettings.SetMaterial(material.Type.Id, material.Id);
-            else
-                sessionSettings.SetMaterial(material.Type.Id, material.Id);
-
-            ViewBag.MaterialId = material.Id;
-            ViewBag.MaterialType = material.Type.ToString();
+            sessionSettings.SetMaterial(material.Type.Id, material.Id);
+            ViewBag.Category = category;
             ViewBag.ReturnUrl = returnurl;
             return View();
         }
-        /*
-        public ActionResult MaterialList(int? page, int? type, int returnurl)
+        public ActionResult MaterialList(int? page, int? type, int category, int returnurl)
         {
             if (page == null | type == null)
                 return RedirectToAction("List");
 
-            MaterialType materialType = (Enum.IsDefined(typeof(MaterialType), type) ? (MaterialType)type : MaterialType.FILL);
-
             var query =
-                from a in db.Materials
-                where a.Type == materialType
-                orderby a.Name
-                select a;
+                from m in db.Materials
+                where m.Type.Id == type
+                orderby m.Name
+                select m;
 
             var pageNumber = page ?? 1; 
             var onePageOfProducts = query.ToPagedList(pageNumber, 9); 
 
             ViewBag.OnePageOfProducts = onePageOfProducts;
             ViewBag.ReturnUrl = returnurl;
-            ViewBag.Type = type;
+            ViewBag.Category = category;
             return View();
-        }*/
+        }
     }
 }
