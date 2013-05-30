@@ -19,27 +19,27 @@
 <table class="cu-record">
     <tbody>
         <tr>
-            <td class="title"><label>Typ</label></td>
-            <td>@Html.DropDownListFor(model => model.TypeId , MaterialHelpers.GetSelectList(), "-- rodzaje --")</td>
-            <td>@Html.ValidationMessageFor(model => model.Type)</td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.TypeId)</label></td>
+            <td>@Html.DropDownListFor(model => model.TypeId , MaterialHelpers.GetSelectList())</td>
+            <td>@Html.ValidationMessageFor(model => model.TypeId)</td>
         </tr>
         <tr>
-            <td class="title"><label>Nazwa</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
             <td>@Html.EditorFor(model => model.Name)</td>
             <td>@Html.ValidationMessageFor(model => model.Name)</td>
         </tr>
         <tr>
-            <td class="title"><label>Cena</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Price)</label></td>
             <td>@Html.EditorFor(model => model.Price)</td>
             <td>@Html.ValidationMessageFor(model => model.Price)</td>
         </tr>
         <tr>
-            <td class="title"><label>Zdjęcie</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
             <td>@Html.EditorFor(model => model.ImageName)</td>
             <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
         </tr>
         <tr>
-            <td class="title"><label>Dostępność</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Availability)</label></td>
             <td>@Html.EditorFor(model => model.Availability)</td>
             <td>@Html.ValidationMessageFor(model => model.Availability)</td>
         </tr>

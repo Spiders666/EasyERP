@@ -15,10 +15,10 @@ namespace EasyERP.Areas.Admin.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        public ActionResult Index(string name = "")
+        public ActionResult Index(string name = "", string surename = "")
         {
             var query = from q in db.Customers
-                        where q.Name.Contains(name)
+                        where q.Name.Contains(name) && q.SurName.Contains(surename)
                         orderby q.Id descending
                         select q;
 

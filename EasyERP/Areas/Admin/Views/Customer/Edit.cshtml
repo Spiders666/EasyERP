@@ -12,32 +12,37 @@
 <table class="cu-record">
     <tbody>
         <tr>
-            <td class="title"><label>Nazwa</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
             <td>@Html.EditorFor(model => model.Name)</td>
             <td>@Html.ValidationMessageFor(model => model.Name)</td>
         </tr>
         <tr>
-            <td class="title"><label>Kod pocztowy</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.SurName)</label></td>
+            <td>@Html.EditorFor(model => model.SurName)</td>
+            <td>@Html.ValidationMessageFor(model => model.SurName)</td>
+        </tr>
+        <tr>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.ZipCode)</label></td>
             <td>@Html.EditorFor(model => model.ZipCode)</td>
             <td>@Html.ValidationMessageFor(model => model.ZipCode)</td>
         </tr>
         <tr>
-            <td class="title"><label>Miasto</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.City)</label></td>
             <td>@Html.EditorFor(model => model.City)</td>
             <td>@Html.ValidationMessageFor(model => model.City)</td>
         </tr>
         <tr>
-            <td class="title"><label>Ulica</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Street)</label></td>
             <td>@Html.EditorFor(model => model.Street)</td>
             <td>@Html.ValidationMessageFor(model => model.Street)</td>
         </tr>
         <tr>
-            <td class="title"><label>Telefon</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Telephone)</label></td>
             <td>@Html.EditorFor(model => model.Telephone)</td>
             <td>@Html.ValidationMessageFor(model => model.Telephone)</td>
         </tr>
         <tr>
-            <td class="title"><label>Email</label></td>
+            <td class="title"><label>@Html.DisplayNameFor(model => model.Email)</label></td>
             <td>@Html.EditorFor(model => model.Email)</td>
             <td>@Html.ValidationMessageFor(model => model.Email)</td>
         </tr>

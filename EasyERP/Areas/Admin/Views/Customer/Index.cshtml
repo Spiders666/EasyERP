@@ -15,6 +15,7 @@
     @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
     {
         @Html.TextBox("name")
+        @Html.TextBox("surename")
         <input type="submit" value="Szukaj" />
     }
 </div>
@@ -23,7 +24,9 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Nazwa</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Aktywowany</th>
             <th>Kontrolki</th>
         </tr>
     </thead>
@@ -34,6 +37,8 @@
     <tr class="row@(i % 2)">
         <td>@Html.DisplayFor(modelItem => customer.Id)</td>
         <td>@Html.DisplayFor(modelItem => customer.Name)</td>
+        <td>@Html.DisplayFor(modelItem => customer.SurName)</td>
+        <td>@Html.DisplayFor(modelItem => customer.Activation)</td>
         <td>
             @Html.ActionLink("pokaż szczegóły", "Details", new { id=customer.Id }) |
             @Html.ActionLink("edycja", "Edit", new { id=customer.Id })

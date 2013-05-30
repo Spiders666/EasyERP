@@ -12,21 +12,27 @@ namespace EasyERP.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Rodzaj")]
         public int TypeId { get; set; }
 
         [Required]
-        public String Name { get; set; }
+        [Display(Name = "Nazwa")]
+        public string Name { get; set; }
 
         [Required]
-        public String Description { get; set; }
+        [Display(Name = "Opis")]
+        public string Description { get; set; }
 
+        [Display(Name = "Zdjęcie")]
         public string ImageName { get; set; }
 
         [Required]
         [Column(TypeName = "money")]
+        [Display(Name = "Cena")]
         public decimal Price { get; set; }
 
         [Required]
+        [Display(Name = "Dostępność")]
         public bool Availability { get; set; }
 
         [Timestamp]

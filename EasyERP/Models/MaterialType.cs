@@ -12,6 +12,7 @@ namespace EasyERP.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
         [Timestamp]

@@ -13,10 +13,12 @@
 </div>
 
 <div class="search">
+
     @using (Html.BeginForm("Index", "Material", FormMethod.Get))
     {
+        @Html.DropDownList("type", @MaterialHelpers.GetSelectList())
         @Html.TextBox("name")
-        <input type="submit" value="Szukaj" />
+        <input type="submit" value="Wyświetl" />
     }
 </div>
 

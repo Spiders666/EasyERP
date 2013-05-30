@@ -42,8 +42,8 @@
         <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
         <td>@OrderHelpers.DisplayStateName(order.State)</td>
         <td>
-            @Html.ActionLink("pokaż szczegóły", "Details", new { id=order.Id }) |
-            @Html.ActionLink("dane klienta", "Details", "Customer", new { id=order.Id }, null)
+            @Html.ActionLink("pokaż szczegóły", "Details", new { id = order.Id }) |
+            @Html.ActionLink("dane klienta", "Details", "Customer", new { id = order.CustomerId }, null)
         </td>
     </tr>
 }
