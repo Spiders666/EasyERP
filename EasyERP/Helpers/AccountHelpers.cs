@@ -36,7 +36,6 @@ namespace EasyERP.Helpers
                         select m.Id;
 
             var customer = query.FirstOrDefault();
-
             return (customer);
         }
     }

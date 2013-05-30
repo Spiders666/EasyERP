@@ -49,7 +49,7 @@ namespace EasyERP.Controllers
             return View();
         }
         //
-        // GET: /Product/Details/1
+        // GET: /Product/Details/1/1
         
         public ActionResult Details(int id, int type)
         {
@@ -58,16 +58,21 @@ namespace EasyERP.Controllers
             var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
                             where m.ProductTypeId == type
                             select m;
-            ViewBag.Test = ConfQuery.ToList().Count();
+            ViewBag.Test = Helpers.AccountHelpers.GetCustomerId().ToString();
             ViewBag.ConfigurationList = ConfQuery.ToList();
             ViewBag.ReturnUrl = id;
             ViewBag.MaterialId = sessionSettings.GetMaterialId(id);
-
+            ViewBag.NotSet = 0;
             List<int> listId = new List<int>();
 
             foreach (var i in ConfQuery.ToList()){
                 var MaterialId = i.MaterialTypeId;
                 listId.Add(sessionSettings.GetMaterialId(MaterialId));
+                //check if everything is set up
+                if (sessionSettings.GetMaterialId(MaterialId)<0)
+                {
+                    ViewBag.NotSet = 1;
+                }
             }
             ViewBag.Chosen = listId;
             ViewBag.Category = type;
@@ -84,6 +89,16 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult Details(Product product, Order order, OrderItem orderitem)
         {
+            //check if customer is Authenticated
+            if (!Request.IsAuthenticated | User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //check if customer has all data set up
+            if (Helpers.AccountHelpers.GetCustomerId() == 0)
+            {
+                return RedirectToAction("Register2", "Account");
+            }
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
             
             var CustomerId = Helpers.AccountHelpers.GetCustomerId();
@@ -102,10 +117,12 @@ namespace EasyERP.Controllers
             db.Orders.Add(order);
             db.SaveChanges();
 
+
+            // Adding each configuration to order
             var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
                             where m.ProductTypeId == product.TypeId
                             select m;
-            // Adding each configuration to order
+
             foreach (var i in ConfQuery.ToList())
             {
                 var MaterialId = i.MaterialTypeId;

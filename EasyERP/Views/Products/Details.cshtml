@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Details";
 }
-
+@ViewBag.Test
 <h2>Details</h2>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -37,9 +37,15 @@
         @Html.HiddenFor(model => model.Price)
         @Html.DisplayFor(model => model.Price)
     </div>
+    if (ViewBag.NotSet == 0){
     <p class="span12">
         <input type="submit" value="Dodaj do koszyka!" class="btn btn-inverse"/>
     </p>
+    } else {
+    <p class="span12">
+        Musisz wybrac konfiguracje produktu
+    </p>
+    }
     } @*End of validation summary*@
     @ViewBag.Test
     @foreach (var i in ViewBag.ConfigurationList)
