@@ -23,7 +23,11 @@ namespace EasyERP.Helpers
 
         public static SelectList GetSelectList()
         {
-            return new SelectList(GetList(), "Id", "Name");
+            List<SelectListItem> result = new SelectList(GetList(), "Id", "Name").ToList();
+
+            result.Insert(0, new SelectListItem { Value = "", Text = "-- rodzaj materiału --" });
+
+            return new SelectList(result, "Value", "Text");
         }
     }
 }

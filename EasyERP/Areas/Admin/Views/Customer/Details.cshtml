@@ -15,27 +15,31 @@
 <table class="display-record">
     <tbody>
         <tr>
-            <td>Nazwa</td>
+            <td>@Html.DisplayNameFor(model => model.Name)</td>
             <td>@Html.DisplayFor(model => model.Name)</td>
         </tr>
         <tr>
-            <td>Kod pocztowy</td>
+            <td>@Html.DisplayNameFor(model => model.SurName)</td>
+            <td>@Html.DisplayFor(model => model.SurName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ZipCode)</td>
             <td>@Html.DisplayFor(model => model.ZipCode)</td>
         </tr>
         <tr>
-            <td>Miasto</td>
+           <td>@Html.DisplayNameFor(model => model.City)</td>
             <td>@Html.DisplayFor(model => model.City)</td>
         </tr>
         <tr>
-            <td>Ulica</td>
+            <td>@Html.DisplayNameFor(model => model.Street)</td>
             <td>@Html.DisplayFor(model => model.Street)</td>
         </tr>
         <tr>
-            <td>Telefon</td>
+            <td>@Html.DisplayNameFor(model => model.Telephone)</td>
             <td>@Html.DisplayFor(model => model.Telephone)</td>
         </tr>
         <tr>
-            <td>Email</td>
+            <td>@Html.DisplayNameFor(model => model.Email)</td>
             <td>@Html.DisplayFor(model => model.Email)</td>
         </tr>
     </tbody>
@@ -48,17 +52,21 @@
             <th>Typ</th>
             <th>Nazwa</th>
             <th>Cena</th>
-            <th></th>
+            <th>Data zamówienia</th>
+            <th>Stan zamówienia</th>
+            <th>Kontrolki</th>
         </tr>
     </thead>
 
     <tbody>
 @foreach (var order in Model.Orders) {
-        <tr>
+        <tr class="@OrderHelpers.GetStateClass(order.State)">
             <td>@Html.DisplayFor(modelItem => order.Id)</td>
             <td>@Html.DisplayFor(modelItem => order.ProductTypeName)</td>
             <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
             <td>@PriceFormatHelper.DisplayFormatPrice(order.ProductPrice)</td>
+            <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
+            <td>@Html.DisplayFor(modelItem => order.State)</td>
             <td>
                 @Html.ActionLink("szczegóły", "Details", "Order", new { id = order.Id }, null)
             </td>

@@ -28,6 +28,30 @@ namespace EasyERP.Areas.Admin.Controllers
             return View(materials);
         }
 
+        [HttpGet]
+        public ActionResult Index(string name = "", int type = -1)
+        {
+            var query1 = from q in db.MaterialTypes
+                         where q.Id == type
+                         select q;
+
+            var materialType = query1.FirstOrDefault();
+
+            if (materialType == null)
+            {
+                return Index(name);
+            }
+
+            var query = from s in db.Materials.Include(p => p.Type)
+                        where s.Name.Contains(name) && s.TypeId == type
+                        orderby s.Id descending
+                        select s;
+
+            var materials = query.ToList();
+
+            return View(materials);
+        }
+
         public ActionResult Details(int id = 0)
         {
             var query = from m in db.Materials.Include(m => m.Supplier).Include(m => m.Type)
