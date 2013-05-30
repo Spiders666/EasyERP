@@ -82,31 +82,47 @@ namespace EasyERP.Controllers
         // POST: /Product/Details/1
 
         [HttpPost]
-        public ActionResult Details(Product product, Order order)
+        public ActionResult Details(Product product, Order order, OrderItem orderitem)
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
             
-            var ProductId = product.Id;
+            var CustomerId = Helpers.AccountHelpers.GetCustomerId();
+            var ProdQuery = from m in db.Configurations.Include(p => p.ProductType)
+                            where m.ProductTypeId == product.TypeId
+                            select m;
 
-            //if (!sessionSettings.isMaterialExists(2))
-            //    return RedirectToAction("Details", "Products", new {id = ProductId});
-            //if (!sessionSettings.isMaterialExists(1))
-            //    return RedirectToAction("Details", "Products", new {id = ProductId});
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToAction("Login","Account");
-            //if (Helpers.AccountHelpers.GetCustomerId() == 0)
-            //    return RedirectToAction("Details", "Products", new {id = ProductId});
+            var GetConfQuery =  ProdQuery.FirstOrDefault();
 
-            order.CustomerId = Helpers.AccountHelpers.GetCustomerId();
-            order.ProductTypeName = "costam";
+            // Adding order to database
+            order.CustomerId = CustomerId;
+            order.ProductTypeName = GetConfQuery.ProductType.Name;
             order.ProductName = product.Name;
             order.ProductPrice = product.Price;
             order.CreatedAt = DateTime.Now;
             db.Orders.Add(order);
             db.SaveChanges();
 
-            //add order save
-            //
+            var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
+                            where m.ProductTypeId == product.TypeId
+                            select m;
+            // Adding each configuration to order
+            foreach (var i in ConfQuery.ToList())
+            {
+                var MaterialId = i.MaterialTypeId;
+                var GetSessionSetting = sessionSettings.GetMaterialId(MaterialId);
+                var MaterialsQuery = from m in db.Materials.Include(p => p.Type)
+                                     where m.Id == GetSessionSetting
+                                     select m;
+                var GetMaterialsQuery = MaterialsQuery.FirstOrDefault();
+
+                orderitem.MaterialName = GetMaterialsQuery.Name;
+                orderitem.MaterialTypeName = GetMaterialsQuery.Type.Name;
+                orderitem.Order = order;
+                orderitem.OrderId = order.Id;
+                orderitem.Price = GetMaterialsQuery.Price;
+                db.OrderItems.Add(orderitem);
+                db.SaveChanges();
+            }
             return RedirectToAction("Cart", "Products");
         }
         

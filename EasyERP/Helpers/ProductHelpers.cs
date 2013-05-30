@@ -29,21 +29,6 @@ namespace EasyERP.Helpers
             return new SelectList(result, "Value", "Text");
         }
 
-        public static string DisplayCategoryName(string name)
-        {
-            switch (name)
-            {
-                case "Fotel":
-                    return "Fotele";
-                case "Sofa":
-                    return "Sofy";
-                case "Łóżko":
-                    return "Łóżka";
-                default:
-                    return "nieznane";
-            }
-        }
-
         public static List<string> GetCategories()
         {
             DatabaseContext db = new DatabaseContext();
