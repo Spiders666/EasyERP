@@ -1,7 +1,8 @@
-﻿@{
+﻿@*{
      if (!WebSecurity.Initialized)
     {
         WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId",
                                                  "UserName", autoCreateTables: false);
     }
 }
+*@

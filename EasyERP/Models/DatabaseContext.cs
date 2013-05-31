@@ -27,7 +27,6 @@ namespace EasyERP.Models
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            this.Configuration.LazyLoadingEnabled = false;
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
