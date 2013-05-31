@@ -10,6 +10,7 @@ using EasyERP.Helpers;
 using EasyERP.App_GlobalResources;
 using EasyERP.Areas.Admin.ViewModels;
 using EasyERP.Filters;
+using System.IO;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -76,7 +77,7 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file = null)
         {
             try
             {
@@ -84,6 +85,16 @@ namespace EasyERP.Areas.Admin.Controllers
                 {
                     db.Products.Add(product);
                     db.SaveChanges();
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.AppendFormat("{0}.{1}", product.Id.ToString(), file.FileName.Split('.')[1]);
+                        product.ImageName = sb.ToString();
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Images/Products"), Path.GetFileName(product.ImageName)));
+                        db.SaveChanges();
+                    }
+
                     FlashMessageHelper.SetMessage(
                         this,
                         HttpContext.GetGlobalResourceObject(
@@ -132,14 +143,23 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase file = null)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.AppendFormat("{0}.{1}", product.Id.ToString(), file.FileName.Split('.')[1]);
+                        product.ImageName = sb.ToString();
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Images/Products"), Path.GetFileName(product.ImageName)));
+                    }
+
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
+
                     FlashMessageHelper.SetMessage(this,
                         Resources.AdminControllerEditSuccess,
                         FlashMessageHelper.TypeOption.Success);

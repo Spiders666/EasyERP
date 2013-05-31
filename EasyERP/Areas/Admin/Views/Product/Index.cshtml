@@ -30,6 +30,7 @@
             <th>Typ</th>
             <th>Nazwa</th>
             <th>Cena</th>
+            <th>Zdjęcie</th>
             <th>Dostępność</th>
             <th></th>
         </tr>
@@ -42,6 +43,7 @@
         <td>@Html.DisplayFor(modelItem => product.Type.Name)</td>
         <td>@Html.DisplayFor(modelItem => product.Name)</td>
         <td>@PriceFormatHelper.DisplayFormatPrice(product.Price)</td>
+        <td><a href="/images/products/@product.ImageName">@product.ImageName</a></td>
         <td>@Html.DisplayFor(modelItem => product.Availability)</td>
         <td>
             @Html.ActionLink("pokaż szczegóły", "Details", new { id=product.Id }) |

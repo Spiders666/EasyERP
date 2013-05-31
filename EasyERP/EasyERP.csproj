@@ -382,7 +382,7 @@
     <Content Include="Views\Account\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Folder Include="Images\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
