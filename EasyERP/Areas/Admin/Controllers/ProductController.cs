@@ -9,10 +9,11 @@ using EasyERP.Models;
 using EasyERP.Helpers;
 using EasyERP.App_GlobalResources;
 using EasyERP.Areas.Admin.ViewModels;
+using EasyERP.Filters;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    [Authorize(Roles = UserRole.Administrator)]
+    [CustomAuthorization(Roles = UserRole.Administrator)]
     public class ProductController : Controller
     {
         private DatabaseContext db = new DatabaseContext();

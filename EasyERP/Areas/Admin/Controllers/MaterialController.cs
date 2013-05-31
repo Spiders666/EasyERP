@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Helpers;
 using EasyERP.App_GlobalResources;
+using EasyERP.Filters;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    [Authorize(Roles = UserRole.Administrator)]
+    [CustomAuthorization(Roles = UserRole.Administrator)]
     public class MaterialController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
