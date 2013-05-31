@@ -12,7 +12,8 @@ namespace EasyERP.Models
     {
         protected override void Seed(DatabaseContext context)
         {
-            WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized)
+                WebSecurity.InitializeDatabaseConnection("DatabaseContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
             if (!Roles.RoleExists(UserRole.Administrator))
                 Roles.CreateRole(UserRole.Administrator);

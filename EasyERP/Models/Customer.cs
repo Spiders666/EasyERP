@@ -16,17 +16,17 @@ namespace EasyERP.Models
 
         [Required]
         [Display(Name = "Imię")]
-        [StringLength(100, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 6)]
+        [StringLength(25, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
         public string Name { get; set; }
 
         [Required]
         [Display(Name = "Nazwisko")]
-        [StringLength(100, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 6)]
+        [StringLength(25, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
         public string SurName { get; set; }
 
         [Required]
         [Display(Name = "Miasto")]
-        [StringLength(30, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
+        [StringLength(35, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
         public string City { get; set; }
 
         [Required]
@@ -37,7 +37,7 @@ namespace EasyERP.Models
 
         [Required]
         [Display(Name = "Nazwa ulicy")]
-        [StringLength(30, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
+        [StringLength(25, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
         public string Street { get; set; }
 
         [Required]

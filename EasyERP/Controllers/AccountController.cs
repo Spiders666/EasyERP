@@ -84,6 +84,7 @@ namespace EasyERP.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    Roles.AddUserToRole(model.UserName, UserRole.User);
                     return RedirectToAction("Register2", "Account");
                 }
                 catch (MembershipCreateUserException e)
@@ -126,7 +127,6 @@ namespace EasyERP.Controllers
                     customer.ActivationLink = System.IO.Path.GetRandomFileName().Replace(".", string.Empty);
                     db.Customers.Add(customer);
                     db.SaveChanges();
-                    Roles.AddUsersToRoles(new[] { WebSecurity.CurrentUserName }, new[] { "User" });
                     return RedirectToAction("SendEmail", "Account");
                 }
                 else

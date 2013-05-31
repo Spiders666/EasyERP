@@ -8,6 +8,7 @@ using WebMatrix.WebData;
 
 namespace EasyERP.Models
 {
+
     public class DatabaseContext : DbContext
     {
         public DbSet<ProductType> ProductTypes { get; set; }
@@ -26,6 +27,7 @@ namespace EasyERP.Models
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            this.Configuration.LazyLoadingEnabled = false;
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
