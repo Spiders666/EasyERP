@@ -24,10 +24,14 @@ namespace EasyERP.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DatabaseContext()
+        {
+            this.Configuration.LazyLoadingEnabled = false;
+        }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            this.Configuration.LazyLoadingEnabled = false;
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }

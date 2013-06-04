@@ -5,10 +5,11 @@
     ViewBag.Title = "Produkt - Edycja";
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CurrentVersion)
+    @Html.HiddenFor(model => model.ImageName)
 
 <table class="cu-record">
     <tbody>
@@ -34,7 +35,7 @@
         </tr>
         <tr>
             <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
-            <td>@Html.EditorFor(model => model.ImageName)</td>
+            <td><input id="file" name="file" type="file" /></td>
             <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
         </tr>
         <tr>

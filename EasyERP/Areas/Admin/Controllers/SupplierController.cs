@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using EasyERP.Models;
 using EasyERP.Helpers;
 using System.Data.Entity.Infrastructure;
+using EasyERP.Filters;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    [Authorize(Roles = UserRole.Administrator)]
+    [CustomAuthorization(Roles = UserRole.Administrator)]
     public class SupplierController : Controller
     {
         private DatabaseContext db = new DatabaseContext();

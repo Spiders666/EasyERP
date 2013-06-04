@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using EasyERP.Models;
 using System.Dynamic;
 using EasyERP.Helpers;
+using EasyERP.Filters;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
-    [Authorize(Roles = UserRole.Administrator)]
+    [CustomAuthorization(Roles = UserRole.Administrator)]
     public class OrderController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
