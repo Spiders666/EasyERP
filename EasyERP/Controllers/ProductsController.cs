@@ -107,39 +107,55 @@ namespace EasyERP.Controllers
                             select m;
 
             var GetConfQuery =  ProdQuery.FirstOrDefault();
-
-            // Adding order to database
-            order.CustomerId = CustomerId;
-            order.ProductTypeName = GetConfQuery.ProductType.Name;
-            order.ProductName = product.Name;
-            order.ProductPrice = product.Price;
-            order.CreatedAt = DateTime.Now;
-            db.Orders.Add(order);
-            db.SaveChanges();
-
-
-            // Adding each configuration to order
-            var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
-                            where m.ProductTypeId == product.TypeId
-                            select m;
-
-            foreach (var i in ConfQuery.ToList())
+            //chek if configurators exist
+            if (ProdQuery.Any())
             {
-                var MaterialId = i.MaterialTypeId;
-                var GetSessionSetting = sessionSettings.GetMaterialId(MaterialId);
-                var MaterialsQuery = from m in db.Materials.Include(p => p.Type)
-                                     where m.Id == GetSessionSetting
-                                     select m;
-                var GetMaterialsQuery = MaterialsQuery.FirstOrDefault();
+                // Adding order to database
+                order.CustomerId = CustomerId;
+                order.ProductTypeName = GetConfQuery.ProductType.Name;
+                order.ProductName = product.Name;
+                order.ProductPrice = product.Price;
+                order.CreatedAt = DateTime.Now;
+                db.Orders.Add(order);
+                db.SaveChanges();
 
-                orderitem.MaterialName = GetMaterialsQuery.Name;
-                orderitem.MaterialTypeName = GetMaterialsQuery.Type.Name;
-                orderitem.Order = order;
-                orderitem.OrderId = order.Id;
-                orderitem.Price = GetMaterialsQuery.Price;
-                db.OrderItems.Add(orderitem);
+
+                // Adding each configuration to order
+                var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
+                                where m.ProductTypeId == product.TypeId
+                                select m;
+
+                foreach (var i in ConfQuery.ToList())
+                {
+                    var MaterialId = i.MaterialTypeId;
+                    var GetSessionSetting = sessionSettings.GetMaterialId(MaterialId);
+                    var MaterialsQuery = from m in db.Materials.Include(p => p.Type)
+                                         where m.Id == GetSessionSetting
+                                         select m;
+                    var GetMaterialsQuery = MaterialsQuery.FirstOrDefault();
+
+                    orderitem.MaterialName = GetMaterialsQuery.Name;
+                    orderitem.MaterialTypeName = GetMaterialsQuery.Type.Name;
+                    orderitem.Order = order;
+                    orderitem.OrderId = order.Id;
+                    orderitem.Price = GetMaterialsQuery.Price;
+                    db.OrderItems.Add(orderitem);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                // Adding order to database
+                order.CustomerId = CustomerId;
+                order.ProductTypeName = "123";
+                order.ProductName = product.Name;
+                order.ProductPrice = product.Price;
+                order.CreatedAt = DateTime.Now;
+                db.Orders.Add(order);
                 db.SaveChanges();
             }
+
+
             return RedirectToAction("Cart", "Products");
         }
         
