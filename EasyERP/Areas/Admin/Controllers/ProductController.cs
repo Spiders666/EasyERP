@@ -81,17 +81,25 @@ namespace EasyERP.Areas.Admin.Controllers
         {
             try
             {
+                ImageUploader iu = null;
+
+                if (file != null)
+                {
+                    iu = new ImageUploader(this, file, "ImageName");
+                    iu.Validate();
+                }
+
                 if (ModelState.IsValid)
                 {
                     db.Products.Add(product);
                     db.SaveChanges();
 
-                    if (file != null && file.ContentLength > 0)
+                    if (iu != null && iu.IsValid())
                     {
                         System.Text.StringBuilder sb = new System.Text.StringBuilder();
                         sb.AppendFormat("{0}.{1}", product.Id.ToString(), file.FileName.Split('.')[1]);
                         product.ImageName = sb.ToString();
-                        file.SaveAs(Path.Combine(Server.MapPath("~/Images/Products"), Path.GetFileName(product.ImageName)));
+                        iu.Save(Path.GetFileName(product.ImageName), Server.MapPath("~/Images/Products"));
                         db.SaveChanges();
                     }
 
@@ -145,16 +153,24 @@ namespace EasyERP.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Product product, HttpPostedFileBase file = null)
         {
+            ImageUploader iu = null;
+
+            if (file != null)
+            {
+                iu = new ImageUploader(this, file, "ImageName");
+                iu.Validate();
+            }
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (file != null && file.ContentLength > 0)
+                    if (iu != null && iu.IsValid())
                     {
                         System.Text.StringBuilder sb = new System.Text.StringBuilder();
                         sb.AppendFormat("{0}.{1}", product.Id.ToString(), file.FileName.Split('.')[1]);
                         product.ImageName = sb.ToString();
-                        file.SaveAs(Path.Combine(Server.MapPath("~/Images/Products"), Path.GetFileName(product.ImageName)));
+                        iu.Save(Path.GetFileName(product.ImageName), Server.MapPath("~/Images/Products"));
                     }
 
                     db.Entry(product).State = EntityState.Modified;
