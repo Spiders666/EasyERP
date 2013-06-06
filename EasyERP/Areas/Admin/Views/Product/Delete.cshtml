@@ -1,18 +1,18 @@
 ﻿@model EasyERP.Models.Product
 
 @{
-    ViewBag.Title = "Usuń";
+    ViewBag.Title = "Produkt - usuwanie";
 }
 
 <div class="row">
     <div class="span10" style="height: 20px"></div>
     <hgroup class="title">
         <h1>Administracja.</h1>
-        <h2>Produkt - Usuwanie</h2>
+        <h2>Produkt - usuwanie</h2>
     </hgroup>
     <div class="span10" style="height: 40px"></div>
-    <div class="row">
         <div class="span11">
+            <h4>Szczegóły produktu:</h4>
             <table class="table span5">
             <tbody>
             <tr>
@@ -43,21 +43,18 @@
                     <div class="alert alert-error" style="padding-bottom: 50px; text-align:center">
                     <h4>Usuń</h4>
                     <h5>Czy jesteś pewien że chcesz usunąć produkt?</h5>
-                    <div class="btn-group span7 offset1">
+                    <div class="btn-group">
                     @using (Html.BeginForm()) {
                     <button class="btn" type="submit">Usuń</button>
                     <a href="~/Admin/Product/Index" class="btn"><i class="icon-refresh"></i> Wróć</a>
                     }
                     </div>
-
                     </div>
                 </hgroup>
             </div>
         </div>
         <div class="span10" style="height: 40px"></div>
     </div>
-</div>
-</div>
 
 
 

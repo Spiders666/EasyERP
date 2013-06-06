@@ -2,17 +2,16 @@
 @model EasyERP.Models.Product
 
 @{
-    ViewBag.Title = "Produkt - Edycja";
+    ViewBag.Title = "Produkt - edycja";
 }
 
 <div class="row">
     <div class="span10" style="height: 20px"></div>
     <hgroup class="title">
         <h1>Administracja.</h1>
-        <h2>Produkt - Edycja</h2>
+        <h2>Produkt - edycja</h2>
     </hgroup>
     <div class="span10" style="height: 40px"></div>
-    <div class="row">
         <div class="span11">
 @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.ValidationSummary(true)
@@ -55,7 +54,7 @@
             </table>
             <div class="span10" style="height: 20px"></div>
             <div class="actions span4 offset4">
-                <div class="btn-group span7">
+                <div class="btn-group">
                     <button class="btn" type="submit">Zapisz</button>
                     <button class="btn" type="reset">Resetuj</button>
                 </div>
@@ -64,5 +63,3 @@
         </div>
         <div class="span10" style="height: 40px"></div>
     </div>
-</div>
-</div>

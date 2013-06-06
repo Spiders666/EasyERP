@@ -29,7 +29,7 @@
   <div class="container white_bg">
     <div class="span12">
         <div class="span3 logo"><h1><a href="~/Home/Index">Easy ERP</a></h1></div>
-        <div class="offset5 span3">@Html.Partial("_LoginPartial")</div>
+        <div class="offset5 span3"></div>
         <div class="span11">
         <div class="navbar navbar-inverse">
             <div class="navbar-inner">
@@ -46,6 +46,32 @@
                           <li><a href="~/Home/Contact"><i class="icon-envelope icon-large icon-white"></i> Kontakt</a></li>
                           <li><a href="~/Home/About"><i class="icon-heart icon-large icon-white"></i> O nas</a></li>
                         </ul>
+                        <ul class="nav pull-right">  
+                          <li class="dropdown">  
+                          @if (Request.IsAuthenticated) {
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large icon-white"></i> Witaj @User.Identity.Name <b class="caret"></b> </a>  
+                            <ul class="dropdown-menu"> 
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                <li><a href="~/Admin/">Panel administracyjny</a></li>  
+                                }  else { 
+                                <li><a href="~/Products/Cart">Koszyk</a></li>
+                                }
+                                <li><a href="~/Account/Manage">Zmień hasło</a></li>  
+                                <li><a href="~/Account/Manage2">Zmień dane</a></li>  
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+                            </ul> 
+                          }
+                          else
+                          {
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large icon-white"></i> Witaj Nieznajomy! <b class="caret"></b> </a>  
+                            <ul class="dropdown-menu">  
+                                <li><a href="~/Account/Login">Zaloguj</a></li>  
+                                <li><a href="~/Account/Register">Zarejestruj</a></li> 
+                            </ul>  
+                          } 
+                          </li>  
+                        </ul>  
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
@@ -54,16 +80,15 @@
         <div class="container span11">
         @RenderBody()
         </div>
-                <div class="container span11">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-inner" style="text-align:center">
-                <h1 class="brand logo" style="float:none">Easy ERP - @DateTime.Now.Year</h1>
+            <div class="container span11">
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner" style="text-align:center">
+                        <h1 class="brand logo" style="float:none">Easy ERP - @DateTime.Now.Year</h1>
+                    </div>
+                </div><!--/.navbar-->
             </div>
-        </div><!--/.navbar-->
-        </div>
-
-        </div>
-        </div>
+    </div>
+</div>
 
     <!-- /container -->
     <!-- Le javascript

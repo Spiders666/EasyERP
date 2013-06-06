@@ -2,17 +2,16 @@
 @model EasyERP.Areas.Admin.ViewModels.ConfigurationViewModel
 
 @{
-    ViewBag.Title = "Ustawianie konfiguratora";
+    ViewBag.Title = "Ustawianie - konfiguratora";
 }
 
 <div class="row">
     <div class="span10" style="height: 20px"></div>
     <hgroup class="title">
         <h1>Administracja.</h1>
-        <h2>Ustawianie konfiguratora</h2>
+        <h2>Ustawianie - konfiguratora</h2>
     </hgroup>
     <div class="span10" style="height: 40px"></div>
-    <div class="row">
         <div class="span11">
             <h3>@Model.ProductType.Name</h3>
             @using (Html.BeginForm()) {
@@ -21,7 +20,7 @@
             @Html.HiddenFor(model => model.ProductType.Id)
     
             int i = 0;
-            <table class="table table-bordered">
+            <table class="table table-bordered span4">
             @foreach (var materialTypes in Model.MaterialTypes) {
             <tr>
                 <td>@Html.CheckBoxFor(model => Model.Configuration[i])</td>
@@ -40,14 +39,5 @@
             }
         </div>
         <div class="span10" style="height: 40px"></div>
-    </div>
-</div>
-</div>
-
-
-
-    <div class="actions">
-        <input type="submit" value="Zapisz" class="btn"/>
-        <input type="reset" value="Reset" class="btn"/>
     </div>
 

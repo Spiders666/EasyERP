@@ -765,7 +765,7 @@ tr.pager td {
 }
 
 .white_bg {
-    background-color:white;
+    background-color: white;
 }
 .table tbody tr.not_confirmed > td {
   background-color: #db7e99;

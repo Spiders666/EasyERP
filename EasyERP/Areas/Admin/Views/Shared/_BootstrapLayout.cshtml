@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="pl">
   <head>
     <meta charset="utf-8">
@@ -9,12 +8,9 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    
     @Styles.Render("~/Content/themes/base/css", "~/Content/css")
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet">
-    
-    <script src="/Scripts/jquery-1.9.1.js"></script>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -33,7 +29,7 @@
   <div class="container white_bg">
     <div class="span12">
         <div class="span8 logo"><h1><a href="~/Home/Index">Easy ERP - Strefa Administratora</a></h1></div>
-        <div class="span3">@Html.Partial("_LoginPartial")</div>
+        <div class="offset5 span3"></div>
         <div class="span11">
         <div class="navbar navbar-inverse">
             <div class="navbar-inner">
@@ -51,42 +47,62 @@
                           <li><a href="~/Admin/Product/Index"><i class="icon-barcode icon-large icon-white"></i> Produkty</a></li>
                           <li><a href="~/Admin/Order/Index"><i class="icon-shopping-cart icon-large icon-white"></i> Zamówienia</a></li>
                           <li><a href="~/Admin/Customer/Index"><i class="icon-user icon-large icon-white"></i> Klienci</a></li>
-@*                        
-                            http://bloggingabout.net/blogs/rick/archive/2012/11/07/how-to-create-an-actionlink-with-a-twitter-bootstrap-icon-in-mvc4.aspx
-                          <li>@Html.ActionLink("Dostawcy", "Index", "Supplier")</li>
-                          <li>@Html.ActionLink("Materiały", "Index", "Material")</li>
-                          <li>@Html.ActionLink("Produkty", "Index", "Product")</li>
-                          <li>@Html.ActionLink("Zamówienia", "Index", "Order")</li>
-                          <li>@Html.ActionLink("Klienci", "Index", "Customer")</li>
-*@
                         </ul>
+                        <ul class="nav pull-right">  
+                          <li class="dropdown">  
+                          @if (Request.IsAuthenticated) {
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large icon-white"></i> Witaj @User.Identity.Name <b class="caret"></b> </a>  
+                            <ul class="dropdown-menu"> 
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                <li><a href="~/Admin/">Panel administracyjny</a></li>  
+                                }  else { 
+                                <li><a href="~/Products/Cart">Koszyk</a></li>
+                                }
+                                <li><a href="~/Account/Manage">Zmień hasło</a></li>  
+                                <li><a href="~/Account/Manage2">Zmień dane</a></li>  
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+                            </ul> 
+                          }
+                          else
+                          {
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large icon-white"></i> Witaj Nieznajomy! <b class="caret"></b> </a>  
+                            <ul class="dropdown-menu">  
+                                <li><a href="~/Account/Login">Zaloguj</a></li>  
+                                <li><a href="~/Account/Register">Zarejestruj</a></li> 
+                            </ul>  
+                          } 
+                          </li>  
+                        </ul>  
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div><!--/.navbar-->
         </div>
         <div class="container span11">
+        <div class="container span11">
         @if (EasyERP.Helpers.FlashMessageHelper.IsMessage(TempData)) {
             <script>
-            $(document.body).ready(function () {
-            $("#fadein").fadeIn(2500);
-            });
+                $(document.body).ready(function () {
+                    $("#fadein").fadeIn(2500);
+                });
             </script>
             
             @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData, "fadein", "display: none;")
         }
-        <div class="container span11">
+        </div>
         @RenderBody()
-         </div>
-        <div class="container span11">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-inner" style="text-align:center">
-                <h1 class="brand logo" style="float:none">Easy ERP - @DateTime.Now.Year</h1>
+        </div>
+            <div class="container span11">
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner" style="text-align:center">
+                        <h1 class="brand logo" style="float:none">Easy ERP - @DateTime.Now.Year</h1>
+                    </div>
+                </div><!--/.navbar-->
             </div>
-        </div><!--/.navbar-->
-        </div>
-        </div>
-      </div>
+    </div>
+</div>
+
     <!-- /container -->
     <!-- Le javascript
     ================================================== -->
