@@ -4,47 +4,60 @@
 @{
     ViewBag.Title = "Klienci";
 }
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Klienci</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+        <div class="row">
+            <div class="span11">
+                <div class="span10">
+                    <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px">
+                        <div class="btn-group span4">
+                        <a href="~/Admin/Customer/Index" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                        </div>
+                                @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+                        {
+                        <div class="input-append">
+                        <input name="name" type="text" placeholder="Szukaj po nazwie">
+                        <input name="surename" type="text" placeholder="Szukaj po nazwisku">
+                        <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
+                        </div>  
+                        }
 
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("odśwież", "Index")</li>
-    </ul>
+                        </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Aktywowany</th>
+                        <th>Kontrolki</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach (var customer in Model) {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => customer.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => customer.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => customer.SurName)</td>
+                        <td>@Html.DisplayFor(modelItem => customer.Activation)</td>
+                        <td>
+                            <i class="icon-align-center"></i>@Html.ActionLink("pokaż szczegóły", "Details", new { id=customer.Id }) |
+                            <i class="icon-user"></i>@Html.ActionLink("edycja", "Edit", new { id=customer.Id })
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+                <div class="span10" style="height: 40px"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="search">
-    @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
-    {
-        @Html.TextBox("name")
-        @Html.TextBox("surename")
-        <input type="submit" value="Szukaj" />
-    }
-</div>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Aktywowany</th>
-            <th>Kontrolki</th>
-        </tr>
-    </thead>
-
-    <tbody>
-@{int i = 0;}
-@foreach (var customer in Model) {
-    <tr class="row@(i % 2)">
-        <td>@Html.DisplayFor(modelItem => customer.Id)</td>
-        <td>@Html.DisplayFor(modelItem => customer.Name)</td>
-        <td>@Html.DisplayFor(modelItem => customer.SurName)</td>
-        <td>@Html.DisplayFor(modelItem => customer.Activation)</td>
-        <td>
-            @Html.ActionLink("pokaż szczegóły", "Details", new { id=customer.Id }) |
-            @Html.ActionLink("edycja", "Edit", new { id=customer.Id })
-        </td>
-    </tr>
-i = i + 1;
-}
-    </tbody>
-</table>

@@ -51,30 +51,51 @@ namespace EasyERP.Controllers
         //
         // GET: /Product/Details/1/1
         
-        public ActionResult Details(int id, int type)
+        public ActionResult Details(int id)
         {
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
+
+            var GetTypeQuery = from m in db.Products
+                               where m.Id == id
+                               select m.TypeId;
+            var type = GetTypeQuery.FirstOrDefault();
 
             var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
                             where m.ProductTypeId == type
                             select m;
-            ViewBag.Test = Helpers.AccountHelpers.GetCustomerId().ToString();
             ViewBag.ConfigurationList = ConfQuery.ToList();
             ViewBag.ReturnUrl = id;
-            ViewBag.MaterialId = sessionSettings.GetMaterialId(id);
+            //ViewBag.MaterialId = sessionSettings.GetMaterialId(id);
             ViewBag.NotSet = 0;
-            List<int> listId = new List<int>();
 
+            List<Material> listMaterial = new List<Material>();
             foreach (var i in ConfQuery.ToList()){
-                var MaterialId = i.MaterialTypeId;
-                listId.Add(sessionSettings.GetMaterialId(MaterialId));
-                //check if everything is set up
-                if (sessionSettings.GetMaterialId(MaterialId)<0)
+                int session = sessionSettings.GetMaterialId(i.MaterialTypeId);
+                var query = from m in db.Materials.Include(p => p.Type)
+                            where m.Id == session
+                            select m;
+                var GetQuery = query.FirstOrDefault();
+                if (GetQuery == null)
                 {
                     ViewBag.NotSet = 1;
+                    listMaterial.Add(new Material());
+                }
+                else
+                {
+                    listMaterial.Add(GetQuery);
                 }
             }
-            ViewBag.Chosen = listId;
+            
+            //decimal sum = 0.00m;
+            //foreach (var i in listMaterial){
+            //    var query = from m in db.Materials
+            //                where m.Id == i.Id
+            //                select m.Price;
+            //    var sumall = query.FirstOrDefault();
+            //    sum = sum + sumall;
+            //}
+            ViewBag.Chosen = listMaterial;
+            //ViewBag.Sum = sum;
             ViewBag.Category = type;
 
             Product product = db.Products.Find(id);
@@ -87,10 +108,11 @@ namespace EasyERP.Controllers
         // POST: /Product/Details/1
 
         [HttpPost]
-        public ActionResult Details(Product product, Order order, OrderItem orderitem)
+        public ActionResult Details(Product product)
         {
+            
             //check if customer is Authenticated
-            if (!Request.IsAuthenticated | User.IsInRole("Administrator"))
+            if (!Request.IsAuthenticated || User.IsInRole("Administrator"))
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -100,62 +122,62 @@ namespace EasyERP.Controllers
                 return RedirectToAction("Register2", "Account");
             }
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
-            
+
+            var ProductQuery = from m in db.Products
+                               where m.Id == product.Id
+                               select m;
+            var GetProduct = ProductQuery.FirstOrDefault();
+
+            if (GetProduct == null)
+            {
+                return HttpNotFound();
+            }
+
             var CustomerId = Helpers.AccountHelpers.GetCustomerId();
             var ProdQuery = from m in db.Configurations.Include(p => p.ProductType)
-                            where m.ProductTypeId == product.TypeId
+                            where m.ProductTypeId == GetProduct.TypeId
                             select m;
 
             var GetConfQuery =  ProdQuery.FirstOrDefault();
             //chek if configurators exist
-            if (ProdQuery.Any())
-            {
-                // Adding order to database
-                order.CustomerId = CustomerId;
-                order.ProductTypeName = GetConfQuery.ProductType.Name;
-                order.ProductName = product.Name;
-                order.ProductPrice = product.Price;
-                order.CreatedAt = DateTime.Now;
-                db.Orders.Add(order);
-                db.SaveChanges();
 
-
-                // Adding each configuration to order
-                var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
-                                where m.ProductTypeId == product.TypeId
-                                select m;
-
-                foreach (var i in ConfQuery.ToList())
-                {
-                    var MaterialId = i.MaterialTypeId;
-                    var GetSessionSetting = sessionSettings.GetMaterialId(MaterialId);
-                    var MaterialsQuery = from m in db.Materials.Include(p => p.Type)
-                                         where m.Id == GetSessionSetting
-                                         select m;
-                    var GetMaterialsQuery = MaterialsQuery.FirstOrDefault();
-
-                    orderitem.MaterialName = GetMaterialsQuery.Name;
-                    orderitem.MaterialTypeName = GetMaterialsQuery.Type.Name;
-                    orderitem.Order = order;
-                    orderitem.OrderId = order.Id;
-                    orderitem.Price = GetMaterialsQuery.Price;
-                    db.OrderItems.Add(orderitem);
-                    db.SaveChanges();
-                }
+            if (GetConfQuery == null) {
+                return HttpNotFound();
             }
-            else
+            // Adding order to database
+            Order order = new Order();
+            order.CustomerId = CustomerId;
+            order.ProductTypeName = GetConfQuery.ProductType.Name;
+            order.ProductName = GetProduct.Name;
+            order.ProductPrice = GetProduct.Price;
+            order.CreatedAt = DateTime.Now;
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            // Adding each configuration to order
+            var ConfQuery = from m in db.Configurations.Include(p => p.MaterialType)
+                            where m.ProductTypeId == GetProduct.TypeId
+                            select m;
+
+            foreach (var i in ConfQuery.ToList())
             {
-                // Adding order to database
-                order.CustomerId = CustomerId;
-                order.ProductTypeName = "123";
-                order.ProductName = product.Name;
-                order.ProductPrice = product.Price;
-                order.CreatedAt = DateTime.Now;
-                db.Orders.Add(order);
+                var MaterialId = i.MaterialTypeId;
+                var GetSessionSetting = sessionSettings.GetMaterialId(MaterialId);
+                var MaterialsQuery = from m in db.Materials.Include(p => p.Type)
+                                        where m.Id == GetSessionSetting
+                                        select m;
+                var GetMaterialsQuery = MaterialsQuery.FirstOrDefault();
+
+                OrderItem orderitem = new OrderItem();
+
+                orderitem.MaterialName = GetMaterialsQuery.Name;
+                orderitem.MaterialTypeName = GetMaterialsQuery.Type.Name;
+                orderitem.Order = order;
+                orderitem.OrderId = order.Id;
+                orderitem.Price = GetMaterialsQuery.Price;
+                db.OrderItems.Add(orderitem);
                 db.SaveChanges();
             }
-
-
             return RedirectToAction("Cart", "Products");
         }
         
@@ -194,6 +216,7 @@ namespace EasyERP.Controllers
             ViewBag.ReturnUrl = returnurl;
             return View();
         }
+
         public ActionResult MaterialList(int? page, int? type, int category, int returnurl)
         {
             if (page == null | type == null)
@@ -201,7 +224,7 @@ namespace EasyERP.Controllers
 
             var query =
                 from m in db.Materials
-                where m.Type.Id == type
+                where m.Type.Id == type 
                 orderby m.Name
                 select m;
 

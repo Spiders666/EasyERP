@@ -29,6 +29,16 @@ namespace EasyERP.Helpers
             return new SelectList(result, "Value", "Text");
         }
 
+        public static int GetIdOnCatogory(string category)
+        {
+            DatabaseContext db = new DatabaseContext();
+            var Query = from q in db.ProductTypes
+                        where q.Name == category
+                        select q.Id;
+            var GetQuery = Query.FirstOrDefault();
+            return GetQuery;
+        }
+
         public static List<string> GetCategories()
         {
             DatabaseContext db = new DatabaseContext();

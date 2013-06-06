@@ -3,6 +3,6 @@
 }
 <script type="text/javascript">
     window.setTimeout(function() {
-        window.location.href = '@Url.Action("Details", "Products", new { id = @ViewBag.ReturnUrl, type = @ViewBag.Category })';
+        window.location.href = '@Url.Action("Details", "Products", new { id = @ViewBag.ReturnUrl})';
     }, 1);
 </script>

@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -301,6 +302,8 @@
     <Content Include="Areas\Admin\Views\Material\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Create.cshtml" />
+    <Content Include="Images\Products\1007.jpg" />
+    <Content Include="Images\Products\1007.png" />
     <Content Include="Scripts\bootstrap-carousel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -370,10 +373,9 @@
     <Content Include="Views\Account\ResetForm.cshtml" />
     <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Account\Reset.cshtml" />
+    <Content Include="Views\Account\Manage2.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

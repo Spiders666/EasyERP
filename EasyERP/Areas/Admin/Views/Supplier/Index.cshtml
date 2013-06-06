@@ -4,23 +4,35 @@
 @{
     ViewBag.Title = "Dostawcy";
 }
-
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("dodaj dostawcę", "create", "Supplier")</li>
-        <li>@Html.ActionLink("odśwież", "Index")</li>
-    </ul>
-</div>
-
-<div class="search">
-    @using (Html.BeginForm("Index", "Supplier", FormMethod.Get))
-    {
-        @Html.TextBox("name")
-        <input type="submit" value="Szukaj" />
-    }
-</div>
-
-<table class="table table-bordered">
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Dostawcy</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            <div class="span10">
+                <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px">
+                    <div class="btn-group span7">
+                        <a href="~/Admin/Supplier/Index" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                        <a href="~/Admin/Supplier/Create" class="btn"><i class="icon-pencil"></i> Utwórz nowego dostawcę</a>
+                    </div>
+                    @using (Html.BeginForm("Index", "Supplier", FormMethod.Get))
+                    {
+                    <div class="input-append">
+                        <input name="name" type="text" placeholder="Szukaj po nazwie">
+                        <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
+                    </div>  
+                    }
+                </div>
+            </div>
+            <div class="span10" style="height: 20px"></div>
+        </div>
+    </div>
+    <div class="row">
+    <table class="table table-bordered table-striped table-hover table span11">
     <thead>
         <tr>
             <th>Id</th>
@@ -28,18 +40,20 @@
             <th>Kontrolki</th>
         </tr>
     </thead>
-
     <tbody>
-
-@foreach (var supplier in Model) {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => supplier.Id)</td>
-        <td>@Html.DisplayFor(modelItem => supplier.Name)</td>
-        <td>
-            @Html.ActionLink("pokaż szczegóły", "Details", new { id=supplier.Id }) |
-            @Html.ActionLink("edycja", "Edit", "Supplier", new { id=supplier.Id }, null)
-        </td>
-    </tr>
-}
+    @foreach (var supplier in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => supplier.Id)</td>
+            <td>@Html.DisplayFor(modelItem => supplier.Name)</td>
+            <td>
+                <i class="icon-align-center"></i> @Html.ActionLink("pokaż szczegóły", "Details", new { id=supplier.Id }) |
+                <i class="icon-wrench"></i> @Html.ActionLink("edycja", "Edit", "Supplier", new { id=supplier.Id }, null)
+            </td>
+        </tr>
+    }
     </tbody>
-</table>
+    </table>
+    <div class="span10" style="height: 40px"></div>
+    </div>
+</div>
+</div>

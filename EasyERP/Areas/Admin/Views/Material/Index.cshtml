@@ -4,49 +4,59 @@
 @{
     ViewBag.Title = "Materiały";
 }
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Materiały</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+        <div class="row">
+            <div class="span11">
+                <div class="span10">
+                    <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px">
+                        <div class="btn-group span4">
+                        <a href="~/Admin/Material/Index" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                        <a href="~/Admin/Material/Types" class="btn"><i class="icon-wrench"></i> Lista typów materiałów</a>
+                        </div>
+                        @using (Html.BeginForm("Index", "Material", FormMethod.Get))
+                        {
+                        <div class="input-append">
+                        @Html.DropDownList("type", @MaterialHelpers.GetSelectList())
+                        <input name="name" type="text" placeholder="Szukaj po nazwie">
+                        <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
+                        </div>  
+                        }
 
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("lista typów", "Types", "Material")</li>
-        <li>@Html.ActionLink("odśwież", "Index")</li>
-    </ul>
+                        </div>
+                </div>
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Typ</th>
+                    <th>Nazwa</th>
+                    <th>Cena</th>
+                    <th>Dostępność</th>
+                    <th>Kontrolki</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var material in Model) {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => material.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => material.Name)</td>
+                    <td>@PriceFormatHelper.DisplayFormatPrice(material.Price)</td>
+                    <td>@Html.DisplayFor(modelItem => material.Availability)</td>
+                    <td><i class="icon-align-center"></i>@Html.ActionLink("pokaż szczegóły", "Details", new { id = material.Id }) |
+                    <i class="icon-wrench"></i>@Html.ActionLink("edycja", "Edit", new { id = material.Id })</td>
+                </tr>
+                }
+                </tbody>
+                </table>
+                <div class="span10" style="height: 40px"></div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="search">
-
-    @using (Html.BeginForm("Index", "Material", FormMethod.Get))
-    {
-        @Html.DropDownList("type", @MaterialHelpers.GetSelectList())
-        @Html.TextBox("name")
-        <input type="submit" value="Wyświetl" />
-    }
-</div>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Typ</th>
-            <th>Nazwa</th>
-            <th>Cena</th>
-            <th>Dostępność</th>
-            <th>Kontrolki</th>
-        </tr>
-    </thead>
-
-    <tbody>
-@foreach (var material in Model) {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => material.Id)</td>
-        <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
-        <td>@Html.DisplayFor(modelItem => material.Name)</td>
-        <td>@PriceFormatHelper.DisplayFormatPrice(material.Price)</td>
-        <td>@Html.DisplayFor(modelItem => material.Availability)</td>
-        <td>
-            @Html.ActionLink("pokaż szczegóły", "Details", new { id = material.Id }) |
-            @Html.ActionLink("edycja", "Edit", new { id = material.Id })
-        </td>
-    </tr>
-}
-    </tbody>
-</table>

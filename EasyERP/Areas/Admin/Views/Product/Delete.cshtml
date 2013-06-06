@@ -1,59 +1,70 @@
 ﻿@model EasyERP.Models.Product
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Usuń";
 }
 
-<h2>Delete</h2>
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Produkt - Usuwanie</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CurrentVersion)
+    @Html.HiddenFor(model => model.ImageName)
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
+                <td>@Html.DisplayFor(model => model.ImageName)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Type)</label></td>
+                <td>@Html.DisplayFor(model => model.Type)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
+                <td>@Html.DisplayFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Price)</label></td>
+                <td>@Html.DisplayFor(model => model.Price)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Availability)</label></td>
+                <td>@Html.DisplayFor(model => model.Availability)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 20px"></div>
+            <div class="actions span10">
+                <hgroup>
+                    <div class="alert alert-error" style="padding-bottom: 50px; text-align:center">
+                    <h4>Usuń</h4>
+                    <h5>Czy jesteś pewien że chcesz usunąć produkt?</h5>
+                    <div class="btn-group span7 offset1">
+                    @using (Html.BeginForm()) {
+                    <button class="btn" type="submit">Usuń</button>
+                    <a href="~/Admin/Product/Index" class="btn"><i class="icon-refresh"></i> Wróć</a>
+                    }
+                    </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Product</legend>
+                    </div>
+                </hgroup>
+            </div>
+            }
+        </div>
+        <div class="span10" style="height: 40px"></div>
+    </div>
+</div>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ImageName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ImageName)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Type)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Type)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Availability)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Availability)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" class="btn btn-inverse"/>
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}

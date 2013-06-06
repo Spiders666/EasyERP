@@ -4,76 +4,90 @@
 @{
     ViewBag.Title = "Dostawca - Szczegóły";
 }
-
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("dodaj materiał", "Create", "Material", new { SupplierId = Model.Id }, null)</li>
-        <li>@Html.ActionLink("edycja", "Edit", "Supplier", new { id = Model.Id }, null)</li>
-    </ul>
-</div>
-
-<table class="display-record">
-    <tbody>
-        <tr>
-            <td>NIP</td>
-            <td>@Html.DisplayFor(model => model.NIP)</td>
-        </tr>
-        <tr>
-            <td>Nazwa</td>
-            <td>@Html.DisplayFor(model => model.Name)</td>
-        </tr>
-        <tr>
-            <td>Kod pocztowy</td>
-            <td>@Html.DisplayFor(model => model.ZipCode)</td>
-        </tr>
-        <tr>
-            <td>Miasto</td>
-            <td>@Html.DisplayFor(model => model.City)</td>
-        </tr>
-        <tr>
-            <td>Ulica</td>
-            <td>@Html.DisplayFor(model => model.Street)</td>
-        </tr>
-        <tr>
-            <td>Telefon</td>
-            <td>@Html.DisplayFor(model => model.Telephone)</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>@Html.DisplayFor(model => model.Email)</td>
-        </tr>
-        <tr>
-            <td>Konto bankowe</td>
-            <td>@Html.DisplayFor(model => model.BankAccount)</td>
-        </tr>
-    </tbody>
-</table>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Typ</th>
-            <th>Nazwa</th>
-            <th>Cena</th>
-            <th>Dostępność</th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-@foreach (var material in Model.Materials) {
-        <tr>
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Dostawca - Szczegóły</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+        <div class="span10">
+                <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px; padding-bottom:10px">
+                    <div class="btn-group span7">
+                        <a href="~/Admin/Supplier/Edit/@Model.Id" class="btn"><i class="icon-pencil"></i> Edytuj dane dostawcy</a>
+                        <a href="~/Admin/Material/Create?SupplierId=@Model.Id" class="btn"><i class="icon-wrench"></i> Utwórz nowy materiał</a>
+                    </div>
+                </div>
+            </div>
+    <div class="span10" style="height: 20px"></div>
+    <div class="row">
+        <div class="span11">
+            <div class="span10"><h4>Dane dostawcy:</h4></div>
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td>NIP</td>
+                <td>@Html.DisplayFor(model => model.NIP)</td>
+            </tr>
+            <tr>
+                <td>Nazwa</td>
+                <td>@Html.DisplayFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td>Kod pocztowy</td>
+                <td>@Html.DisplayFor(model => model.ZipCode)</td>
+            </tr>
+            <tr>
+                <td>Miasto</td>
+                <td>@Html.DisplayFor(model => model.City)</td>
+            </tr>
+            <tr>
+                <td>Ulica</td>
+                <td>@Html.DisplayFor(model => model.Street)</td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>@Html.DisplayFor(model => model.Telephone)</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>Konto bankowe</td>
+                <td>@Html.DisplayFor(model => model.BankAccount)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 40px"></div>
+            <div class="span10"><h4>Lista produktów dostawcy: </h4></div>
+            <table class="table table-bordered table-striped table-hover table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Typ</th>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Dostępność</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var material in Model.Materials) {
+            <tr>
             <td>@Html.DisplayFor(modelItem => material.Id)</td>
             <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
             <td>@Html.DisplayFor(modelItem => material.Name)</td>
             <td>@Html.DisplayFor(modelItem => material.Price)</td>
             <td>@Html.DisplayFor(modelItem => material.Availability)</td>
-            <td>
-                @Html.ActionLink("szczegóły", "Details", "Material", new { id = material.Id }, null)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <td><i class="icon-wrench"></i>@Html.ActionLink("szczegóły", "Details", "Material", new { id = material.Id }, null)</td>
+            </tr>}
+            </tbody>
+            </table>
+            <div class="span10" style="height: 40px"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+

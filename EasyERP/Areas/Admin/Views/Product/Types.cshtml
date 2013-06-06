@@ -3,32 +3,46 @@
     ViewBag.Title = "Rodzaje produktu";
 }
 
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("utwórz typ", "CreateType", "Product")</li>
-        <li>@Html.ActionLink("odśwież", "Types")</li>
-    </ul>
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Rodzaje materiału</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            <div class="span10">
+                <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px; padding-bottom:10px">
+                    <div class="btn-group span4">
+                        <a href="~/Admin/Product/Types" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                        <a href="~/Admin/Product/CreateType" class="btn"><i class="icon-wrench"></i> Dodaj typ produktu</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Kontrolki</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var type in Model) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => type.Id)</td>
+                <td>@Html.DisplayFor(modelItem => type.Name)</td>
+                <td>
+                @Html.ActionLink("ustaw konfigurator", "SetTypeConfiguration", new { id = type.Id }) |
+                @Html.ActionLink("edycja", "EditType", new { id = type.Id })
+                </td>
+            </tr>
+            }
+            </tbody>
+            </table>
+        </div>
+        <div class="span10" style="height: 40px"></div>
+    </div>
 </div>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nazwa</th>
-            <th>Kontrolki</th>
-        </tr>
-    </thead>
-
-    <tbody>
-@foreach (var type in Model) {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => type.Id)</td>
-        <td>@Html.DisplayFor(modelItem => type.Name)</td>
-        <td>
-            @Html.ActionLink("ustaw konfigurator", "SetTypeConfiguration", new { id = type.Id }) |
-            @Html.ActionLink("edycja", "EditType", new { id = type.Id })
-        </td>
-    </tr>
-}
-    </tbody>
-</table>
+</div>

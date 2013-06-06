@@ -2,28 +2,52 @@
 @model EasyERP.Areas.Admin.ViewModels.ConfigurationViewModel
 
 @{
-    ViewBag.Title = "SetTypeConfigurator";
+    ViewBag.Title = "Ustawianie konfiguratora";
 }
-@Model.ProductType.Name
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.ProductType.CurrentVersion)
-    @Html.HiddenFor(model => model.ProductType.Id)
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Ustawianie konfiguratora</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            <h3>@Model.ProductType.Name</h3>
+            @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ProductType.CurrentVersion)
+            @Html.HiddenFor(model => model.ProductType.Id)
     
-    int i = 0;
-    <table>
-    @foreach (var materialTypes in Model.MaterialTypes) {
-        <tr>
-            <td>@Html.CheckBoxFor(model => Model.Configuration[i])</td>
-            <td>@Html.DisplayFor(model => materialTypes.Name)</td>
-        </tr>
-        i = i + 1;
-    }
-    </table>
+            int i = 0;
+            <table class="table table-bordered">
+            @foreach (var materialTypes in Model.MaterialTypes) {
+            <tr>
+                <td>@Html.CheckBoxFor(model => Model.Configuration[i])</td>
+                <td>@Html.DisplayFor(model => materialTypes.Name)</td>
+            </tr>
+            i = i + 1;
+            }
+            </table>
+            <div class="span10" style="height: 20px"></div>
+            <div class="actions span4 offset4">
+                <div class="btn-group span7">
+                    <button class="btn" type="submit">Zapisz</button>
+                    <button class="btn" type="reset">Resetuj</button>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="span10" style="height: 40px"></div>
+    </div>
+</div>
+</div>
+
+
 
     <div class="actions">
         <input type="submit" value="Zapisz" class="btn"/>
         <input type="reset" value="Reset" class="btn"/>
     </div>
-}
+

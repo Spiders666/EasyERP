@@ -2,42 +2,59 @@
 @model EasyERP.Models.Product
 
 @{
-    ViewBag.Title = "Produkt - Szczegóły";
+    ViewBag.Title = "Produkt - szczegóły";
 }
 
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("edycja", "Edit", "Product", new { id = Model.Id }, null)</li>
-        <li>@Html.ActionLink("odśwież", "Details")</li>
-    </ul>
+
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Produkt - szczegóły</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+        <div class="span10">
+            <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px; padding-bottom:10px">
+                <div class="btn-group span7">
+                    <a href="~/Admin/Product/Details/@Model.Id" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                    <a href="~/Admin/Product/Edit/@Model.Id" class="btn"><i class="icon-pencil"></i> Edytuj produkt</a>
+                </div>
+            </div>
+        </div>
+        <div class="span10" style="height: 20px"></div>
+        <div class="row">
+            <div class="span11">
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td>Typ</td>
+                <td>@Html.DisplayFor(model => model.Type.Name)</td>
+            </tr>
+            <tr>
+                <td>Nazwa</td>
+                <td>@Html.DisplayFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td>Opis</td>
+                <td>@Html.DisplayFor(model => model.Description)</td>
+            </tr>
+            <tr>
+                <td>Cena</td>
+                <td>@Html.DisplayFor(model => model.Price)</td>
+            </tr>
+            <tr>
+                <td>Zdjęcie</td>
+                <td>@Html.DisplayFor(model => model.ImageName)</td>
+            </tr>
+            <tr>
+                <td>Dostępność</td>
+                <td>@Html.DisplayFor(model => model.Availability)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 40px"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<table class="display-record">
-    <tbody>
-        <tr>
-            <td>Typ</td>
-            <td>@Html.DisplayFor(model => model.Type.Name)</td>
-        </tr>
-        <tr>
-            <td>Nazwa</td>
-            <td>@Html.DisplayFor(model => model.Name)</td>
-        </tr>
-        <tr>
-            <td>Opis</td>
-            <td>@Html.DisplayFor(model => model.Description)</td>
-        </tr>
-        <tr>
-            <td>Cena</td>
-            <td>@Html.DisplayFor(model => model.Price)</td>
-        </tr>
-        <tr>
-            <td>Zdjęcie</td>
-            <td>@Html.DisplayFor(model => model.ImageName)</td>
-        </tr>
-        <tr>
-            <td>Dostępność</td>
-            <td>@Html.DisplayFor(model => model.Availability)</td>
-        </tr>
-    </tbody>
-</table>

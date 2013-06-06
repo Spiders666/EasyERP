@@ -5,18 +5,38 @@
     ViewBag.Title = "Rodzaj produktu - nowy";
 }
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-<table class="cu-record">
-    <tbody>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
-            <td>@Html.EditorFor(model => model.Name)</td>
-            <td>@Html.ValidationMessageFor(model => model.Name)</td>
-        </tr>
-    </tbody>
-</table>
-<div class="actions">
-        <input type="submit" value="Zapisz" class="btn btn-inverse"/> | <input type="reset" value="Reset" class="btn btn-inverse"/>
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Rodzaj produktu - nowy</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            <div class="span10">
+            @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+                <table class="cu-record">
+                <tbody>
+                <tr>
+                    <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
+                    <td>@Html.EditorFor(model => model.Name)</td>
+                    <td>@Html.ValidationMessageFor(model => model.Name)</td>
+                </tr>
+                </tbody>
+                </table>
+                <div class="span10" style="height: 20px"></div>
+                <div class="actions span4 offset4">
+                    <div class="btn-group span6">
+                        <button class="btn" type="submit">Zapisz</button>
+                        <button class="btn" type="reset">Resetuj</button>
+                    </div>
+                </div>
+                <div class="span10" style="height: 40px"></div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-}
+</div>

@@ -3,55 +3,71 @@
 @{
     ViewBag.Title = "Klient - Edycja";
 }
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.CurrentVersion)
-
-<table class="cu-record">
-    <tbody>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
-            <td>@Html.EditorFor(model => model.Name)</td>
-            <td>@Html.ValidationMessageFor(model => model.Name)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.SurName)</label></td>
-            <td>@Html.EditorFor(model => model.SurName)</td>
-            <td>@Html.ValidationMessageFor(model => model.SurName)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.ZipCode)</label></td>
-            <td>@Html.EditorFor(model => model.ZipCode)</td>
-            <td>@Html.ValidationMessageFor(model => model.ZipCode)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.City)</label></td>
-            <td>@Html.EditorFor(model => model.City)</td>
-            <td>@Html.ValidationMessageFor(model => model.City)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Street)</label></td>
-            <td>@Html.EditorFor(model => model.Street)</td>
-            <td>@Html.ValidationMessageFor(model => model.Street)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Telephone)</label></td>
-            <td>@Html.EditorFor(model => model.Telephone)</td>
-            <td>@Html.ValidationMessageFor(model => model.Telephone)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Email)</label></td>
-            <td>@Html.EditorFor(model => model.Email)</td>
-            <td>@Html.ValidationMessageFor(model => model.Email)</td>
-        </tr>
-    </tbody>
-</table>
-<div class="actions">
-        <input type="submit" value="Zapisz" class="btn btn-inverse"/> | <input type="reset" value="Reset" class="btn btn-inverse"/>
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Klient - Edycja</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CurrentVersion)
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
+                <td>@Html.EditorFor(model => model.Name)</td>
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.SurName)</label></td>
+                <td>@Html.EditorFor(model => model.SurName)</td>
+                <td>@Html.ValidationMessageFor(model => model.SurName)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.ZipCode)</label></td>
+                <td>@Html.EditorFor(model => model.ZipCode)</td>
+                <td>@Html.ValidationMessageFor(model => model.ZipCode)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.City)</label></td>
+                <td>@Html.EditorFor(model => model.City)</td>
+                <td>@Html.ValidationMessageFor(model => model.City)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Street)</label></td>
+                <td>@Html.EditorFor(model => model.Street)</td>
+                <td>@Html.ValidationMessageFor(model => model.Street)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Telephone)</label></td>
+                <td>@Html.EditorFor(model => model.Telephone)</td>
+                <td>@Html.ValidationMessageFor(model => model.Telephone)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Email)</label></td>
+                <td>@Html.EditorFor(model => model.Email)</td>
+                <td>@Html.ValidationMessageFor(model => model.Email)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 20px"></div>
+            <div class="actions span4 offset4">
+                <div class="btn-group span7">
+                    <button class="btn" type="submit">Zapisz</button>
+                    <button class="btn" type="reset">Resetuj</button>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="span10" style="height: 40px"></div>
+    </div>
 </div>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

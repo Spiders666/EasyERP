@@ -45,7 +45,7 @@
                   </a>
                   <div class="nav-collapse">
                         <ul class="nav">
-                          <li class="active"><a href="~/Home/Index"><i class="icon-home icon-large icon-white"></i> Strona główna</a></li>
+                          <li><a href="~/Home/Index"><i class="icon-home icon-large icon-white"></i> Strona główna</a></li>
                           <li><a href="~/Admin/Supplier/Index"><i class="icon-globe icon-large icon-white"></i> Dostawcy</a></li>
                           <li><a href="~/Admin/Material/Index"><i class="icon-wrench icon-large icon-white"></i> Materiały</a></li>
                           <li><a href="~/Admin/Product/Index"><i class="icon-barcode icon-large icon-white"></i> Produkty</a></li>
@@ -75,17 +75,18 @@
             
             @EasyERP.Helpers.FlashMessageHelper.DisplayMessage(TempData, "fadein", "display: none;")
         }
+        <div class="container span11">
         @RenderBody()
-        </div>
-                <div class="container span11">
+         </div>
+        <div class="container span11">
         <div class="navbar navbar-inverse">
             <div class="navbar-inner" style="text-align:center">
                 <h1 class="brand logo" style="float:none">Easy ERP - @DateTime.Now.Year</h1>
             </div>
         </div><!--/.navbar-->
         </div>
-    </div>  
-  </div>
+        </div>
+      </div>
     <!-- /container -->
     <!-- Le javascript
     ================================================== -->

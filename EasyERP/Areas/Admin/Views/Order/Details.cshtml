@@ -4,64 +4,81 @@
 @{
     ViewBag.Title = "Zamówienia - Szczegóły";
 }
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Zamówienia - Szczegóły</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
+            <div class="span10">
+                <div class="row" style="background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%); border:1px solid #adadad; padding-top:10px">
+                    <div class="btn-group span7">
+                        <a href="~/Admin/Customer/Details/@Model.CustomerId" class="btn"><i class="icon-user"></i> Pokaż szczegóły klienta</a>
+                        <a href="~/Admin/Order/Details/@Model.Id" class="btn"><i class="icon-refresh"></i> Odśwież</a>
+                    </div>
+                    @using (Html.BeginForm()) {
+                    <div class="input-append">
+                    @Html.DropDownList("state", @OrderHelpers.GetSelectList())
+                    <button class="btn" type="submit" value="Zapisz">Zapisz</button>
+                    </div>  
+                    }
+                </div>
+            </div>
+            <div class="span10" style="height: 20px"></div>
+            <div class="span10"><h4>Szczegóły zamówienia: </h4></div>
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td>Klient</td>
+                <td>@Html.DisplayFor(model => model.Customer.Name)</td>
+            </tr>
+            <tr>
+               <td>Data zamówienia</td>
+               <td>@Html.DisplayFor(model => model.CreatedAt)</td>
+            </tr>
+            <tr>
+                <td>Stan zamówienia</td>
+                <td>@OrderHelpers.DisplayStateName(Model.State)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 20px"></div>
+            <div class="span10"><h4>Konfiguracja zamówienia: </h4></div>
+            <table class="table table-bordered table-striped table-hover table">
+            <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th>Cena</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>@Html.DisplayFor(model => model.ProductTypeName)</th>
+                <th>@Html.DisplayFor(model => model.ProductName)</th>
+                <td>@PriceFormatHelper.DisplayFormatPrice(@Model.ProductPrice)</td>
+            </tr>
+            @foreach (var orderItem in Model.OrderItems) {
+            <tr>
+                <th>@Html.DisplayFor(modelItem => orderItem.MaterialTypeName)</th>
+                <th>@Html.DisplayFor(modelItem => orderItem.MaterialName)</th>
+                <td>@PriceFormatHelper.DisplayFormatPrice(orderItem.Price)</td>
+            </tr>
+            }
 
-<div class="actions">
-    <ul>
-        <li>@Html.ActionLink("pokaż szczegóły klienta", "Details", "Customer", new { id = Model.CustomerId }, null)</li>
-        <li>@Html.ActionLink("odśwież", "Details")</li>
-    </ul>
+            <tr>
+                <th colspan="2"></th>
+                <td>@PriceFormatHelper.DisplayFormatPrice(ViewBag.TotalPrice)</td>
+            </tr>
+            </tbody>
+            </table>
+            <div class="span10" style="height: 40px"></div>
+        </div>
+    </div>
+</div>
 </div>
 
-<div class="display-order-states-form">
-    @using (Html.BeginForm()) {
-        @Html.DropDownList("state", @OrderHelpers.GetSelectList())
-        <input type="submit" value="Zapisz" class="btn btn-inverse"//>
-    }
-</div>
 
-<table class="display-record">
-    <tbody>
-        <tr>
-            <td>Klient</td>
-            <td>@Html.DisplayFor(model => model.Customer.Name)</td>
-        </tr>
-        <tr>
-            <td>Data zamówienia</td>
-            <td>@Html.DisplayFor(model => model.CreatedAt)</td>
-        </tr>
-        <tr>
-            <td>Stan zamówienia</td>
-            <td>@OrderHelpers.DisplayStateName(Model.State)</td>
-        </tr>
-    </tbody>
-</table>
 
-<table class="display-summary">
-    <thead>
-        <tr>
-            <th colspan="2"></th>
-            <th>Cena</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <th>@Html.DisplayFor(model => model.ProductTypeName)</th>
-            <th>@Html.DisplayFor(model => model.ProductName)</th>
-            <td>@PriceFormatHelper.DisplayFormatPrice(@Model.ProductPrice)</td>
-        </tr>
-
-        @foreach (var orderItem in Model.OrderItems) {
-        <tr>
-            <th>@Html.DisplayFor(modelItem => orderItem.MaterialTypeName)</th>
-            <th>@Html.DisplayFor(modelItem => orderItem.MaterialName)</th>
-            <td>@PriceFormatHelper.DisplayFormatPrice(orderItem.Price)</td>
-        </tr>
-        }
-
-        <tr>
-            <th colspan="2"></th>
-            <td>@PriceFormatHelper.DisplayFormatPrice(ViewBag.TotalPrice)</td>
-        </tr>
-    </tbody>
-</table>

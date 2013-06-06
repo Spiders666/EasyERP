@@ -5,44 +5,62 @@
     ViewBag.Title = "Produkt - Nowy";
 }
 
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Administracja.</h1>
+        <h2>Produkt - Nowy</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+    <div class="row">
+        <div class="span11">
 @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-<table class="cu-record">
-    <tbody>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.TypeId)</label></td>
-            <td>@Html.DropDownListFor(model => model.TypeId, ProductHelpers.GetSelectList())</td>
-            <td>@Html.ValidationMessageFor(model => model.TypeId)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
-            <td>@Html.EditorFor(model => model.Name)</td>
-            <td>@Html.ValidationMessageFor(model => model.Name)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Description)</label></td>
-            <td>@Html.TextAreaFor(model => model.Description)</td>
-            <td>@Html.ValidationMessageFor(model => model.Description)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Price)</label></td>
-            <td>@Html.EditorFor(model => model.Price)</td>
-            <td>@Html.ValidationMessageFor(model => model.Price)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
-            <td><input id="file" name="file" type="file" /></td>
-            <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
-        </tr>
-        <tr>
-            <td class="title"><label>@Html.DisplayNameFor(model => model.Availability)</label></td>
-            <td>@Html.EditorFor(model => model.Availability)</td>
-            <td>@Html.ValidationMessageFor(model => model.Availability)</td>
-        </tr>
-    </tbody>
-</table>
-<div class="actions">
-        <input type="submit" value="Zapisz" class="btn btn-inverse"/> | <input type="reset" value="Reset" class="btn btn-inverse"/>
-</div>
+            <table class="table span5">
+            <tbody>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.TypeId)</label></td>
+                <td>@Html.DropDownListFor(model => model.TypeId, ProductHelpers.GetSelectList())</td>
+                <td>@Html.ValidationMessageFor(model => model.TypeId)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Name)</label></td>
+                <td>@Html.EditorFor(model => model.Name)</td>
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Description)</label></td>
+                <td>@Html.TextAreaFor(model => model.Description)</td>
+                <td>@Html.ValidationMessageFor(model => model.Description)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Price)</label></td>
+                <td>@Html.EditorFor(model => model.Price)</td>
+                <td>@Html.ValidationMessageFor(model => model.Price)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
+                <td><input id="file" name="file" type="file" /></td>
+                <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
+            </tr>
+            <tr>
+                <td class="title"><label>@Html.DisplayNameFor(model => model.Availability)</label></td>
+                <td>@Html.EditorFor(model => model.Availability)</td>
+                <td>@Html.ValidationMessageFor(model => model.Availability)</td>
+            </tr>
+        </tbody>
+        </table>
+        <div class="span10" style="height: 20px"></div>
+        <div class="actions span4 offset4">
+            <div class="btn-group span7">
+                <button class="btn" type="submit">Zapisz</button>
+                <button class="btn" type="reset">Resetuj</button>
+            </div>
+        </div>
+        <div class="span10" style="height: 40px"></div>
 }
+        </div>
+    </div>
+</div>
+</div>
