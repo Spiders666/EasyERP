@@ -14,7 +14,7 @@
     <div class="span10" style="height: 40px"></div>
     <div class="row">
         <div class="span11">
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Material", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.SupplierId)
@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
-            <td>@Html.EditorFor(model => model.ImageName)</td>
+            <td><input id="file" name="file" type="file" value="" /></td>
             <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
         </tr>
         <tr>

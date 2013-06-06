@@ -9,6 +9,7 @@ using EasyERP.Models;
 using EasyERP.Helpers;
 using EasyERP.App_GlobalResources;
 using EasyERP.Filters;
+using System.IO;
 
 namespace EasyERP.Areas.Admin.Controllers
 {
@@ -89,14 +90,32 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Material material)
+        public ActionResult Create(Material material, HttpPostedFileBase file = null)
         {
             try
             {
+                ImageUploader iu = null;
+
+                if (file != null)
+                {
+                    iu = new ImageUploader(this, file, "ImageName");
+                    iu.Validate();
+                }
+
                 if (ModelState.IsValid)
                 {
                     db.Materials.Add(material);
                     db.SaveChanges();
+
+                    if (iu != null && iu.IsValid())
+                    {
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.AppendFormat("{0}.{1}", material.Id.ToString(), file.FileName.Split('.')[1]);
+                        material.ImageName = sb.ToString();
+                        iu.Save(Path.GetFileName(material.ImageName), Server.MapPath("~/Images/Materials"));
+                        db.SaveChanges();
+                    }
+
                     FlashMessageHelper.SetMessage(
                         this,
                         HttpContext.GetGlobalResourceObject(
@@ -146,12 +165,28 @@ namespace EasyERP.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Material material)
+        public ActionResult Edit(Material material, HttpPostedFileBase file = null)
         {
             try
             {
+                ImageUploader iu = null;
+
+                if (file != null)
+                {
+                    iu = new ImageUploader(this, file, "ImageName");
+                    iu.Validate();
+                }
+
                 if (ModelState.IsValid)
                 {
+                    if (iu != null && iu.IsValid())
+                    {
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.AppendFormat("{0}.{1}", material.Id.ToString(), file.FileName.Split('.')[1]);
+                        material.ImageName = sb.ToString();
+                        iu.Save(Path.GetFileName(material.ImageName), Server.MapPath("~/Images/Materials"));
+                    }
+
                     db.Entry(material).State = EntityState.Modified;
                     db.SaveChanges();
                     FlashMessageHelper.SetMessage(
