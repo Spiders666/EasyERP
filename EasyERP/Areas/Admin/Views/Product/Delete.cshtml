@@ -13,11 +13,6 @@
     <div class="span10" style="height: 40px"></div>
     <div class="row">
         <div class="span11">
-@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) {
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.CurrentVersion)
-    @Html.HiddenFor(model => model.ImageName)
             <table class="table span5">
             <tbody>
             <tr>
@@ -58,7 +53,6 @@
                     </div>
                 </hgroup>
             </div>
-            }
         </div>
         <div class="span10" style="height: 40px"></div>
     </div>
