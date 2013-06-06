@@ -37,6 +37,7 @@
                     <th>Typ</th>
                     <th>Nazwa</th>
                     <th>Cena</th>
+                    <th>Zdjęcie</th>
                     <th>Dostępność</th>
                     <th>Kontrolki</th>
                 </tr>
@@ -48,6 +49,7 @@
                     <td>@Html.DisplayFor(modelItem => material.Type.Name)</td>
                     <td>@Html.DisplayFor(modelItem => material.Name)</td>
                     <td>@PriceFormatHelper.DisplayFormatPrice(material.Price)</td>
+                    <td><a href="/images/materials/@material.ImageName">@material.ImageName</a></td>
                     <td>@Html.DisplayFor(modelItem => material.Availability)</td>
                     <td><i class="icon-align-center"></i>@Html.ActionLink("pokaż szczegóły", "Details", new { id = material.Id }) |
                     <i class="icon-wrench"></i>@Html.ActionLink("edycja", "Edit", new { id = material.Id })</td>

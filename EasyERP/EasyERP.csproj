@@ -303,6 +303,9 @@
     <Content Include="Areas\Admin\Views\Material\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Create.cshtml" />
+    <Content Include="Images\Products\4.jpg" />
+    <Content Include="Images\Products\6.jpg" />
+    <Content Include="Images\Products\6.png" />
     <Content Include="Scripts\bootstrap-carousel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -374,7 +377,9 @@
     <Content Include="Views\Account\Reset.cshtml" />
     <Content Include="Views\Account\Manage2.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Materials\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
