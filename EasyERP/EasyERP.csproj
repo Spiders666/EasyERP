@@ -191,6 +191,7 @@
     <Compile Include="Helpers\PriceFormatHelper.cs" />
     <Compile Include="Helpers\ProductHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ImageUploader.cs" />
     <Compile Include="Models\SessionSettings.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\ProductType.cs" />
@@ -302,8 +303,6 @@
     <Content Include="Areas\Admin\Views\Material\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Create.cshtml" />
-    <Content Include="Images\Products\1007.jpg" />
-    <Content Include="Images\Products\1007.png" />
     <Content Include="Scripts\bootstrap-carousel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
