@@ -69,14 +69,14 @@ namespace EasyERP.Models
             /* Części */
             var materials = new List<Material>
             {
-                new Material { SupplierId = 1, TypeId = 1, Name = "Skóra sztuczna", Price = 100.0m, Availability = true },
-                new Material { SupplierId = 1, TypeId = 1, Name = "Skóra naturalna", Price = 500.0m, Availability = false },
-                new Material { SupplierId = 2, TypeId = 1, Name = "Szmaty", Price = 10.0m, Availability = true },
-                new Material { SupplierId = 2, TypeId = 1, Name = "Materiał z chin", Price = 50.0m, Availability = true },
-                new Material { SupplierId = 3, TypeId = 1, Name = "Bawełna", Price = 300.0m, Availability = true },
-                new Material { SupplierId = 3, TypeId = 2, Name = "Trociny", Price = 10.0m, Availability = true },
-                new Material { SupplierId = 3, TypeId = 2, Name = "Szmaty", Price = 25.0m, Availability = false },
-                new Material { SupplierId = 3, TypeId = 2, Name = "Materac", Price = 50.0m, Availability = true }
+                new Material { SupplierId = 1, TypeId = 1, Name = "Skóra sztuczna", Price = 100.0m, ImageName="1.jpeg", Availability = true },
+                new Material { SupplierId = 1, TypeId = 1, Name = "Skóra naturalna", Price = 500.0m, ImageName="2.jpeg", Availability = false },
+                new Material { SupplierId = 2, TypeId = 1, Name = "Szmaty", Price = 10.0m, ImageName="3.jpg", Availability = true },
+                new Material { SupplierId = 2, TypeId = 1, Name = "Materiał z chin", Price = 50.0m, ImageName="4.jpg", Availability = true },
+                new Material { SupplierId = 3, TypeId = 1, Name = "Bawełna", Price = 300.0m, ImageName="5.jpg", Availability = true },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Trociny", Price = 10.0m, ImageName="6.jpg", Availability = true },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Szmaty", Price = 25.0m, ImageName="7.png", Availability = false },
+                new Material { SupplierId = 3, TypeId = 2, Name = "Materac", Price = 50.0m, ImageName="8.png", Availability = true }
             };
 
             materials.ForEach(m => context.Materials.Add(m));
@@ -95,10 +95,10 @@ namespace EasyERP.Models
             /* Produkty */
             var products = new List<Product>
             {
-                new Product { TypeId = 1, Name = "Niagara", Description = "Mamy dla Państwa w specjalnej ofercie fotel NIAGARA. \n Elegancki i stylowy fotel . Piękne wykończenia, starannie dobrane kolory oraz niezwykły szyk powoduje, że idealnie nadaje się do salonu.", Price = 600.0m, Availability = true },
-                new Product { TypeId = 1, Name = "Leonardo Lux", Description = "Fotel to niepowtarzalny element całej aranżacji mebli w Twoim pokoju. Model dostępny w skórze naturalnej oraz tkaninie.", Price = 450.0m, Availability = false },
-                new Product { TypeId = 2, Name = "Sofa", Description = "Fotele i sofy z kolekcji Holly są lekkie, wytrzymałe i niewielkie rozmiarowo. Dzięki temu można wykorzystać je do aranżacji nawet w niedużych przestrzeniach. Jednak ich największą zaletą jest możliwość rozłożenia zarówno kanapy, jak i fotela, dzięki czemu można na nich spać. \n Wielofunkcyjne meble z kolekcji „Holly” idealnie nadają się do aranżacji niewielkich pomieszczeń, szczególnie tych, w których pełnić mają podwójną rolę – reprezentatywną oraz miejsca do spania. Dzięki klasycznemu projektowi wykorzystać je można zarówno w zaciszu domowym, jak i oficjalnych pomieszczeniach.", Price = 1200.0m, Availability = true },
-                new Product { TypeId = 3, Name = "Benitor", Description = "Łóżko Benitor to jeden z pierwszych naszych projektów. Charakterystyczne solidne nogi o przekroju litery L nadają łóżku cechy wyrobu bardzo statecznego i solidnego choć wizualnie całość sprawia wrażenie lekkiego. Mimo upływu czasu, model ten nadal cieszy się dużą popularnością szczególnie wśród odbiorców o nowoczesnym guście. Co ciekawe, również użytkownicy łóżka Benitor którzy mają małe dzieci podkreślają jak istotną rolę odgrywają wysokość oraz krągłości krawędzi w konfrontacji z małymi exploratorami. \n Jak powszechnie wiadomo drewno bukowe charakteryzuje się bardzo dużą wytrzymałością. Mebel dedykowany dla wszystkich którzy preferują solidne produkty. Sposób wykonania, sprawia, że łóżko jak najbardziej może być użytkowane przez najcięższe osoby.", Price = 777.0m, Availability = true }
+                new Product { TypeId = 1, Name = "Niagara", Description = "Mamy dla Państwa w specjalnej ofercie fotel NIAGARA. \n Elegancki i stylowy fotel . Piękne wykończenia, starannie dobrane kolory oraz niezwykły szyk powoduje, że idealnie nadaje się do salonu.", ImageName="1.jpg", Price = 600.0m, Availability = true },
+                new Product { TypeId = 1, Name = "Leonardo Lux", Description = "Fotel to niepowtarzalny element całej aranżacji mebli w Twoim pokoju. Model dostępny w skórze naturalnej oraz tkaninie.", ImageName="2.jpg", Price = 450.0m, Availability = false },
+                new Product { TypeId = 2, Name = "Sofa", Description = "Fotele i sofy z kolekcji Holly są lekkie, wytrzymałe i niewielkie rozmiarowo. Dzięki temu można wykorzystać je do aranżacji nawet w niedużych przestrzeniach. Jednak ich największą zaletą jest możliwość rozłożenia zarówno kanapy, jak i fotela, dzięki czemu można na nich spać. \n Wielofunkcyjne meble z kolekcji „Holly” idealnie nadają się do aranżacji niewielkich pomieszczeń, szczególnie tych, w których pełnić mają podwójną rolę – reprezentatywną oraz miejsca do spania. Dzięki klasycznemu projektowi wykorzystać je można zarówno w zaciszu domowym, jak i oficjalnych pomieszczeniach.", ImageName="3.jpg", Price = 1200.0m, Availability = true },
+                new Product { TypeId = 3, Name = "Benitor", Description = "Łóżko Benitor to jeden z pierwszych naszych projektów. Charakterystyczne solidne nogi o przekroju litery L nadają łóżku cechy wyrobu bardzo statecznego i solidnego choć wizualnie całość sprawia wrażenie lekkiego. Mimo upływu czasu, model ten nadal cieszy się dużą popularnością szczególnie wśród odbiorców o nowoczesnym guście. Co ciekawe, również użytkownicy łóżka Benitor którzy mają małe dzieci podkreślają jak istotną rolę odgrywają wysokość oraz krągłości krawędzi w konfrontacji z małymi exploratorami. \n Jak powszechnie wiadomo drewno bukowe charakteryzuje się bardzo dużą wytrzymałością. Mebel dedykowany dla wszystkich którzy preferują solidne produkty. Sposób wykonania, sprawia, że łóżko jak najbardziej może być użytkowane przez najcięższe osoby.",  ImageName="4.jpg", Price = 777.0m, Availability = true }
             };
 
             products.ForEach(p => context.Products.Add(p));
