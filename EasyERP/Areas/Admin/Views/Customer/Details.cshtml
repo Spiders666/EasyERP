@@ -76,7 +76,7 @@
                 <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
                 <td>@PriceFormatHelper.DisplayFormatPrice(order.ProductPrice)</td>
                 <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
-                <td>@Html.DisplayFor(modelItem => order.State)</td>
+                <td>@OrderHelpers.DisplayStateName(order.State)</td>
                 <td><i class="icon-align-center"></i>@Html.ActionLink("szczegóły", "Details", "Order", new { id = order.Id }, null)</td>
             </tr>
             }

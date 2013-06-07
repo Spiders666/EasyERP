@@ -5,27 +5,49 @@
     ViewBag.Title = "Koszyk";
 }
 
-<h2>Cart</h2>
-<table class="table table-bordered">
+<div class="row">
+    <div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Klient.</h1>
+        <h2>Koszyk</h2>
+    </hgroup>
+    <div class="span10" style="height: 40px"></div>
+        <div class="span11">
+    <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Klient</th>
+            <th>Nr zamówienia</th>
             <th>Produkt</th>
             <th>Data zamówienia</th>
             <th>Stan zamówienia</th>
+            <th>Potwierdź</th>
         </tr>
     </thead>
 
     <tbody>
-@foreach (var order in Model) {
-    <tr class="@OrderHelpers.GetStateClass(order.State)">
-        <td>@Html.DisplayFor(modelItem => order.Id)</td>
-        <td>@Html.DisplayFor(modelItem => order.Customer.Name)</td>
-        <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
-        <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
-        <td>@OrderHelpers.DisplayStateName(order.State)</td>
-    </tr>
-}
+    @foreach (var order in Model) {
+        <tr class="@OrderHelpers.GetStateClass(order.State)">
+            <td>@Html.DisplayFor(modelItem => order.Id)</td>
+            <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
+            <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
+            <td>@OrderHelpers.DisplayStateName(order.State)</td>
+            <td>
+            @using (Html.BeginForm()) {
+            @Html.Hidden("id", order.Id.ToString())
+                if (order.State == EasyERP.Models.OrderState.NotConfirmed)
+                {
+                <button class="btn btn-success btn-mini" type="submit" name="name" value="order"><i class="icon-ok icon-white"></i> Zamów</button> 
+                } 
+                if (order.State != EasyERP.Models.OrderState.Pending && order.State != EasyERP.Models.OrderState.Canceled)
+                {
+                <button class="btn btn-danger btn-mini" type="submit" name="name" value="cancel"><i class="icon-remove icon-white"></i> Anuluj</button>
+                }
+            }
+            </td>
+        </tr>
+    }
     </tbody>
-</table>
+    </table>
+            <div class="span10" style="height: 40px"></div>
+        </div>
+</div>

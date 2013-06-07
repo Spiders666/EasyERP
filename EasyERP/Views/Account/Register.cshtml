@@ -2,12 +2,14 @@
 @{
     ViewBag.Title = "Zarejestruj";
 }
+<div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Konto.</h1>
+        <h2>Rejestracja - krok pierwszy</h2>
+    </hgroup>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Załóż nowe konto - Krok pierwszy</h2>
-</hgroup>
-
+    <div class="span10" style="height: 40px"></div>
+        <div class="span11">
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
@@ -28,9 +30,17 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
-        <input type="submit" value="Dalej" class="btn btn-inverse"/>
-    </fieldset>
-}
+        <div class="span10" style="height: 20px"></div>
+        <div class="actions span4 offset4">
+            <div class="btn-group">
+                <button class="btn btn-success" type="submit">Dalej</button>
+                <button class="btn btn-warning" type="reset">Resetuj</button>
+            </div>
+        </div>
+        </fieldset>
+        }
+        </div>
+        <div class="span10" style="height: 40px"></div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

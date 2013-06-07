@@ -44,8 +44,13 @@ namespace EasyERP.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Nazwa użytkownika lub hasło są niepoprawne.");
             return View(model);
+        }
+        public ActionResult Logout()
+        {
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -179,6 +184,41 @@ namespace EasyERP.Controllers
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
+        }
+
+        public ActionResult Manage2()
+        {
+            var CustomerId = Helpers.AccountHelpers.GetCustomerId();
+            var query = from c in db.Customers
+                        where c.Id == CustomerId
+                        select c;
+            var GetQuery = query.FirstOrDefault();
+
+            if (GetQuery == null)
+            {
+                return View();
+            }
+            return View(GetQuery);
+        }
+
+        [HttpPost]
+        [ValidateInput(true)]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Manage2(Customer customer)
+        {
+            customer.Id = Helpers.AccountHelpers.GetCustomerId();
+            if (ModelState.IsValid)
+            {
+                // Attempt to fill customer data
+                db.Entry(customer).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Manage2", "Account");
+            }
         }
 
         //
@@ -397,7 +437,7 @@ namespace EasyERP.Controllers
             } 
             else 
             {
-                ModelState.AddModelError("", "Znaleziono adres email z resetem hasła wysłany!");
+                ModelState.AddModelError("", "Adres poprawny, email resetujacy został wysłany!");
 
                 // generation of new reset link
                 Customer customer = db.Customers.Single(p => p.Email == GetEmail);
@@ -465,6 +505,7 @@ namespace EasyERP.Controllers
             if (Query.FirstOrDefault() == null)
             {
                 ModelState.AddModelError("", "Nie ma takiego adresu email w bazie danych!");
+                return View(formCollection);
             }
             else
             {
@@ -539,9 +580,9 @@ namespace EasyERP.Controllers
                         select m;
             var GetQuery = Query.FirstOrDefault();
             if (GetQuery == null) {
-                ViewBag.ActivationStatus = "nic nie znalazlem :(";
+                ViewBag.ActivationStatus = "Nie ma takiego konta do aktywacji :(";
             } else {
-                ViewBag.ActivationStatus = "Aktywowałem :)";
+                ViewBag.ActivationStatus = "Konto zostało aktywowane :)";
                 Customer customer = db.Customers.Single(p => p.ActivationLink == id);
                 customer.ActivationLink = null;
                 customer.Activation = true;

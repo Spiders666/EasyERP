@@ -21,6 +21,7 @@ namespace EasyERP.Models
 
         [Required]
         [Display(Name = "Nazwa")]
+        [StringLength(15, ErrorMessage = "{0} musi składać się z conajmniej {2} znaków.", MinimumLength = 3)]
         public string Name { get; set; }
 
         [Display(Name = "Zdjęcie")]

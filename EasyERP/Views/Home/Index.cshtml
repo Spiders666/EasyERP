@@ -26,7 +26,7 @@
                     </a>
                   </div>
                   <div class="item">
-                    <a href="~/Products/List/1/2">
+                    <a href="~/Products/List/1/3">
                     <img src="/Content/images/bed.png" alt="">
                     <div class="carousel-caption">
                       <h4>Łóżka</h4>
@@ -35,7 +35,7 @@
                     </a>
                   </div>
                   <div class="item">
-                    <a href="~/Products/List/1/3">
+                    <a href="~/Products/List/1/2">
                     <img src="/Content/images/coach.png" alt="">
                     <div class="carousel-caption">
                       <h4>Super krzesła!</h4>
@@ -49,13 +49,11 @@
               </div>
 <div class="row">
 <div class="span2">
-<h4>@Html.ActionLink("Kategorie:", "../Products/Index")</h4>
-    <ul>
-        @foreach (var category in ProductHelpers.GetCategories())
-        { 
-            <li>@Html.ActionLink(@category, "../Products/List/1/"+ ProductHelpers.GetIdOnCatogory(category))</li>
-        }
-    </ul>
+    <h4>@Html.ActionLink("Lista Produktów",  "Index", "Products")</h4>
+        <ul class="nav nav-list">
+            @foreach (var category in ProductHelpers.GetCategories())
+            { <li>@Html.ActionLink(@category, "../Products/List/1/"+ ProductHelpers.GetIdOnCatogory(category))</li> }
+        </ul>
 </div>
 <div class="span9">
     <h3>Ostatnio dodane produkty:</h3>
@@ -69,3 +67,4 @@
 }
 </div>
 </div>
+<div class="span10" style="height: 40px"></div>

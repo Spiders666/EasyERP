@@ -1,12 +1,12 @@
 ﻿@model EasyERP.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Zarządzaj kontem";
+    ViewBag.Title = "Konto";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>Konto.</h1>
+    <h2>Edycja danych</h2>
 </hgroup>
-
 <p class="message-success">@ViewBag.StatusMessage</p>
 
 <p>Jesteś zalogowany jako: <strong>@User.Identity.Name</strong>.</p>
@@ -19,13 +19,6 @@ else
 { 
     @Html.Partial("_SetPasswordPartial")
 }
-
-<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
-
-    <h3>Dodaj zewnętrzną usuługę uwierzytelniania</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

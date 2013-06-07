@@ -223,6 +223,7 @@
     <Content Include="Content\images\coach.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -303,6 +304,18 @@
     <Content Include="Areas\Admin\Views\Material\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Material\Create.cshtml" />
+    <Content Include="Images\Materials\1.jpeg" />
+    <Content Include="Images\Materials\2.jpeg" />
+    <Content Include="Images\Materials\3.jpg" />
+    <Content Include="Images\Materials\4.jpg" />
+    <Content Include="Images\Materials\5.jpg" />
+    <Content Include="Images\Materials\6.jpg" />
+    <Content Include="Images\Materials\7.png" />
+    <Content Include="Images\Materials\8.png" />
+    <Content Include="Images\Products\1.jpg" />
+    <Content Include="Images\Products\2.jpg" />
+    <Content Include="Images\Products\3.jpg" />
+    <Content Include="Images\Products\4.jpg" />
     <Content Include="Scripts\bootstrap-carousel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -374,10 +387,7 @@
     <Content Include="Views\Account\Reset.cshtml" />
     <Content Include="Views\Account\Manage2.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Materials\" />
-    <Folder Include="Images\Products\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

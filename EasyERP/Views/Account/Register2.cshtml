@@ -1,57 +1,71 @@
 ﻿@model EasyERP.Models.Customer
 @{
-    ViewBag.Title = "Zarejestruj - Krok drugi";
+    ViewBag.Title = "Konto - rejestracja";
 }
+<div class="span10" style="height: 20px"></div>
+    <hgroup class="title">
+        <h1>Konto.</h1>
+        <h2>Rejestracja - krok drugi</h2>
+    </hgroup>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Załóż nowe konto - Krok drugi</h2>
-</hgroup>
-@if (Request.IsAuthenticated) {
-using (Html.BeginForm()) {
+    <div class="span10" style="height: 40px"></div>
+        <div class="span11">
+    @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
+        <table class="table span5">
+        <tbody>
+        <tr>
+            <td><label>Imię</label></td>
+            <td>@Html.EditorFor(m => m.Name)</td>
+            <td>@Html.ValidationMessageFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td><label>Nazwisko</label></td>
+            <td>@Html.EditorFor(m => m.SurName)</td>
+            <td>@Html.ValidationMessageFor(m => m.SurName)</td>
+        </tr>
+        <tr>
+            <td><label>Miasto</label></td>
+            <td>@Html.EditorFor(m => m.City)</td>
+            <td>@Html.ValidationMessageFor(m => m.City)</td>
+        </tr>
+        <tr>
+            <td><label>Ulica</label></td>
+            <td>@Html.EditorFor(m => m.Street)</td>
+            <td>@Html.ValidationMessageFor(m => m.Street)</td>
+        </tr>
+        <tr>
+            <td><label>Kod Pocztowy</label></td>
+            <td>@Html.EditorFor(m => m.ZipCode)</td>
+            <td>@Html.ValidationMessageFor(m => m.ZipCode)</td>
+        </tr>
+        <tr>
+            <td><label>Telefon</label></td>
+            <td>@Html.EditorFor(m => m.Telephone)</td>
+            <td>@Html.ValidationMessageFor(m => m.Telephone)</td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td>@Html.EditorFor(m => m.Email)</td>
+            <td>@Html.ValidationMessageFor(m => m.Email)</td>
+        </tr>
+        </tbody>
+        </table>
+        
+        <div class="span10" style="height: 20px"></div>
+        <div class="actions span4 offset4">
+            <div class="btn-group">
+                <button class="btn btn-success" type="submit">Zarejestruj!</button>
+                <button class="btn btn-warning" type="reset">Resetuj</button>
+            </div>
+        </div>
+        }
+        </div>
+        <div class="span10" style="height: 40px"></div>
 
-    <fieldset>
-        <legend>Formularz rejestracji</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name)
-            </li>
-            <li>
-                 @Html.LabelFor(m => m.SurName)
-                @Html.TextBoxFor(m => m.SurName)
-            </li>
-            <li>
-                 @Html.LabelFor(m => m.City)
-                @Html.TextBoxFor(m => m.City)
-            </li>
-            <li>
-                 @Html.LabelFor(m => m.ZipCode)
-                @Html.TextBoxFor(m => m.ZipCode)
-            </li>
-        </ol>
-                <ol>
-            <li>
-                @Html.LabelFor(m => m.Street)
-                @Html.TextBoxFor(m => m.Street)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Telephone)
-                @Html.TextBoxFor(m => m.Telephone)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Email)
-                @Html.TextBoxFor(m => m.Email)
-            </li>
-        </ol>
-        <input type="submit" value="Utwórz konto!" class="btn btn-inverse"/>
-    </fieldset>
-}
-} else {
-<h2>Ooops cos poszlo nie tak! - musisz byc zalogowany!</h2>
-}
+
+   
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

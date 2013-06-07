@@ -8,7 +8,6 @@
     <h1>@ViewBag.Title.</h1>
 </hgroup>
 
-<section id="loginForm">
 <h2>Zaloguj się.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
@@ -31,19 +30,24 @@
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.Label("Zapamiętaj mnie?", new { @class = "checkbox" })
             </li>
+            <li>
+                <div class="btn-group">
+                <button class="btn" type="submit">Zaloguj</button>
+                </div>
+            </li>
+            <div class="span10" style="height: 20px"></div>
+            <li>
+                @Html.ActionLink("Zarejestruj", "Register")
+            </li>
+            <li>
+                @Html.ActionLink("Resetuj hasło", "ResetForm")
+            </li>
         </ol>
-        <input type="submit" value="Zaloguj" class="btn btn-inverse"/>
+        <div class="span10" style="height: 20px"></div>
+        
     </fieldset>
-    <p>
-        @Html.ActionLink("Zarejestruj", "Register") Jeśli nie masz konta.
-    </p>
+    <div class="span10" style="height: 20px"></div>
 }
-</section>
-
-<section class="social" id="socialLoginForm">
-    <h2>Użyj zewnętrznej usługi do zalogowania.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

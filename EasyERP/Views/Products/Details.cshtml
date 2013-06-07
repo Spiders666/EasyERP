@@ -5,9 +5,9 @@
 @{
     ViewBag.Title = "Szczegóły Produktu";
 }
+
 <div class="row">
     <div class="span12">
-        <div class="row">
             <div class="span2">
                 <h4>@Html.ActionLink("Lista Produktów",  "Index", "Products")</h4>
                 <ul class="nav nav-list">
@@ -16,84 +16,99 @@
                 }
                 </ul>
             </div>
-            <div class="span10">
-                <h5>Szczegóły produktu:</h5>
                 @using (Html.BeginForm()) {
                 @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.TypeId)
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
+            <div class="span8">
+                <h5>Szczegóły produktu:</h5>
+
                 <p><h2>@Html.DisplayFor(model => model.Name)</h2></p>
-                <div class="row">
                     <div class="span3">
-                    @Html.ActionLink(" ", "MaterialList", "Products", new { id = Model.Id, type = Model.TypeId  }, new { style = "background: url('"+Url.Content("~/Images/Products/") + Model.ImageName + "') no-repeat center right; display:block; height:200px; width:200px; background-size: cover;" })
-
-                    @foreach (var i in ViewBag.ConfigurationList)
-                    {
-                    string Name = @i.MaterialType.Name;
-                    int Type = @i.MaterialType.Id;
-                    
-                    <div class="span3">@Html.ActionLink("Wybierz: "+@Name, "../Products/MaterialList", new { page = 1, type = Type, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</div>
-                    }
-
+                    @Html.ActionLink(" ", "Details", "Products", new { id = Model.Id, type = Model.TypeId  }, new { style = "background: url('"+Url.Content("~/Images/Products/") + Model.ImageName + "') no-repeat center right; display:block; height:200px; width:200px; background-size: cover;" })
                     </div>
-                    <div class="span6">
+                    <div class="span4">
                         <h5>@Html.DisplayNameFor(model => model.Description) produktu :</h5>
-                        @Html.DisplayFor(model => model.Description)
+                        <div style="text-align:justify">@Html.DisplayFor(model => model.Description)</div>
                         <h5>Cena podstawowa: @Html.DisplayFor(model => model.Price) zł</h5>
                         @Html.HiddenFor(model => model.Price)
                     </div>
                     <div class="span8">
-                    <table class="table table-bordered">
+                    <div class="span10" style="height: 40px"></div>
+                    <table class="table table-bordered" style ="border:none">
                     <thead>
                         <tr>
-                            <th>Nazwa</th>
-                            <th>Cena</th>
-                            <th>Kontrolki</th>
+                            <th style="border-top: 1px solid #DDDDDD;">Nazwa</th>
+                            <th style="border-top: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD;">Cena</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Podstawa </td>
-                            <td>@Html.DisplayFor(model => model.Price)</td>
-                            <td class="disabled"></td>
+                            <td>@Html.DisplayFor(model => model.Price) zł</td>
+                            <td style="border-right: 1px solid #DDDDDD;">
+                                @if (@ViewBag.HasConfigurator == 1)
+                                {
+                                <strong>Wybierz konfigurator:</strong>
+                                } else {
+                                <strong class="text-info">Produkt nie posiada konfiguratora!</strong>
+                                }
+                            </td>
                         </tr>
                     @foreach (var configuration in ViewBag.ConfigurationList)
                     {
+                        string typename = configuration.MaterialType.Name;
                         Material material = @MaterialHelpers.GetMaterial(configuration.MaterialTypeId, @ViewBag.Chosen);
                         <tr>
-                            <td>@material.Name</td>
-                            <td>@material.Price</td>
-                            @if(material.Type != null){
-                            <td>@Html.ActionLink("Wybierz: " + material.Type.Name  , "../Products/MaterialList", new { page = 1, type = configuration.MaterialTypeId, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</td>
-                            } else {
-                            <td>@Html.ActionLink("Wybierz: " , "../Products/MaterialList", new { page = 1, type = configuration.MaterialTypeId, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</td>
-                            }
+                            <td>
+                                @if (material.Name == null) {
+                                    <strong class="text-warning">Nie wybrane</strong>  
+                                }
+                                else 
+                                { 
+                                    @material.Name 
+                                }
+                            </td>
+                            <td>
+                                @if (material.Name == null) {
+                                    <strong class="text-warning">Nie wybrane</strong>  
+                                }
+                                else 
+                                { 
+                                    @PriceFormatHelper.DisplayFormatPrice(material.Price)
+                                }
+                            </td>
+                            <td style="border-right: 1px solid #DDDDDD"><strong>@Html.ActionLink("Wybierz: " + typename  , "../Products/MaterialList", new { page = 1, type = configuration.MaterialTypeId, category = ViewBag.Category, returnurl = ViewBag.ReturnUrl })</strong></td>
                         </tr>
                     }
                         <tr>
-                            <td>Suma</td>
-                            <td>@ViewBag.Sum</td>
-                            <td></td>
+                            <td style="border-bottom: 1px solid #DDDDDD;"><strong>Suma</strong></td>
+                            <td style="border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;"><strong>@ViewBag.Sum</strong></td>
+                            <td style="border-right:none; border-bottom:none; border-left:none; border-top: 1px solid #DDDDDD;"></td>
                         </tr>
                     </tbody>
                     </table>
                     </div>
                 </div>
                 if (ViewBag.NotSet == 0){
-                <div class="span6">
-                    <input type="submit" value="Dodaj do koszyka!" class="btn btn-success"/>
+                <div class="span10" style="height: 20px"></div>
+                <div class="actions span4 offset4">
+                    <div class="btn-group">
+                        <button class="btn btn-success" type="submit"><i class="icon-cart"></i> Dodaj do koszyka!</button>
+                    </div>
                 </div>
                 } else {
-                <div class="alert alert-info span7">
+                <div class="alert alert-info span10">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Uwaga!</strong> Przed zamówieniem musisz skonfigurować produkt.
                 </div>
             }} @*End of validation summary*@
+            <div class="span10" style="height: 40px"></div>
             </div>
     </div>
-</div>
-</div>
-</div>
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

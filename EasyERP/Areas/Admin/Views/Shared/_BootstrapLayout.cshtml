@@ -60,8 +60,10 @@
                                 <li><a href="~/Products/Cart">Koszyk</a></li>
                                 }
                                 <li><a href="~/Account/Manage">Zmień hasło</a></li>  
+                                @if (!User.IsInRole("Administrator")) { 
                                 <li><a href="~/Account/Manage2">Zmień dane</a></li>  
-                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+                                }
+                                <li><a href="~/Account/Logout">Wyloguj</a></li>
                             </ul> 
                           }
                           else
