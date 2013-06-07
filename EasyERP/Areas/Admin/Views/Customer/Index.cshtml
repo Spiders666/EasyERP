@@ -17,11 +17,11 @@
                         <div class="btn-group span4">
                         <a href="~/Admin/Customer/Index" class="btn"><i class="icon-refresh"></i> Odśwież</a>
                         </div>
-                                @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
                         {
                         <div class="input-append">
-                        <input name="name" type="text" placeholder="Szukaj po imieniu">
-                        <input name="surename" type="text" placeholder="Szukaj po nazwisku">
+                        <input name="name" type="text" placeholder="Szukaj po imieniu" value="@ViewBag.Name">
+                        <input name="surename" type="text" placeholder="Szukaj po nazwisku" value="@ViewBag.Surname">
                         <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
                         </div>  
                         }

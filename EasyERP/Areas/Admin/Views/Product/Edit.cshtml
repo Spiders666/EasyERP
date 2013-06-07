@@ -42,13 +42,7 @@
             </tr>
             <tr>
                 <td class="title"><label>@Html.DisplayNameFor(model => model.ImageName)</label></td>
-                <td>
-                    <input type="text" id="fileName" readonly="readonly" >
-                    <div class="file_input_div" style="display: inline;">
-                    <input type="button" id="button" value="Open"/>
-                    <input type="file"  style="opacity:0; position:relative; left:-40px;"  onchange="javascript: document.getElementById ('fileName') . value = this.value"/>
-                    </div>
-                </td>
+                <td><input id="file" name="file" type="file" value="" /></td>
                 <td>@Html.ValidationMessageFor(model => model.ImageName)</td>
             </tr>
             <tr>

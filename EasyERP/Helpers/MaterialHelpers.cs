@@ -28,7 +28,7 @@ namespace EasyERP.Helpers
         {
             List<SelectListItem> result = new SelectList(GetList(), "Id", "Name").ToList();
 
-            result.Insert(0, new SelectListItem { Value = "", Text = "-- rodzaj materiału --" });
+            result.Insert(0, new SelectListItem { Value = "", Text = "-- typ materiału --" });
 
             return new SelectList(result, "Value", "Text");
         }

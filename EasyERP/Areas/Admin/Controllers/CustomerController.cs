@@ -24,7 +24,8 @@ namespace EasyERP.Areas.Admin.Controllers
                         select q;
 
             var customers = query.ToList();
-
+            ViewBag.Name = name;
+            ViewBag.Surname = surename;
             return View(customers);
         }
 

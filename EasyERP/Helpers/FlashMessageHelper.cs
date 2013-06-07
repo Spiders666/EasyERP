@@ -33,7 +33,7 @@ namespace EasyERP.Helpers
             closeButton.InnerHtml = "&times;";
             
             TagBuilder flashMessage = new TagBuilder("div");
-            flashMessage.AddCssClass("alert alert-" + result.Class);
+            flashMessage.AddCssClass("span8 alert alert-" + result.Class);
             flashMessage.MergeAttribute("id", id);
             flashMessage.MergeAttribute("style", style);
             flashMessage.InnerHtml = closeButton.ToString()

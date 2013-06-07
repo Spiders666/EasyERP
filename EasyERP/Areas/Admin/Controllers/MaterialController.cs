@@ -26,7 +26,7 @@ namespace EasyERP.Areas.Admin.Controllers
                         select q;
 
             var materials = query.ToList();
-
+            ViewBag.Name = name;
             return View(materials);
         }
 

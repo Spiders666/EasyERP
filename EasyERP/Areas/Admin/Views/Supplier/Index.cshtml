@@ -21,7 +21,7 @@
                     @using (Html.BeginForm("Index", "Supplier", FormMethod.Get))
                     {
                     <div class="input-append">
-                        <input name="name" type="text" placeholder="Szukaj po nazwie">
+                        <input name="name" type="text" placeholder="Szukaj po nazwie" value="@ViewBag.Name">
                         <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
                     </div>  
                     }

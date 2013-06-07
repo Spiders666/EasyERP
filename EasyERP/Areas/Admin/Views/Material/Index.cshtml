@@ -22,7 +22,7 @@
                         {
                         <div class="input-append">
                         @Html.DropDownList("type", @MaterialHelpers.GetSelectList())
-                        <input name="name" type="text" placeholder="Szukaj po nazwie">
+                        <input name="name" type="text" placeholder="Szukaj po nazwie" value="@ViewBag.Name">
                         <button class="btn" type="submit" value="Szukaj">Szukaj!</button>
                         </div>  
                         }

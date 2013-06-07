@@ -67,7 +67,7 @@
                 <th>Nazwa</th>
                 <th>Cena</th>
                 <th>Dostępność</th>
-                <th></th>
+                <th>Kontrolki</th>
             </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@
             <td>@Html.DisplayFor(modelItem => material.Name)</td>
             <td>@Html.DisplayFor(modelItem => material.Price)</td>
             <td>@Html.DisplayFor(modelItem => material.Availability)</td>
-            <td><i class="icon-wrench"></i>@Html.ActionLink("szczegóły", "Details", "Material", new { id = material.Id }, null)</td>
+            <td><i class="icon-wrench"></i>@Html.ActionLink("szczegóły", "Details", "Material", new { id = material.Id }, null) | <i class="icon-pencil"></i>@Html.ActionLink("edytuj", "Edit", "Material", new { id = material.Id }, null)</td>
             </tr>}
             </tbody>
             </table>

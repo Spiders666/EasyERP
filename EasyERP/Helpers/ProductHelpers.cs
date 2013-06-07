@@ -24,7 +24,7 @@ namespace EasyERP.Helpers
 
             List<SelectListItem> result = new SelectList(productTypes, "Id", "Name").ToList();
 
-            result.Insert(0, new SelectListItem { Value = "", Text = "-- rodzaj produktu --" });
+            result.Insert(0, new SelectListItem { Value = "", Text = "-- typ produktu --" });
 
             return new SelectList(result, "Value", "Text");
         }
