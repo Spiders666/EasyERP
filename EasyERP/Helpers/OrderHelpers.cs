@@ -54,5 +54,10 @@ namespace EasyERP.Helpers
 
             return new SelectList(items, "Value", "Text");
         }
+        public static string GetOrderPrice(Order order)
+        {
+            decimal sum = order.OrderItems.Sum(a => a.Price) + order.ProductPrice;
+            return String.Format("{0:0.00} zł", sum);
+        }
     }
 }

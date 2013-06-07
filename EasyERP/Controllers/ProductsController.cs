@@ -209,12 +209,13 @@ namespace EasyERP.Controllers
         public ActionResult Cart()
         {
             var CustomerId = Helpers.AccountHelpers.GetCustomerId();
-            var orders = from o in db.Orders.Include(o => o.Customer)
+            var orders = from o in db.Orders.Include(o => o.Customer).Include(o => o.OrderItems)
                          where o.CustomerId == CustomerId
                          orderby o.Id descending
                          select o;
+            var GetOrders = orders.ToList();
 
-            return View(orders);
+            return View(GetOrders);
         }
 
         //

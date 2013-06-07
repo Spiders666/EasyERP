@@ -20,6 +20,7 @@
             <th>Produkt</th>
             <th>Data zamówienia</th>
             <th>Stan zamówienia</th>
+            <th>Cena</th>
             <th>Potwierdź</th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
             <td>@Html.DisplayFor(modelItem => order.ProductName)</td>
             <td>@Html.DisplayFor(modelItem => order.CreatedAt)</td>
             <td>@OrderHelpers.DisplayStateName(order.State)</td>
+            <td>@OrderHelpers.GetOrderPrice(order)</td>
             <td>
             @using (Html.BeginForm()) {
             @Html.Hidden("id", order.Id.ToString())
