@@ -10,8 +10,6 @@ namespace EasyERP.Controllers
 {
     public class HomeController : Controller
     {
-
-
         private DatabaseContext db = new DatabaseContext();
         public ActionResult Index()
         {

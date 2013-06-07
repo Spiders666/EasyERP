@@ -135,7 +135,7 @@ namespace EasyERP.Controllers
             //check if customer has all data set up
             if (Helpers.AccountHelpers.GetCustomerId() == 0)
             {
-                return RedirectToAction("Manage2", "Account");
+                return RedirectToAction("Register2", "Account");
             }
             SessionSettings sessionSettings = SessionSettings.GetInstance(this.HttpContext);
 

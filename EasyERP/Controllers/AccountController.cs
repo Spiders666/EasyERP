@@ -107,6 +107,15 @@ namespace EasyERP.Controllers
 
         public ActionResult Register2()
         {
+            var Check = from m in db.Customers
+                        where m.UserId == WebSecurity.CurrentUserId
+                        select m;
+            var GetCheck = Check.FirstOrDefault();
+
+            if (GetCheck != null)
+            {
+                return RedirectToAction("Manage2");
+            }
             return View();
         }
 
@@ -119,6 +128,16 @@ namespace EasyERP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register2(Customer customer)
         {
+            var Check = from m in db.Customers
+                        where m.UserId == WebSecurity.CurrentUserId
+                        select m;
+            var GetCheck = Check.FirstOrDefault();
+
+            if (GetCheck != null)
+            {
+                return RedirectToAction("Manage2");
+            }
+
             if (ModelState.IsValid)
             {
                 var Query = from m in db.Customers
@@ -188,6 +207,15 @@ namespace EasyERP.Controllers
 
         public ActionResult Manage2()
         {
+            var Check = from m in db.Customers
+                        where m.UserId == WebSecurity.CurrentUserId
+                        select m;
+            var GetCheck = Check.FirstOrDefault();
+
+            if (GetCheck == null)
+            {
+                return RedirectToAction("Register2");
+            }
             var CustomerId = Helpers.AccountHelpers.GetCustomerId();
             var query = from c in db.Customers
                         where c.Id == CustomerId
@@ -207,6 +235,15 @@ namespace EasyERP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage2(Customer customer)
         {
+            var Check = from m in db.Customers
+                        where m.UserId == WebSecurity.CurrentUserId
+                        select m;
+            var GetCheck = Check.FirstOrDefault();
+
+            if (GetCheck != null)
+            {
+                return RedirectToAction("Manage2");
+            }
             customer.Id = Helpers.AccountHelpers.GetCustomerId();
             if (ModelState.IsValid)
             {
@@ -217,7 +254,7 @@ namespace EasyERP.Controllers
             }
             else
             {
-                return RedirectToAction("Manage2", "Account");
+                return View(customer);
             }
         }
 
